@@ -3,7 +3,7 @@ plugins {
     id 'org.jetbrains.kotlin.android'
     id 'dagger.hilt.android.plugin'
     id 'kotlin-kapt'
-    id 'com.google.gms.google-services'
+  //  id 'com.google.gms.google-services'
 }
 
 android {
@@ -40,7 +40,7 @@ android {
         compose true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion '1.3.2'
+        kotlinCompilerExtensionVersion '1.4.3'
     }
     packagingOptions {
         resources {
@@ -108,12 +108,12 @@ dependencies {
     implementation "com.maxkeppeler.sheets-compose-dialogs:clock:1.0.2"
 
     // Message Bar Compose
-    implementation 'com.github.stevdza-san:MessageBarCompose:1.0.5'
+   // implementation 'com.github.stevdza-san:MessageBarCompose:1.0.5'
 
     // One-Tap Compose
-    implementation 'com.github.stevdza-san:OneTapCompose:1.0.0'
+    //implementation 'com.github.stevdza-san:OneTapCompose:1.0.0'
 
-    // Desugar JDK
+    // Desugar JDK - for backward compatibility for APIs > 26
     coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.2.0'
 
     //Timber
