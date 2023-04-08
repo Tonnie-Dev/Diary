@@ -13,15 +13,16 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.annotation.RootNavGraph
 import com.uxstate.diary.R
-import com.uxstate.diary.presentation.screens.Authentication.components.SignInButton
+import com.uxstate.diary.presentation.screens.Auth.components.GoogleButton
 import com.uxstate.diary.presentation.ui.theme.LocalSpacing
 
-@RootNavGraph(start = true)
 @Destination
+@RootNavGraph(start = true)
+
 
 
 @Composable
-fun AuthenticationScreen(onSignIn: () -> Unit) {
+fun AuthenticationScreen() {
 
     val spacing = LocalSpacing.current
     Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.TopCenter) {
@@ -45,7 +46,7 @@ fun AuthenticationScreen(onSignIn: () -> Unit) {
                 style = MaterialTheme.typography.bodySmall
         )
 
-        SignInButton(modifier = Modifier.fillMaxWidth(.8f)) {}
+        GoogleButton(modifier = Modifier.fillMaxWidth(.8f)) {}
     }
 
 }
@@ -54,5 +55,5 @@ fun AuthenticationScreen(onSignIn: () -> Unit) {
 @Preview
 @Composable
 fun AuthenticationScreenPrev() {
-    AuthenticationScreen(){}
+    AuthenticationScreen()
 }
