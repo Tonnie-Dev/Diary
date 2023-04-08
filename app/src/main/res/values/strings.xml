@@ -1,7 +1,9 @@
 <resources>
     <string name="app_name">Diary</string>
-    <string name="google_logo_cdescription">Google Logo</string>
-    <string name="sign_in_google_text">Sign in with Google</string>
-    <string name="welcome_text">Welcome Back</string>
+    <string name="google_logo">Google Logo</string>
+    <string name="auth_title">Welcome Back</string>
+    <string name="auth_subtitle">Sign in with Google</string>
+
+
     <string name="sign_in_to_continue_text">Please sign in to continue</string>
 </resources>

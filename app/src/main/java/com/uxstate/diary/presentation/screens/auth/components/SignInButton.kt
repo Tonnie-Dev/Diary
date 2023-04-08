@@ -68,7 +68,7 @@ fun GoogleButton(
         ) {
             Icon(
                     painter = painterResource(id = icon),
-                    contentDescription = stringResource(id = R.string.google_logo_cdescription),
+                    contentDescription = stringResource(id = R.string.google_logo),
                     tint = Color.Unspecified
             )
 

@@ -36,19 +36,19 @@ fun AuthenticationContent(loadingState: Boolean, onButtonClicked: () -> Unit) {
             ) {
                 Image(
                         painter = painterResource(id = R.drawable.google_logo),
-                        contentDescription = stringResource(id = R.string.google_logo_cdescription),
+                        contentDescription = stringResource(id = R.string.google_logo),
                         modifier = Modifier.size(spacing.spaceOneTwenty)
                 )
 
                 Spacer(modifier = Modifier.height(spacing.spaceMedium))
 
                 Text(
-                        text = stringResource(id = R.string.welcome_text),
+                        text = stringResource(id = R.string.auth_title),
                         style = TextStyle(fontSize = MaterialTheme.typography.titleLarge.fontSize)
                 )
 
                 Text(
-                        text = stringResource(id = R.string.sign_in_google_text),
+                        text = stringResource(id = R.string.auth_subtitle),
                         style = TextStyle(
                                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                                 fontSize = MaterialTheme.typography.bodyMedium.fontSize
