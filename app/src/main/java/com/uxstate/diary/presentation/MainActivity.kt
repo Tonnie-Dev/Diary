@@ -1,4 +1,4 @@
-package com.uxstate.diary
+package com.uxstate.diary.presentation
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -11,7 +11,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
-import com.uxstate.diary.ui.theme.DiaryTheme
+import com.ramcosta.composedestinations.DestinationsNavHost
+import com.uxstate.diary.presentation.screens.NavGraphs
+import com.uxstate.diary.presentation.ui.theme.DiaryTheme
 //xCVZ62a1SUMhANpf Tonnie
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -20,6 +22,7 @@ class MainActivity : ComponentActivity() {
         installSplashScreen()
         setContent {
             DiaryTheme {
+                DestinationsNavHost(navGraph = NavGraphs.root)
 
             }
         }

@@ -1,4 +1,4 @@
-package com.uxstate.diary.ui.theme
+package com.uxstate.diary.presentation.ui.theme
 
 import android.app.Activity
 import android.os.Build
