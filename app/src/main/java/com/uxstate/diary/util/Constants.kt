@@ -1,4 +1,4 @@
-package com.uxstate.diary.uti
+package com.uxstate.diary.util
 
 object Constants {
 
