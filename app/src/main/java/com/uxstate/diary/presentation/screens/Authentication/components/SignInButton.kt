@@ -1,5 +1,6 @@
 package com.uxstate.diary.presentation.screens.Authentication.components
 
+import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.MaterialTheme
@@ -50,7 +51,7 @@ fun SignInButtonPrev() {
 }
 
 
-@Preview
+@Preview(uiMode = UI_MODE_NIGHT_YES)
 @Composable
 fun SignInButtonPrevDark() {
     SignInButton(modifier = Modifier.fillMaxWidth(.9f)) {}
