@@ -1,4 +1,4 @@
-package com.uxstate.diary.presentation.screens.Auth.components
+package com.uxstate.diary.presentation.screens.auth.components
 
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import androidx.compose.animation.animateContentSize

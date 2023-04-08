@@ -16,6 +16,7 @@ data class Dimens(
     val spaceLargeMedium: Dp = 48.dp,
     val spaceExtraLarge: Dp = 64.dp,
     val spaceOneHundred: Dp = 100.dp,
+    val spaceOneTwenty: Dp = 120.dp,
     val spaceOneHundredFifty: Dp = 150.dp,
     val spaceTwoHundred: Dp = 200.dp,
     val spaceFiveHundred: Dp = 500.dp
