@@ -26,7 +26,7 @@ import com.uxstate.diary.presentation.ui.theme.LocalSpacing
 @Composable
 fun GoogleButton(
     modifier: Modifier = Modifier,
-    loadingState: Boolean = false,
+    isLoading: Boolean = false,
     primaryText: String = "Sign in with Google",
     secondaryText: String = "Please wait ...",
     icon: Int = R.drawable.google_logo,
@@ -40,14 +40,14 @@ fun GoogleButton(
     val spacing = LocalSpacing.current
     var buttonText by remember { mutableStateOf(primaryText) }
 
-    LaunchedEffect(key1 = loadingState, block = {
+    LaunchedEffect(key1 = isLoading, block = {
 
-        buttonText = if (loadingState) primaryText else secondaryText
+        buttonText = if (isLoading)secondaryText  else primaryText
     })
 
 
     Surface(
-            modifier = modifier.clickable(enabled = !loadingState) { onClick() },
+            modifier = modifier.clickable(enabled = !isLoading) { onClick() },
             shape = shape,
             border = BorderStroke(width = spacing.spaceSingleDp, color = borderColor),
             color = backgroundColor
@@ -78,7 +78,7 @@ fun GoogleButton(
                     style = TextStyle(fontSize = MaterialTheme.typography.bodyMedium.fontSize)
             )
 
-            if (loadingState) {
+            if (isLoading) {
                 Spacer(modifier = Modifier.width(spacing.spaceMedium))
                 CircularProgressIndicator(
                         modifier = Modifier.size(spacing.spaceMedium),
@@ -100,7 +100,7 @@ fun GoogleButton(
 @Composable
 fun SignInButtonPrev() {
     DiaryTheme() {
-        GoogleButton(loadingState = true) {}
+        GoogleButton(isLoading = true) {}
     }
 }
 
@@ -110,7 +110,7 @@ fun SignInButtonPrev() {
 fun SignInButtonPrevDark() {
 
     DiaryTheme() {
-        GoogleButton(loadingState = true) {}
+        GoogleButton(isLoading = true) {}
     }
 
 }

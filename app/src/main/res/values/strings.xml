@@ -2,8 +2,9 @@
     <string name="app_name">Diary</string>
     <string name="google_logo">Google Logo</string>
     <string name="auth_title">Welcome Back</string>
-    <string name="auth_subtitle">Sign in with Google</string>
+    <string name="auth_subtitle">Please sign in to continue</string>
+    <string name="auth_signin_button_text">Sign in with Google</string>
 
 
-    <string name="sign_in_to_continue_text">Please sign in to continue</string>
+
 </resources>

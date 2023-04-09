@@ -1,5 +1,6 @@
 package com.uxstate.diary.presentation.screens.auth.components
 
+import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.MaterialTheme
@@ -10,7 +11,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.tooling.preview.Preview
 import com.uxstate.diary.R
+import com.uxstate.diary.presentation.ui.theme.DiaryTheme
 import com.uxstate.diary.presentation.ui.theme.LocalSpacing
 
 @Composable
@@ -57,13 +60,35 @@ fun AuthenticationContent(loadingState: Boolean, onButtonClicked: () -> Unit) {
 
             }
 
+            Column(modifier = Modifier.weight(2f), verticalArrangement = Arrangement.Bottom) {
+
+                GoogleButton(isLoading = loadingState, onClick = onButtonClicked)
+            }
+
         }
 
-        Column(modifier = Modifier.weight(.2f), verticalArrangement = Arrangement.Bottom) {
-
-            GoogleButton(loadingState = loadingState, onClick = onButtonClicked)
-        }
 
 
+
+    }
+}
+
+
+@Preview
+@Composable
+fun AuthenticationContentPrev() {
+    DiaryTheme {
+
+        AuthenticationContent(false){}
+    }
+}
+
+
+@Preview(uiMode = UI_MODE_NIGHT_YES)
+@Composable
+fun AuthenticationContentPrevDark() {
+    DiaryTheme {
+
+        AuthenticationContent(true){}
     }
 }
