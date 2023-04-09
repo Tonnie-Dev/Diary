@@ -14,6 +14,11 @@ import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.ramcosta.composedestinations.DestinationsNavHost
 import com.uxstate.diary.presentation.screens.NavGraphs
 import com.uxstate.diary.presentation.ui.theme.DiaryTheme
+import dagger.hilt.EntryPoint
+import dagger.hilt.android.AndroidEntryPoint
+
+
+@AndroidEntryPoint
 //xCVZ62a1SUMhANpf Tonnie
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
