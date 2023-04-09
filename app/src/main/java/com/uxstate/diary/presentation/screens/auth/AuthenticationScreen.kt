@@ -2,6 +2,7 @@ package com.uxstate.diary.presentation.screens.auth
 
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.annotation.RootNavGraph
 import com.stevdzasan.messagebar.ContentWithMessageBar
@@ -17,11 +18,12 @@ import timber.log.Timber
 
 
 @Composable
-fun AuthenticationScreen() {
+fun AuthenticationScreen(viewModel: AuthViewModel = hiltViewModel()) {
 
     //from Stev's Libs
     val oneTapState = rememberOneTapSignInState()
     val messageBarState = rememberMessageBarState()
+
     Scaffold(content = {
 
         ContentWithMessageBar(messageBarState =messageBarState ) {
