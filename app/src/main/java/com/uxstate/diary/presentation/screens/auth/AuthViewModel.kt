@@ -23,7 +23,7 @@ class AuthViewModel @Inject constructor() : ViewModel() {
         private set
 
     fun setLoading(isLoading: Boolean) {
-        Timber.i("setLoading() invoked()")
+      
         loadingState.value = isLoading
     }
 
@@ -32,7 +32,7 @@ class AuthViewModel @Inject constructor() : ViewModel() {
         onSuccess: (Boolean) -> Unit,
         onError: (Exception) -> Unit
     ) {
-        Timber.i("signInWithMongoAtlas invoked()")
+
         //launch a coroutine
         viewModelScope.launch {
 
@@ -65,7 +65,7 @@ class AuthViewModel @Inject constructor() : ViewModel() {
 
                     //onSuccess is triggered from a composable function
                     onSuccess(result)
-                    Timber.i("signUp Success")
+
                 }
             } catch (e: Exception) {
 
@@ -76,12 +76,47 @@ class AuthViewModel @Inject constructor() : ViewModel() {
                     //to wait
                     onError(e)
 
-                    Timber.i("Error")
+
                 }
 
             }
         }
 
 
+    }
+
+
+    fun signInWithJWTAuth(
+        tokenId: String,
+        onSuccess: (Boolean) -> Unit,
+        onError: (Exception) -> Unit
+    ) {
+
+
+        viewModelScope.launch {
+
+            try {
+                // change dispatcher to IO
+
+                val result = withContext(IO) {
+
+                    App.create(APP_ID)
+                            .login(credentials = Credentials.jwt(jwtToken = tokenId)).loggedIn
+                }
+
+                //call on success and change dispatchers to main
+
+                withContext(Main){
+
+                    onSuccess(result)
+                }
+            } catch (e: java.lang.Exception) {
+
+                withContext(Main){
+
+                    onError(e)
+                }
+            }
+        }
     }
 }

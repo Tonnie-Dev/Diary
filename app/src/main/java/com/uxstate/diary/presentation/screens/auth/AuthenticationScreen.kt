@@ -20,7 +20,7 @@ import timber.log.Timber
 
 @Composable
 fun AuthenticationScreen(viewModel: AuthViewModel = hiltViewModel()) {
-Timber.i("Inside the AuthenticationScreen Composable")
+
 
 
     //Observe loading state from viewModel
@@ -54,7 +54,9 @@ Timber.i("Inside the AuthenticationScreen Composable")
             clientId = CLIENT_ID,
             onTokenIdReceived = { tokenId ->
 
-                Timber.i("Inside onTokenIdReceived OneTapSignInWithGoogle")
+
+                
+                Timber.i("The token is: $tokenId")
                 viewModel.signInWithMongoAtlas(tokenId = tokenId,
                         onSuccess = {
                             Timber.i("Inside onSuccess ")
