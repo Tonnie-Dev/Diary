@@ -32,7 +32,7 @@ class AuthViewModel @Inject constructor() : ViewModel() {
 
     fun signInWithMongoAtlas(
         tokenId: String,
-        onSuccess: (Boolean) -> Unit,
+        onSuccess: () -> Unit,
         onError: (Exception) -> Unit
     ) {
 
@@ -66,15 +66,20 @@ class AuthViewModel @Inject constructor() : ViewModel() {
                 //we now change the Dispatchers to Main as onSuccess is called by composables
                 withContext(Main) {
 
-                    //onSuccess is triggered from a composable function
-                    onSuccess(result)
+
+                    if (result){
+
+                        //onSuccess is triggered from a composable function
+                        onSuccess()
 
 
-                    //delay this coroutine by 600ms after onSuccess
+                        //delay this coroutine by 600ms after onSuccess
 
-                    //this buys us time for the message bar animation to disappear
-                    delay(6_00)
-                    isAuthenticated.value = true
+                        //this buys us time for the message bar animation to disappear
+                        delay(6_00)
+                        isAuthenticated.value = true
+                    }
+
 
                 }
             } catch (e: Exception) {

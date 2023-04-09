@@ -5,7 +5,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.NavGraphNavigator
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.annotation.RootNavGraph
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
@@ -23,7 +22,10 @@ import timber.log.Timber
 
 
 @Composable
-fun AuthenticationScreen(viewModel: AuthViewModel = hiltViewModel(), navigator:DestinationsNavigator ) {
+fun AuthenticationScreen(
+    viewModel: AuthViewModel = hiltViewModel(),
+    navigator: DestinationsNavigator
+) {
 
 
     //Observe loading state from viewModel
@@ -66,14 +68,9 @@ fun AuthenticationScreen(viewModel: AuthViewModel = hiltViewModel(), navigator:D
                 viewModel.signInWithMongoAtlas(tokenId = tokenId,
                         onSuccess = {
 
-                            //if user is actually logged in
-                            if (it) {
-
-                                messageBarState.addSuccess("Successfully Authenticated")
-
-                            }
-
+                            messageBarState.addSuccess("Successfully Authenticated")
                             viewModel.setLoading(false)
+
                         },
                         onError = {
 
@@ -90,7 +87,7 @@ fun AuthenticationScreen(viewModel: AuthViewModel = hiltViewModel(), navigator:D
 
     LaunchedEffect(key1 = isAuthenticated, block = {
 
-        if(isAuthenticated){
+        if (isAuthenticated) {
 
             navigator.navigate(HomeScreenDestination)
         }
