@@ -10,6 +10,7 @@ import io.realm.kotlin.mongodb.Credentials
 import io.realm.kotlin.mongodb.GoogleAuthType
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.Dispatchers.Main
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import timber.log.Timber
@@ -18,12 +19,14 @@ import javax.inject.Inject
 @HiltViewModel
 class AuthViewModel @Inject constructor() : ViewModel() {
 
+    var isAuthenticated = mutableStateOf(false)
+    private set
 
     var loadingState = mutableStateOf(false)
         private set
 
     fun setLoading(isLoading: Boolean) {
-      
+
         loadingState.value = isLoading
     }
 
@@ -65,6 +68,13 @@ class AuthViewModel @Inject constructor() : ViewModel() {
 
                     //onSuccess is triggered from a composable function
                     onSuccess(result)
+
+
+                    //delay this coroutine by 600ms after onSuccess
+
+                    //this buys us time for the message bar animation to disappear
+                    delay(6_00)
+                    isAuthenticated.value = true
 
                 }
             } catch (e: Exception) {

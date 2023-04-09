@@ -3,19 +3,16 @@ package com.uxstate.diary.presentation
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.ramcosta.composedestinations.DestinationsNavHost
+import com.ramcosta.composedestinations.spec.Route
 import com.uxstate.diary.presentation.screens.NavGraphs
+import com.uxstate.diary.presentation.screens.destinations.AuthenticationScreenDestination
+import com.uxstate.diary.presentation.screens.destinations.HomeScreenDestination
 import com.uxstate.diary.presentation.ui.theme.DiaryTheme
-import dagger.hilt.EntryPoint
+import com.uxstate.diary.util.Constants.APP_ID
 import dagger.hilt.android.AndroidEntryPoint
+import io.realm.kotlin.mongodb.App
 
 
 @AndroidEntryPoint
@@ -27,9 +24,21 @@ class MainActivity : ComponentActivity() {
         installSplashScreen()
         setContent {
             DiaryTheme {
-                DestinationsNavHost(navGraph = NavGraphs.root)
+                DestinationsNavHost(navGraph = NavGraphs.root, startRoute = getStartDestination())
 
             }
         }
+    }
+
+
+    private fun getStartDestination(): Route {
+
+        //App.create() exists as singleton and can be called severally
+        val user = App.create(APP_ID).currentUser
+
+        return if (user != null && user.loggedIn)
+            HomeScreenDestination
+        else
+            AuthenticationScreenDestination
     }
 }
