@@ -1,8 +1,6 @@
 package com.uxstate.diary.presentation.screens.auth
 
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.uxstate.diary.util.Constants.APP_ID
@@ -14,18 +12,19 @@ import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.Dispatchers.Main
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
 class AuthViewModel @Inject constructor() : ViewModel() {
 
 
-    var loadingState by mutableStateOf(false)
+    var loadingState = mutableStateOf(false)
         private set
 
     fun setLoading(isLoading: Boolean) {
-
-        loadingState = isLoading
+        Timber.i("setLoading() invoked()")
+        loadingState.value = isLoading
     }
 
     fun signInWithMongoAtlas(
@@ -33,14 +32,14 @@ class AuthViewModel @Inject constructor() : ViewModel() {
         onSuccess: (Boolean) -> Unit,
         onError: (Exception) -> Unit
     ) {
-
+        Timber.i("signInWithMongoAtlas invoked()")
         //launch a coroutine
         viewModelScope.launch {
 
             try {
 
-                //Authenticate with MongoDb and store the outcome on the result variable
-
+                /* Authenticate with MongoDb and store the outcome on the result variable
+  this can be true or false depending on whether the user has been logged in*/
                 //get result in IO Dispatchers as this is a network operation
                 val result = withContext(IO) {
 
@@ -66,7 +65,7 @@ class AuthViewModel @Inject constructor() : ViewModel() {
 
                     //onSuccess is triggered from a composable function
                     onSuccess(result)
-
+                    Timber.i("signUp Success")
                 }
             } catch (e: Exception) {
 
@@ -76,6 +75,8 @@ class AuthViewModel @Inject constructor() : ViewModel() {
                     //onError is also triggered from Composables who don't have
                     //to wait
                     onError(e)
+
+                    Timber.i("Error")
                 }
 
             }
