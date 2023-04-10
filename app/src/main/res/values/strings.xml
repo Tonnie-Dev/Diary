@@ -7,6 +7,8 @@
     <string name="home_menu_icon">Menu Icon</string>
     <string name="home_date_icon">Home Date Icon</string>
     <string name="edit_text">Edit</string>
+    <string name="app_logo">Logo Image</string>
+    <string name="sign_out">Sign Out</string>
 
 
 </resources>
