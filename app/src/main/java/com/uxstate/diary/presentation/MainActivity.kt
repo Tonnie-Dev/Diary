@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.core.view.WindowCompat
 import com.ramcosta.composedestinations.DestinationsNavHost
 import com.ramcosta.composedestinations.spec.Route
 import com.uxstate.diary.presentation.screens.NavGraphs
@@ -22,6 +23,8 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         //from Splash API
         installSplashScreen()
+
+        WindowCompat.setDecorFitsSystemWindows(window,false)
         setContent {
             DiaryTheme {
                 DestinationsNavHost(navGraph = NavGraphs.root, startRoute = getStartDestination())

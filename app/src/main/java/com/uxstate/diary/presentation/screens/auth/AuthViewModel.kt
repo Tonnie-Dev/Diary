@@ -78,6 +78,9 @@ class AuthViewModel @Inject constructor() : ViewModel() {
                         //this buys us time for the message bar animation to disappear
                         delay(6_00)
                         isAuthenticated.value = true
+                    }else{
+
+                        onError(Exception("User Not Logged In"))
                     }
 
 
