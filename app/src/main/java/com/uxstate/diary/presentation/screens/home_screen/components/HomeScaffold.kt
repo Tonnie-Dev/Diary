@@ -12,10 +12,10 @@ import com.uxstate.diary.R
 import com.uxstate.diary.presentation.screens.destinations.WriteScreenDestination
 
 @Composable
-fun HomeScaffold(navigator:DestinationsNavigator) {
+fun HomeScaffold(navigator:DestinationsNavigator, onMenuClicked:()-> Unit) {
     Scaffold(
             topBar = {
-                HomeTopBar(onMenuClicked = {})
+                HomeTopBar(onMenuClicked = onMenuClicked)
             },
             floatingActionButton = {
                 FloatingActionButton(onClick = { navigator.navigate(WriteScreenDestination) }) {

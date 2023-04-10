@@ -19,9 +19,15 @@ fun DiaryNavigationDrawer(
 ) {
     ModalNavigationDrawer(
             drawerState = drawerState,
+
+            //this is the scaffold passed as a composable fun
             content = content,
+
+            //content defined belo
             drawerContent = {
-                NavDrawerContent(onSignOutClicked = onSignOutClicked)
+                ModalDrawerSheet() {
+                    NavDrawerContent(onSignOutClicked = onSignOutClicked)
+                }
 
             }
     )
@@ -34,7 +40,8 @@ fun NavDrawerContent(onSignOutClicked: () -> Unit) {
     Box(
             modifier = Modifier
                     .fillMaxWidth()
-                    .height(spacing.spaceTwoHundredFifty), contentAlignment = Alignment.Center
+                    .height(spacing.spaceTwoHundredFifty),
+            contentAlignment = Alignment.Center
     ) {
 
         Image(
@@ -53,7 +60,7 @@ fun NavDrawerContent(onSignOutClicked: () -> Unit) {
                                     id = R.string.google_logo
                             )
                     )
-                    Spacer(modifier = Modifier.width(spacing.spaceTwoHundred))
+                    Spacer(modifier = Modifier.width(spacing.spaceMedium))
                     Text(text = stringResource(R.string.sign_out))
                 }
             },
