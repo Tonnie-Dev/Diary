@@ -47,16 +47,13 @@ fun NavDrawerContent(onSignOutClicked: () -> Unit) {
     NavigationDrawerItem(
             label = {
                 Row(modifier = Modifier.padding(horizontal = spacing.spaceMedium)) {
-
                     Icon(
                             painter = painterResource(id = R.drawable.google_logo),
                             contentDescription = stringResource(
                                     id = R.string.google_logo
                             )
                     )
-
                     Spacer(modifier = Modifier.width(spacing.spaceTwoHundred))
-
                     Text(text = stringResource(R.string.sign_out))
                 }
             },

@@ -17,22 +17,6 @@ import com.uxstate.diary.presentation.screens.home_screen.components.DiaryNaviga
 fun HomeScreen(navigator: DestinationsNavigator) {
 
 
-    Scaffold(
-            topBar = {
-                HomeTopBar(onMenuClicked = {})
-            },
-            floatingActionButton = {
-                FloatingActionButton(onClick = { navigator.navigate(WriteScreenDestination) }) {
-                    Icon(
-                            imageVector = Icons.Default.Edit,
-                            contentDescription = stringResource(R.string.edit_text)
-                    )
-                }
-            },
-            content = {}
-
-
-    )
 
 
 DiaryNavigationDrawer(drawerState = , onSignOutClicked = { /*TODO*/ }) {
