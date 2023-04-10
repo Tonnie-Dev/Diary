@@ -8,6 +8,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.TextStyle
 import com.uxstate.diary.R
 import com.uxstate.diary.presentation.ui.theme.LocalSpacing
 
@@ -37,10 +38,11 @@ fun DiaryNavigationDrawer(
 @Composable
 fun NavDrawerContent(onSignOutClicked: () -> Unit) {
     val spacing = LocalSpacing.current
+
+    //use box to center logo
     Box(
             modifier = Modifier
-                    .fillMaxWidth()
-                    .height(spacing.spaceTwoHundredFifty),
+                    .fillMaxWidth(),
             contentAlignment = Alignment.Center
     ) {
 
@@ -48,23 +50,34 @@ fun NavDrawerContent(onSignOutClicked: () -> Unit) {
                 painter = painterResource(id = R.drawable.logo),
                 contentDescription = stringResource(R.string.app_logo)
         )
+
     }
 
     //Drawer Menu Item
     NavigationDrawerItem(
             label = {
-                Row(modifier = Modifier.padding(horizontal = spacing.spaceMedium)) {
-                    Icon(
+                Row(
+                        modifier = Modifier.padding(horizontal = spacing.spaceMedium),
+                        verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Image(
                             painter = painterResource(id = R.drawable.google_logo),
                             contentDescription = stringResource(
                                     id = R.string.google_logo
                             )
                     )
                     Spacer(modifier = Modifier.width(spacing.spaceMedium))
-                    Text(text = stringResource(R.string.sign_out))
+                    Text(
+                            text = stringResource(R.string.sign_out),
+                            style = TextStyle(
+                                    color = MaterialTheme.colorScheme.onSurface,
+                                    fontSize = MaterialTheme.typography.bodyLarge.fontSize
+                            )
+                    )
                 }
             },
             selected = false,
             onClick = onSignOutClicked
     )
+
 }
