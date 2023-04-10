@@ -1,4 +1,4 @@
-package com.uxstate.diary.presentation.screens.auth.components
+package com.uxstate.diary.presentation.screens.auth_screen.components
 
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import androidx.compose.foundation.Image
@@ -12,8 +12,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
-import com.stevdzasan.onetap.OneTapSignInState
-import com.stevdzasan.onetap.rememberOneTapSignInState
 import com.uxstate.diary.R
 import com.uxstate.diary.presentation.ui.theme.DiaryTheme
 import com.uxstate.diary.presentation.ui.theme.LocalSpacing

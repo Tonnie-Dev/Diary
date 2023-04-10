@@ -4,7 +4,9 @@
     <string name="auth_title">Welcome Back</string>
     <string name="auth_subtitle">Please sign in to continue</string>
     <string name="auth_signin_button_text">Sign in with Google</string>
-
+    <string name="home_menu_icon">Menu Icon</string>
+    <string name="home_date_icon">Home Date Icon</string>
+    <string name="edit_text">Edit</string>
 
 
 </resources>

@@ -106,7 +106,7 @@ fun DiaryTheme(
     }
 
 
-
+//Make Status and Navigation Bars Transparent (from Accompanist)
     val systemUiController = rememberSystemUiController()
 
     SideEffect {

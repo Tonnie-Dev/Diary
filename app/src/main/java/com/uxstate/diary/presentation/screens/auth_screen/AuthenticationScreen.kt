@@ -1,9 +1,14 @@
-package com.uxstate.diary.presentation.screens.auth
+package com.uxstate.diary.presentation.screens.auth_screen
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.navigationBarsPadding
+import androidx.compose.foundation.layout.statusBarsPadding
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.annotation.RootNavGraph
@@ -12,10 +17,9 @@ import com.stevdzasan.messagebar.ContentWithMessageBar
 import com.stevdzasan.messagebar.rememberMessageBarState
 import com.stevdzasan.onetap.OneTapSignInWithGoogle
 import com.stevdzasan.onetap.rememberOneTapSignInState
-import com.uxstate.diary.presentation.screens.auth.components.AuthenticationContent
+import com.uxstate.diary.presentation.screens.auth_screen.components.AuthenticationContent
 import com.uxstate.diary.presentation.screens.destinations.HomeScreenDestination
 import com.uxstate.diary.util.Constants.CLIENT_ID
-import timber.log.Timber
 
 @Destination
 @RootNavGraph(start = true)
@@ -23,8 +27,7 @@ import timber.log.Timber
 
 @Composable
 fun AuthenticationScreen(
-    viewModel: AuthViewModel = hiltViewModel(),
-    navigator: DestinationsNavigator
+    viewModel: AuthViewModel = hiltViewModel(), navigator: DestinationsNavigator
 ) {
 
 
@@ -40,11 +43,13 @@ fun AuthenticationScreen(
 
 
 
-    Scaffold(content = {
-        Timber.i("Inside the AuthenticationScreen Scaffold")
+    Scaffold(modifier = Modifier
+            .background(MaterialTheme.colorScheme.surface)
+            .statusBarsPadding()
+            .navigationBarsPadding(), content = {
+
         ContentWithMessageBar(messageBarState = messageBarState) {
-            AuthenticationContent(
-                    loadingState = loadingState,
+            AuthenticationContent(loadingState = loadingState,
 
                     onButtonClicked = {
                         oneTapState.open()
@@ -58,31 +63,26 @@ fun AuthenticationScreen(
     )
 
 
-    OneTapSignInWithGoogle(
-            state = oneTapState,
+    OneTapSignInWithGoogle(state = oneTapState,
             clientId = CLIENT_ID,
             onTokenIdReceived = { tokenId ->
 
 
-                Timber.i("The token is: $tokenId")
-                viewModel.signInWithMongoAtlas(tokenId = tokenId,
-                        onSuccess = {
+                viewModel.signInWithMongoAtlas(tokenId = tokenId, onSuccess = {
 
-                            messageBarState.addSuccess("Successfully Authenticated")
-                            viewModel.setLoading(false)
+                    messageBarState.addSuccess("Successfully Authenticated")
+                    viewModel.setLoading(false)
 
-                        },
-                        onError = {
+                }, onError = {
 
-                            messageBarState.addError(it)
-                            viewModel.setLoading(false)
-                        })
+                    messageBarState.addError(it)
+                    viewModel.setLoading(false)
+                })
             },
             onDialogDismissed = { message ->
                 messageBarState.addError(Exception(message))
                 viewModel.setLoading(false)
-            }
-    )
+            })
 
 
     LaunchedEffect(key1 = isAuthenticated, block = {
