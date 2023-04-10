@@ -6,6 +6,7 @@ import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
+import androidx.core.graphics.drawable.TintAwareDrawable
 import com.uxstate.diary.R
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -18,6 +19,7 @@ fun HomeTopBar(onMenuClicked: () -> Unit) {
                 IconButton(onClick = onMenuClicked) {
                     Icon(
                             imageVector = Icons.Default.Menu,
+                            tint = MaterialTheme.colorScheme.onSurface,
                             contentDescription = stringResource(R.string.home_menu_icon)
                     )
                 }
@@ -27,6 +29,7 @@ fun HomeTopBar(onMenuClicked: () -> Unit) {
                 IconButton(onClick = { /*TODO*/ }) {
                     Icon(
                             imageVector = Icons.Default.DateRange,
+                            tint = MaterialTheme.colorScheme.onSurface,
                             contentDescription = stringResource(R.string.home_date_icon)
                     )
                 }
