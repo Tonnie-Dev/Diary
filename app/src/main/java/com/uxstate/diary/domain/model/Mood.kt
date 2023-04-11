@@ -7,8 +7,8 @@ import com.uxstate.diary.presentation.ui.theme.*
 
 enum class Mood(
     @DrawableRes val icon: Int,
-    contentColor: Color,
-    containerColor: Color
+   val contentColor: Color,
+    val containerColor: Color
 ) {
     //Enum Constants
     NEUTRAL(
