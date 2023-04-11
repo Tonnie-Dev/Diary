@@ -19,12 +19,14 @@ import org.mongodb.kbson.ObjectId
 
 //ObjectId.create() autogenerates unique identifiers
 
+//Enum not supported on the RealmObject
 
 class Diary : RealmObject {
 
     @PrimaryKey
     var _id: ObjectId = ObjectId.invoke()
     var ownerID: String = ""
+    var mood:String = Mood.NEUTRAL.name
     var title: String = ""
     var description: String = ""
     var images :RealmList<String> = realmListOf()
