@@ -2,6 +2,9 @@ package com.uxstate.diary.util
 
 import io.realm.kotlin.types.RealmInstant
 import java.time.Instant
+import java.time.LocalDateTime
+import java.time.ZoneId
+import java.time.format.DateTimeFormatter
 
 fun RealmInstant.toInstant(): Instant {
 
@@ -12,6 +15,18 @@ fun RealmInstant.toInstant(): Instant {
         Instant.ofEpochSecond(sec, nano.toLong())
     else
         Instant.ofEpochSecond((sec - 1), 1_000_000 + nano.toLong())
+}
+
+
+fun Instant.toStringTime():String  {
+
+    val localDateTime = LocalDateTime.ofInstant( this, ZoneId.systemDefault())
+
+    val pattern = "hh:mm a"
+
+    val dateTimeFormatter = DateTimeFormatter.ofPattern(pattern)
+
+    return localDateTime.format(dateTimeFormatter)
 }
 
 

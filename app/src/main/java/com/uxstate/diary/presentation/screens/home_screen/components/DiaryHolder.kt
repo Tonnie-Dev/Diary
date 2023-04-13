@@ -31,8 +31,6 @@ fun DiaryHolder(diary: Diary, onClickDiary: (objectId: String) -> Unit) {
 
     //we will calculate the height of the side line from the component height
 
-  //  var componentHeight by remember { mutableStateOf(spacing.spaceDefault) }
-
     var componentHeight by remember { mutableStateOf(spacing.spaceDefault) }
 
     // get local density from composable
@@ -111,6 +109,8 @@ fun DiaryHolderPreview() {
 fun DiaryHolderPreviewDark() {
     DiaryTheme() {
         DiaryHolder(diary = Diary().apply {
+
+
             title = "My Day"
             mood = Mood.TENSE.name
             description = """

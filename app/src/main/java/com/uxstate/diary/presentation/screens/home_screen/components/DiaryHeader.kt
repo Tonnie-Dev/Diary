@@ -17,12 +17,14 @@ import androidx.compose.ui.text.TextStyle
 import com.uxstate.diary.R
 import com.uxstate.diary.domain.model.Mood
 import com.uxstate.diary.presentation.ui.theme.LocalSpacing
+import com.uxstate.diary.util.toStringTime
 import java.text.SimpleDateFormat
 import java.time.Instant
 import java.util.*
 
 @Composable
 fun DiaryHeader(moodName: String, time: Instant) {
+
 
     val spacing = LocalSpacing.current
 
@@ -57,8 +59,9 @@ fun DiaryHeader(moodName: String, time: Instant) {
         }
 
         Text(
-                text = SimpleDateFormat("hh:mm a", Locale.ENGLISH)
-                        .format(Date.from(time)),
+                /*text = SimpleDateFormat("hh:mm a", Locale.ENGLISH)
+                        .format(Date.from(time)),*/
+                text = time.toStringTime(),
                 color = mood.contentColor,
                 style = TextStyle(fontSize = MaterialTheme.typography.bodyMedium.fontSize)
         )
