@@ -59,7 +59,7 @@ fun DiaryHeader(moodName: String, time: Instant) {
         }
 
         Text(
-                /*text = SimpleDateFormat("hh:mm a", Locale.ENGLISH)
+                /*text = SimpleDateFormat("hh:mm a", Locale.ROOT)
                         .format(Date.from(time)),*/
                 text = time.toStringTime(),
                 color = mood.contentColor,

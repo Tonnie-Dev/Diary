@@ -20,10 +20,11 @@ fun RealmInstant.toInstant(): Instant {
 
 fun Instant.toStringTime():String  {
 
-    val localDateTime = LocalDateTime.ofInstant( this, ZoneId.systemDefault())
+    val localDateTime = LocalDateTime.ofInstant(this, ZoneId.systemDefault())
 
     val pattern = "hh:mm a"
 
+    //Java Time API formatter
     val dateTimeFormatter = DateTimeFormatter.ofPattern(pattern)
 
     return localDateTime.format(dateTimeFormatter)
