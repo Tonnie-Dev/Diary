@@ -1,18 +1,29 @@
 package com.uxstate.diary.presentation.screens.home_screen.components
 
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.LinearOutSlowInEasing
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Shapes
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.onGloballyPositioned
@@ -26,9 +37,7 @@ import com.uxstate.diary.presentation.ui.theme.DiaryTheme
 import com.uxstate.diary.presentation.ui.theme.LocalElevation
 import com.uxstate.diary.presentation.ui.theme.LocalSpacing
 import com.uxstate.diary.util.toInstant
-import kotlinx.coroutines.delay
-import kotlin.time.Duration.Companion.milliseconds
-import kotlin.time.Duration.Companion.seconds
+import io.realm.kotlin.ext.realmListOf
 
 @Composable
 fun DiaryHolder(diary: Diary, onClickDiary: (objectId: String) -> Unit) {
@@ -36,6 +45,9 @@ fun DiaryHolder(diary: Diary, onClickDiary: (objectId: String) -> Unit) {
     val spacing = LocalSpacing.current
     val elevation = LocalElevation.current
 
+    var isGalleryOpen by remember {
+        mutableStateOf(false)
+    }
     //we will calculate the height of the side line from the component height
 
     var componentHeight by remember { mutableStateOf(spacing.spaceDefault) }
@@ -87,6 +99,25 @@ fun DiaryHolder(diary: Diary, onClickDiary: (objectId: String) -> Unit) {
                         overflow = TextOverflow.Ellipsis,
                         style = TextStyle(fontSize = MaterialTheme.typography.bodyLarge.fontSize)
                 )
+                if (diary.images.isNotEmpty()) {
+
+                    
+                    ShowGalleryButton(
+                            isGalleyOpen = isGalleryOpen,
+                            onToggleGallery = { isGalleryOpen = !isGalleryOpen }
+                    )
+                }
+                
+                AnimatedVisibility(visible = isGalleryOpen) {
+
+                    //column to apply padding
+                    Column(modifier = Modifier.padding(spacing.spaceMedium)) {
+
+                        Gallery(images = diary.images)
+                    }
+                }
+
+
             }
         }
     }
@@ -100,10 +131,12 @@ fun ShowGalleryButton(isGalleyOpen: Boolean, onToggleGallery: () -> Unit) {
         Text(
                 text = if (isGalleyOpen) "Hide Gallery" else "Show Gallery",
                 style = TextStyle(fontSize = MaterialTheme.typography.bodySmall.fontSize),
-                modifier = Modifier.animateContentSize(animationSpec = tween(
-                        durationMillis = 9_00,
-                        easing = LinearOutSlowInEasing
-                ))
+                modifier = Modifier.animateContentSize(
+                        animationSpec = tween(
+                                durationMillis = 9_00,
+                                easing = LinearOutSlowInEasing
+                        )
+                )
         )
     }
 }
@@ -114,6 +147,7 @@ fun ShowGalleryButton(isGalleyOpen: Boolean, onToggleGallery: () -> Unit) {
 fun DiaryHolderPreview() {
     DiaryTheme() {
         DiaryHolder(diary = Diary().apply {
+            images = realmListOf("", "")
             title = "My Day"
             mood = Mood.ANGRY.name
             description = """
@@ -131,7 +165,7 @@ fun DiaryHolderPreview() {
 fun DiaryHolderPreviewDark() {
     DiaryTheme() {
         DiaryHolder(diary = Diary().apply {
-
+            images = realmListOf("", "")
 
             title = "My Day"
             mood = Mood.TENSE.name
