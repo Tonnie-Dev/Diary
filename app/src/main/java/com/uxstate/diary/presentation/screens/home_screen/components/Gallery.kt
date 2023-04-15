@@ -33,7 +33,8 @@ fun Gallery(
 
     val context = LocalContext.current
 
-    BoxWithConstraints {
+    //flexible, expandable
+    BoxWithConstraints(modifier = modifier) {
 
         //cache and retain value across recompositions
         val numberOfVisibleImages by remember {
@@ -71,9 +72,20 @@ fun Gallery(
                         Image(
                                 painter = painter,
                                 contentDescription = stringResource(R.string.gallery_image_text),
-                        modifier = Modifier.clip(imageShape).size(imageSize)
+                        modifier = Modifier
+                                .clip(imageShape)
+                                .size(imageSize)
                         )
                     }
+
+            if (remainingImages>0){
+
+                LastImageOverlay(
+                        imageSize = imageSize,
+                        remainingImages = remainingImages,
+                        imageShape = imageShape
+                )
+            }
         }
 
     }

@@ -1,6 +1,9 @@
 package com.uxstate.diary.presentation.screens.home_screen.components
 
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
+import androidx.compose.animation.animateContentSize
+import androidx.compose.animation.core.LinearOutSlowInEasing
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
@@ -8,6 +11,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Shapes
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -22,6 +26,9 @@ import com.uxstate.diary.presentation.ui.theme.DiaryTheme
 import com.uxstate.diary.presentation.ui.theme.LocalElevation
 import com.uxstate.diary.presentation.ui.theme.LocalSpacing
 import com.uxstate.diary.util.toInstant
+import kotlinx.coroutines.delay
+import kotlin.time.Duration.Companion.milliseconds
+import kotlin.time.Duration.Companion.seconds
 
 @Composable
 fun DiaryHolder(diary: Diary, onClickDiary: (objectId: String) -> Unit) {
@@ -86,6 +93,21 @@ fun DiaryHolder(diary: Diary, onClickDiary: (objectId: String) -> Unit) {
 
 }
 
+@Composable
+fun ShowGalleryButton(isGalleyOpen: Boolean, onToggleGallery: () -> Unit) {
+
+    TextButton(onClick = onToggleGallery) {
+        Text(
+                text = if (isGalleyOpen) "Hide Gallery" else "Show Gallery",
+                style = TextStyle(fontSize = MaterialTheme.typography.bodySmall.fontSize),
+                modifier = Modifier.animateContentSize(animationSpec = tween(
+                        durationMillis = 9_00,
+                        easing = LinearOutSlowInEasing
+                ))
+        )
+    }
+}
+
 
 @Preview(showBackground = true)
 @Composable
@@ -121,3 +143,4 @@ fun DiaryHolderPreviewDark() {
         }, onClickDiary = {})
     }
 }
+
