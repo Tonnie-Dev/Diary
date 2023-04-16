@@ -21,7 +21,7 @@ import org.mongodb.kbson.ObjectId
 
 //Enum not supported on the RealmObject
 
-class Diary : RealmObject {
+open class Diary : RealmObject {
 
     @PrimaryKey
     var _id: ObjectId = ObjectId.invoke()

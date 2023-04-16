@@ -6,6 +6,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.res.stringResource
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
+import com.uxstate.data.repository.MongoDB
 import com.uxstate.diary.presentation.screens.destinations.AuthenticationScreenDestination
 import com.uxstate.diary.presentation.screens.home_screen.components.DiaryNavigationDrawer
 import com.uxstate.diary.presentation.screens.home_screen.components.DisplayAlertDialog
@@ -41,6 +42,12 @@ fun HomeScreen(navigator: DestinationsNavigator) {
             },
             onSignOutClicked = { isSignOutDialogOpen = true }
     )
+
+
+    LaunchedEffect(true, block ={
+
+        MongoDB.configureTheRealm()
+    } )
 
     //Park Alert Dialog to be triggered on isSignOutDialogOpen
 

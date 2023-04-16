@@ -1,9 +1,10 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    id 'com.google.devtools.ksp' version '1.8.10-1.0.9'
     id 'dagger.hilt.android.plugin'
     id 'kotlin-kapt'
-    id 'com.google.devtools.ksp' version '1.8.10-1.0.9'
+    id 'io.realm.kotlin'
     //id 'com.google.devtools.ksp' version '1.8.20-1.0.10'
   //  id 'com.google.gms.google-services'
 }
@@ -45,6 +46,7 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
+
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_18
