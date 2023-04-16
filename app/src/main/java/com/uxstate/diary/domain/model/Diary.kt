@@ -25,7 +25,7 @@ class Diary : RealmObject {
 
     @PrimaryKey
     var _id: ObjectId = ObjectId.invoke()
-    var ownerID: String = ""
+    var ownerId: String = ""
     var mood:String = Mood.NEUTRAL.name
     var title: String = ""
     var description: String = ""
