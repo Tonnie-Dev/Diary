@@ -25,7 +25,7 @@ fun HomeScaffold(navigator:DestinationsNavigator, onMenuClicked:()-> Unit) {
                     )
                 }
             },
-            content = {}
+            content = { HomeContent(diaryNotes = mapOf(), onClick = {})}
 
 
     )

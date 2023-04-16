@@ -14,6 +14,8 @@
     <string name="sign_out_confirmation_text">Are you sure you want to Sign Out from your Google Account?</string>
     <string name="mood_icon">Mood Icon</string>
     <string name="gallery_image_text">Gallery Image</string>
+    <string name="write_something_text">Write Something</string>
+    <string name="empty_diary_text">Empty Diary</string>
 
 
 </resources>
