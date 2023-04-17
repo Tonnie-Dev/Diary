@@ -2,11 +2,19 @@ package com.uxstate.diary.presentation.screens.home_screen
 
 import androidx.compose.material3.DrawerValue
 import androidx.compose.material3.rememberDrawerState
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.res.stringResource
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import com.uxstate.data.repository.MongoDB
+import com.uxstate.diary.R
 import com.uxstate.diary.presentation.screens.destinations.AuthenticationScreenDestination
 import com.uxstate.diary.presentation.screens.home_screen.components.DiaryNavigationDrawer
 import com.uxstate.diary.presentation.screens.home_screen.components.DisplayAlertDialog
@@ -15,12 +23,15 @@ import com.uxstate.diary.util.Constants.APP_ID
 import io.realm.kotlin.mongodb.App
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.launch
-import com.uxstate.diary.R
 
 @Destination
 @Composable
-fun HomeScreen(navigator: DestinationsNavigator) {
+fun HomeScreen(
+    viewModel: HomeViewModel = hiltViewModel(),
+    navigator: DestinationsNavigator
+) {
 
+    val diaries by viewModel.diaries
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
     var isSignOutDialogOpen by remember { mutableStateOf(false) }
 
@@ -44,10 +55,10 @@ fun HomeScreen(navigator: DestinationsNavigator) {
     )
 
 
-    LaunchedEffect(true, block ={
+    LaunchedEffect(true, block = {
 
         MongoDB.configureTheRealm()
-    } )
+    })
 
     //Park Alert Dialog to be triggered on isSignOutDialogOpen
 

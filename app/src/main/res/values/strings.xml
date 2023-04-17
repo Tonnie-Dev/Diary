@@ -16,6 +16,7 @@
     <string name="gallery_image_text">Gallery Image</string>
     <string name="write_something_text">Write Something</string>
     <string name="empty_diary_text">Empty Diary</string>
+    <string name="error_text">Error</string>
 
 
 </resources>
