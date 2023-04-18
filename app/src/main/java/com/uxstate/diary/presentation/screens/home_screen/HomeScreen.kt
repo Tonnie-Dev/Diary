@@ -49,7 +49,7 @@ fun HomeScreen(
                                 drawerState.open()
                             }
 
-                        })
+                        }, diaries = diaries)
             },
             onSignOutClicked = { isSignOutDialogOpen = true }
     )

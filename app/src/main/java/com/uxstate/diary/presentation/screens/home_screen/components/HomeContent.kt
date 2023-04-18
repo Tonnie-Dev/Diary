@@ -38,7 +38,7 @@ fun HomeContent(diaryNotes: Map<LocalDate, List<Diary>>, onClick: (id: String) -
                        }
 
                        items(items = diaries, key = {
-                           it._id
+                           it._id.toString()
                        }){
 
                            DiaryHolder(diary = it, onClickDiary = onClick)

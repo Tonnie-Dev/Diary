@@ -17,6 +17,7 @@ import com.uxstate.diary.R
 import com.uxstate.diary.domain.repository.Diaries
 import com.uxstate.diary.presentation.screens.destinations.WriteScreenDestination
 import com.uxstate.diary.util.RequestState
+import timber.log.Timber
 
 @Composable
 fun HomeScaffold(diaries: Diaries, onMenuClicked: () -> Unit, navigator: DestinationsNavigator) {
@@ -40,17 +41,18 @@ fun HomeScaffold(diaries: Diaries, onMenuClicked: () -> Unit, navigator: Destina
 
             is RequestState.Success -> {
 
+                Timber.i("Inside Success Block ${diaries.data.isEmpty()}")
                 HomeContent(diaryNotes = diaries.data, onClick = {})
             }
 
             is RequestState.Loading -> {
-
+                Timber.i("Loading")
                 Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
                     CircularProgressIndicator()
                 }
             }
             is RequestState.Error -> {
-
+                Timber.i("Inside Error Block ${diaries.error.message}")
                 EmptyPage(
                         title = stringResource(R.string.error_text),
                         subtitle = "${diaries.error.message}"

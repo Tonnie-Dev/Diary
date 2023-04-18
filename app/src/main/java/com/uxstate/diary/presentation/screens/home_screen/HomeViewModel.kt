@@ -11,6 +11,7 @@ import com.uxstate.diary.util.RequestState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
+import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
@@ -19,6 +20,7 @@ class HomeViewModel @Inject constructor() : ViewModel() {
    val  diaries = mutableStateOf<Diaries>(RequestState.Idle)
 
    init {
+       Timber.i("Init Block Called")
        observeAllDiaries()
    }
 
@@ -31,6 +33,7 @@ class HomeViewModel @Inject constructor() : ViewModel() {
                 result ->
 
                 diaries.value = result
+                Timber.i("The Result is $result")
             }
         }
     }
