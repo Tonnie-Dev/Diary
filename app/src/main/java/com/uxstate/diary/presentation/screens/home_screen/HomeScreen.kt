@@ -23,6 +23,7 @@ import com.uxstate.diary.util.Constants.APP_ID
 import io.realm.kotlin.mongodb.App
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.launch
+import timber.log.Timber
 
 @Destination
 @Composable
@@ -56,7 +57,7 @@ fun HomeScreen(
 
 
     LaunchedEffect(true, block = {
-
+Timber.i("HomeScreen-Launch block called to configure the realm")
         MongoDB.configureTheRealm()
     })
 
