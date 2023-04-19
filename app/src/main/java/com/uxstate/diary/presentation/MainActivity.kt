@@ -3,6 +3,7 @@ package com.uxstate.diary.presentation
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.runtime.LaunchedEffect
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.WindowCompat
 import com.ramcosta.composedestinations.DestinationsNavHost
@@ -15,6 +16,7 @@ import com.uxstate.diary.presentation.ui.theme.DiaryTheme
 import com.uxstate.diary.util.Constants.APP_ID
 import dagger.hilt.android.AndroidEntryPoint
 import io.realm.kotlin.mongodb.App
+import timber.log.Timber
 
 
 @AndroidEntryPoint
@@ -30,6 +32,7 @@ class MainActivity : ComponentActivity() {
 
         setContent {
             DiaryTheme {
+
 
                 DestinationsNavHost(navGraph = NavGraphs.root, startRoute = getStartDestination())
 

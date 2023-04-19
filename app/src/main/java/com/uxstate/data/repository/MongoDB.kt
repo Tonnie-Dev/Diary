@@ -28,7 +28,7 @@ object MongoDB : MongoRepository {
         configureTheRealm()
         Timber.i("Mongo is Configured")
     }
- 
+
  override fun configureTheRealm() {
 
         Timber.i("Inside configureTheRealm() override function")
@@ -55,7 +55,8 @@ object MongoDB : MongoRepository {
     override fun getAllDiaries(): Flow<Diaries> {
 
 
-       return if (user != null) {
+
+  return if (user != null) {
 
            Timber.i("The user is not null")
             try {

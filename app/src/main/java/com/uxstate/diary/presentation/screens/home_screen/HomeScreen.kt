@@ -55,10 +55,11 @@ fun HomeScreen(
             onSignOutClicked = { isSignOutDialogOpen = true }
     )
 
-
-    LaunchedEffect(true, block = {
-Timber.i("HomeScreen-Launch block called to configure the realm")
+    LaunchedEffect(key1 = Unit, block = {
         MongoDB.configureTheRealm()
+
+        Timber.i("HomeScreen-Launch block called to configure the realm")
+
     })
 
     //Park Alert Dialog to be triggered on isSignOutDialogOpen
