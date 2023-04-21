@@ -168,7 +168,7 @@ fun DiaryHolderPreviewDark() {
             images = realmListOf("", "")
 
             title = "My Day"
-            mood = Mood.TENSE.name
+            mood = Mood.TENSED.name
             description = """
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,
                 molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum

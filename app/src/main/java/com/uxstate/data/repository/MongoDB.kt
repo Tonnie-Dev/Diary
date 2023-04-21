@@ -26,29 +26,29 @@ object MongoDB : MongoRepository {
 
     init {
         configureTheRealm()
-        Timber.i("Mongo is Configured")
+       
     }
 
  override fun configureTheRealm() {
 
-        Timber.i("Inside configureTheRealm() override function")
+
         if (user != null) {
-            Timber.i("Inside configureTheRealm() - user not null")
+
             val config = SyncConfiguration.Builder(user, setOf(Diary::class))
                     .initialSubscriptions {
 
                         sub ->
-                        Timber.i("initial Sub called")
+
                         add(
                                 query = sub.query<Diary>("ownerId == $0", user.id)
                         )
-                        Timber.i("The user.id is ${user.id}")
+
                     }
                     .log(LogLevel.ALL)
                     .build()
 
             realm = Realm.open(config)
-            Timber.i("Realm Open")
+
         }
     }
 
@@ -58,7 +58,7 @@ object MongoDB : MongoRepository {
 
   return if (user != null) {
 
-           Timber.i("The user is not null")
+
             try {
                 realm.query<Diary>(query = "ownerId == $0", user.id)
                         .sort(property = "date", sortOrder = Sort.DESCENDING)

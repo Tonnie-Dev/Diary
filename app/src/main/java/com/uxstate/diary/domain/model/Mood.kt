@@ -86,7 +86,7 @@ enum class Mood(
             contentColor = Color.Black,
             containerColor = SuspiciousColor
     ),
-    TENSE(
+    TENSED(
             icon = R.drawable.tense,
             contentColor = Color.Black,
             containerColor = TenseColor

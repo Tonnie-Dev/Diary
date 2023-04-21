@@ -41,7 +41,7 @@ fun HomeScaffold(diaries: Diaries, onMenuClicked: () -> Unit, navigator: Destina
 
             is RequestState.Success -> {
 
-                Timber.i("Inside Success Block ${diaries.data.isEmpty()}")
+
                 HomeContent(diaryNotes = diaries.data, onClick = {})
             }
 
@@ -52,7 +52,7 @@ fun HomeScaffold(diaries: Diaries, onMenuClicked: () -> Unit, navigator: Destina
                 }
             }
             is RequestState.Error -> {
-                Timber.i("Inside Error Block ${diaries.error.message}")
+
                 EmptyPage(
                         title = stringResource(R.string.error_text),
                         subtitle = "${diaries.error.message}"

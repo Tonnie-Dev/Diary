@@ -20,7 +20,7 @@ class HomeViewModel @Inject constructor() : ViewModel() {
    val  diaries = mutableStateOf<Diaries>(RequestState.Idle)
 
    init {
-       Timber.i("Init Block Called")
+
        observeAllDiaries()
    }
 
@@ -33,7 +33,7 @@ class HomeViewModel @Inject constructor() : ViewModel() {
                 result ->
 
                 diaries.value = result
-                Timber.i("The Result is $result")
+
             }
         }
     }
