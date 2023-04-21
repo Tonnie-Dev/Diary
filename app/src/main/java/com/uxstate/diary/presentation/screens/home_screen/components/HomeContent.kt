@@ -17,13 +17,14 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import com.uxstate.diary.R
 import com.uxstate.diary.domain.model.Diary
+import com.uxstate.diary.domain.repository.Diaries
 import com.uxstate.diary.presentation.ui.theme.LocalSpacing
 import java.time.LocalDate
 
-
+typealias DiariesMap = Map<LocalDate, List<Diary>>
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun HomeContent(diaryNotes: Map<LocalDate, List<Diary>>, onClick: (id: String) -> Unit) {
+fun HomeContent(diaryNotes: DiariesMap, onClick: (id: String) -> Unit) {
 
     val spacing = LocalSpacing.current
     if (diaryNotes.isNotEmpty()) {

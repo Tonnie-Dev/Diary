@@ -26,7 +26,7 @@ object MongoDB : MongoRepository {
 
     init {
         configureTheRealm()
-       
+
     }
 
  override fun configureTheRealm() {
