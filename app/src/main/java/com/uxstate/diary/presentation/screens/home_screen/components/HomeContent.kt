@@ -3,6 +3,7 @@ package com.uxstate.diary.presentation.screens.home_screen.components
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -17,35 +18,41 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import com.uxstate.diary.R
 import com.uxstate.diary.domain.model.Diary
-import com.uxstate.diary.domain.repository.Diaries
 import com.uxstate.diary.presentation.ui.theme.LocalSpacing
 import java.time.LocalDate
 
 typealias DiariesMap = Map<LocalDate, List<Diary>>
+
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun HomeContent(diaryNotes: DiariesMap, onClick: (id: String) -> Unit) {
+fun HomeContent(
+    diaryNotes: DiariesMap,
+    onClick: (id: String) -> Unit,
+    paddingValues: PaddingValues
+) {
 
     val spacing = LocalSpacing.current
     if (diaryNotes.isNotEmpty()) {
 
-        LazyColumn(modifier = Modifier.padding(horizontal = spacing.spaceMedium),
+        LazyColumn(modifier = Modifier
+                .padding(horizontal = spacing.spaceMedium)
+                .padding(top = paddingValues.calculateTopPadding()),
                 content = {
 
-                   diaryNotes.forEach { (localDate, diaries) ->
+                    diaryNotes.forEach { (localDate, diaries) ->
 
-                       stickyHeader(key = localDate){
-                           DateHeader(localDate = localDate)
-                       }
+                        stickyHeader(key = localDate) {
+                            DateHeader(localDate = localDate)
+                        }
 
-                       items(items = diaries, key = {
-                           it._id.toString()
-                       }){
+                        items(items = diaries, key = {
+                            it._id.toString()
+                        }) {
 
-                           DiaryHolder(diary = it, onClickDiary = onClick)
-                       }
+                            DiaryHolder(diary = it, onClickDiary = onClick)
+                        }
 
-                   }
+                    }
                 })
 
 
@@ -59,7 +66,7 @@ fun HomeContent(diaryNotes: DiariesMap, onClick: (id: String) -> Unit) {
 }
 
 @Composable
-fun EmptyPage(title: String, subtitle: String ) {
+fun EmptyPage(title: String, subtitle: String) {
     val spacing = LocalSpacing.current
     Column(
             modifier = Modifier

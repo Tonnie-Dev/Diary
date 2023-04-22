@@ -42,7 +42,7 @@ fun HomeScaffold(diaries: Diaries, onMenuClicked: () -> Unit, navigator: Destina
             is RequestState.Success -> {
 
 
-                HomeContent(diaryNotes = diaries.data, onClick = {})
+                HomeContent(diaryNotes = diaries.data, onClick = {}, paddingValues = it)
             }
 
             is RequestState.Loading -> {

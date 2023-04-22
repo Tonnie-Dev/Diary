@@ -4,6 +4,7 @@ import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -22,7 +23,10 @@ import java.time.LocalDate
 fun DateHeader(localDate: LocalDate) {
     val spacing = LocalSpacing.current
 
-    Row(verticalAlignment = Alignment.CenterVertically) {
+    Row(
+            modifier = Modifier.padding(spacing.spaceMedium),
+            verticalAlignment = Alignment.CenterVertically
+    ) {
         Column(horizontalAlignment = Alignment.End) {
 
             Text(
@@ -63,10 +67,10 @@ fun DateHeader(localDate: LocalDate) {
 
                             fontSize = MaterialTheme.typography.bodySmall.fontSize,
                             fontWeight = FontWeight.Light,
-                            color = MaterialTheme.colorScheme.onSurface.copy(alpha =  0.38f)
+                            color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.38f)
                     ),
 
-            )
+                    )
         }
     }
 }
