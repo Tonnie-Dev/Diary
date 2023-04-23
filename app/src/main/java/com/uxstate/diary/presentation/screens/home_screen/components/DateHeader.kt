@@ -1,9 +1,12 @@
 package com.uxstate.diary.presentation.screens.home_screen.components
 
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.MaterialTheme
@@ -24,7 +27,10 @@ fun DateHeader(localDate: LocalDate) {
     val spacing = LocalSpacing.current
 
     Row(
-            modifier = Modifier.padding(spacing.spaceMedium),
+            modifier = Modifier
+                    .background(MaterialTheme.colorScheme.surface)
+                    .fillMaxWidth()
+                    .padding(spacing.spaceMedium),
             verticalAlignment = Alignment.CenterVertically
     ) {
         Column(horizontalAlignment = Alignment.End) {
@@ -67,7 +73,7 @@ fun DateHeader(localDate: LocalDate) {
 
                             fontSize = MaterialTheme.typography.bodySmall.fontSize,
                             fontWeight = FontWeight.Light,
-                            color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.38f)
+                            color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.5f)
                     ),
 
                     )
