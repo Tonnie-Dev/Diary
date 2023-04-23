@@ -1,7 +1,10 @@
 package com.uxstate.diary.presentation.screens.home_screen.components
 
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.calculateEndPadding
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material3.CircularProgressIndicator
@@ -9,9 +12,14 @@ import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.LayoutDirection
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import com.uxstate.diary.R
 import com.uxstate.diary.domain.repository.Diaries
@@ -21,12 +29,21 @@ import timber.log.Timber
 
 @Composable
 fun HomeScaffold(diaries: Diaries, onMenuClicked: () -> Unit, navigator: DestinationsNavigator) {
+
+    var padding by remember {
+        mutableStateOf(PaddingValues())
+    }
     Scaffold(
             topBar = {
                 HomeTopBar(onMenuClicked = onMenuClicked)
             },
             floatingActionButton = {
-                FloatingActionButton(onClick = { navigator.navigate(WriteScreenDestination) }) {
+                FloatingActionButton(
+                        onClick = { navigator.navigate(WriteScreenDestination) },
+                        modifier = Modifier.padding(
+                                end = padding.calculateEndPadding(LayoutDirection.Ltr)
+                        )
+                ) {
                     Icon(
                             imageVector = Icons.Default.Edit,
                             contentDescription = stringResource(R.string.edit_text)
@@ -37,6 +54,7 @@ fun HomeScaffold(diaries: Diaries, onMenuClicked: () -> Unit, navigator: Destina
 
     ) {
 
+        padding = it
         when (diaries) {
 
             is RequestState.Success -> {
@@ -51,6 +69,7 @@ fun HomeScaffold(diaries: Diaries, onMenuClicked: () -> Unit, navigator: Destina
                     CircularProgressIndicator()
                 }
             }
+
             is RequestState.Error -> {
 
                 EmptyPage(
