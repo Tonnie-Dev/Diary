@@ -18,22 +18,26 @@ import dagger.hilt.android.AndroidEntryPoint
 import io.realm.kotlin.mongodb.App
 import timber.log.Timber
 
-
+ var keepSplashScreen = false
 @AndroidEntryPoint
 //xCVZ62a1SUMhANpf Tonnie
 class MainActivity : ComponentActivity() {
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         //from Splash API
-        installSplashScreen()
+        installSplashScreen().setKeepOnScreenCondition {
+
+            keepSplashScreen
+        }
 
         WindowCompat.setDecorFitsSystemWindows(window,false)
 
 
         setContent {
             DiaryTheme {
-
-
                 DestinationsNavHost(navGraph = NavGraphs.root, startRoute = getStartDestination())
 
             }

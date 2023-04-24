@@ -15,11 +15,13 @@ import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import com.uxstate.data.repository.MongoDB
 import com.uxstate.diary.R
+import com.uxstate.diary.presentation.keepSplashScreen
 import com.uxstate.diary.presentation.screens.destinations.AuthenticationScreenDestination
 import com.uxstate.diary.presentation.screens.home_screen.components.DiaryNavigationDrawer
 import com.uxstate.diary.presentation.screens.home_screen.components.DisplayAlertDialog
 import com.uxstate.diary.presentation.screens.home_screen.components.HomeScaffold
 import com.uxstate.diary.util.Constants.APP_ID
+import com.uxstate.diary.util.RequestState
 import io.realm.kotlin.mongodb.App
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.launch
@@ -59,6 +61,17 @@ fun HomeScreen(
         MongoDB.configureTheRealm()
 
         Timber.i("HomeScreen-Launch block called to configure the realm")
+
+    })
+
+    //Launched Effect
+    LaunchedEffect(key1 = diaries, block = {
+
+        //when diary is not loading
+        if (diaries !is RequestState.Loading){
+
+            keepSplashScreen = false
+        }
 
     })
 
