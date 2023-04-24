@@ -28,8 +28,8 @@ fun DateHeader(localDate: LocalDate) {
 
     Row(
             modifier = Modifier
-                    .background(MaterialTheme.colorScheme.surface)
                     .fillMaxWidth()
+                    .background(MaterialTheme.colorScheme.surface)
                     .padding(spacing.spaceMedium),
             verticalAlignment = Alignment.CenterVertically
     ) {

@@ -8,9 +8,11 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -18,6 +20,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.LayoutDirection
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
@@ -27,15 +30,21 @@ import com.uxstate.diary.presentation.screens.destinations.WriteScreenDestinatio
 import com.uxstate.diary.util.RequestState
 import timber.log.Timber
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScaffold(diaries: Diaries, onMenuClicked: () -> Unit, navigator: DestinationsNavigator) {
 
     var padding by remember {
         mutableStateOf(PaddingValues())
     }
-    Scaffold(
+
+    //helps with animating TopAppBar
+    val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior()
+
+
+    Scaffold(modifier = Modifier.nestedScroll(connection = scrollBehavior.nestedScrollConnection),
             topBar = {
-                HomeTopBar(onMenuClicked = onMenuClicked)
+                HomeTopBar(onMenuClicked = onMenuClicked, scrollBehavior = scrollBehavior)
             },
             floatingActionButton = {
                 FloatingActionButton(

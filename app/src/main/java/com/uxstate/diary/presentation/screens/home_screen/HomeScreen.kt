@@ -1,6 +1,8 @@
 package com.uxstate.diary.presentation.screens.home_screen
 
 import androidx.compose.material3.DrawerValue
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -27,6 +29,7 @@ import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Destination
 @Composable
 fun HomeScreen(
@@ -37,6 +40,8 @@ fun HomeScreen(
     val diaries by viewModel.diaries
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
     var isSignOutDialogOpen by remember { mutableStateOf(false) }
+
+
 
     //drawerState.open/signIn/signOut is suspend
     val scope = rememberCoroutineScope()

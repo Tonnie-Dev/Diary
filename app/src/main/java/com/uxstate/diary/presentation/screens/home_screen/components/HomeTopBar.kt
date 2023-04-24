@@ -11,10 +11,10 @@ import com.uxstate.diary.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HomeTopBar(onMenuClicked: () -> Unit) {
+fun HomeTopBar(scrollBehavior: TopAppBarScrollBehavior,onMenuClicked: () -> Unit) {
 
 
-    TopAppBar(
+    TopAppBar(scrollBehavior = scrollBehavior,
             navigationIcon = {
                 IconButton(onClick = onMenuClicked) {
                     Icon(
