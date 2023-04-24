@@ -36,7 +36,7 @@ class MainActivity : ComponentActivity() {
         }
 
         WindowCompat.setDecorFitsSystemWindows(window,false)
-        
+
         setContent {
             DiaryTheme {
                 DestinationsNavHost(navGraph = NavGraphs.root, startRoute = getStartDestination())

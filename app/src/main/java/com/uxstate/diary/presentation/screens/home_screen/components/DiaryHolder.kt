@@ -4,7 +4,11 @@ import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.LinearOutSlowInEasing
+import androidx.compose.animation.core.Spring
+import androidx.compose.animation.core.spring
 import androidx.compose.animation.core.tween
+import androidx.compose.animation.expandVertically
+import androidx.compose.animation.fadeIn
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Column
@@ -101,14 +105,22 @@ fun DiaryHolder(diary: Diary, onClickDiary: (objectId: String) -> Unit) {
                 )
                 if (diary.images.isNotEmpty()) {
 
-                    
+
                     ShowGalleryButton(
                             isGalleyOpen = isGalleryOpen,
                             onToggleGallery = { isGalleryOpen = !isGalleryOpen }
                     )
                 }
-                
-                AnimatedVisibility(visible = isGalleryOpen) {
+
+                AnimatedVisibility(
+                        visible = isGalleryOpen,
+                        enter = fadeIn() + expandVertically(
+                                animationSpec = spring(
+                                        dampingRatio = Spring.DampingRatioMediumBouncy,
+                                        stiffness = Spring.StiffnessLow
+                                )
+                        )
+                ) {
 
                     //column to apply padding
                     Column(modifier = Modifier.padding(spacing.spaceMedium)) {
