@@ -57,23 +57,26 @@ fun HomeScreen(
             onSignOutClicked = { isSignOutDialogOpen = true }
     )
 
-    LaunchedEffect(key1 = Unit, block = {
-        MongoDB.configureTheRealm()
 
-        Timber.i("HomeScreen-Launch block called to configure the realm")
-
-    })
-
-    //Launched Effect
+    //Launched Effect to control splash screen
     LaunchedEffect(key1 = diaries, block = {
 
-        //when diary is not loading
+        //when diaries are not loading
         if (diaries !is RequestState.Loading){
 
-            keepSplashScreen = false
+           keepSplashScreen = false
+
         }
 
     })
+
+
+    LaunchedEffect(key1 = Unit, block = {
+        MongoDB.configureTheRealm()
+
+    })
+
+
 
     //Park Alert Dialog to be triggered on isSignOutDialogOpen
 

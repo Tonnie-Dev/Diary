@@ -17,6 +17,7 @@ import com.stevdzasan.messagebar.ContentWithMessageBar
 import com.stevdzasan.messagebar.rememberMessageBarState
 import com.stevdzasan.onetap.OneTapSignInWithGoogle
 import com.stevdzasan.onetap.rememberOneTapSignInState
+import com.uxstate.diary.presentation.keepSplashScreen
 import com.uxstate.diary.presentation.screens.auth_screen.components.AuthenticationContent
 import com.uxstate.diary.presentation.screens.destinations.HomeScreenDestination
 import com.uxstate.diary.util.Constants.CLIENT_ID
@@ -32,7 +33,6 @@ fun AuthenticationScreen(
 
 
     //Observe loading state from viewModel
-
     val loadingState by viewModel.loadingState
     val isAuthenticated by viewModel.isAuthenticated
 
@@ -92,6 +92,15 @@ fun AuthenticationScreen(
             navigator.navigate(HomeScreenDestination)
         }
     })
+
+
+    //Launched Effect to control splash screen
+
+    LaunchedEffect(key1 = Unit, block = {
+
+        keepSplashScreen = false
+    }
+    )
 }
 
 
