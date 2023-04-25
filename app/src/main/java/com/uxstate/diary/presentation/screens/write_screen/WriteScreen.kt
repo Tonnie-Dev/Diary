@@ -13,9 +13,9 @@ fun WriteScreen(navigator: DestinationsNavigator) {
 
     Scaffold(topBar = {
         WriteTopBar(
-                selectedDiary = Diary().apply { title = "Light House"
+                selectedDiary = null/*Diary().apply { title = "Light House"
                     description = "Some light in the Sear"
-                },
+                }*/,
                 onDeleteConfirmed = {},
                 onBackPressed = { navigator.navigateUp() }
 

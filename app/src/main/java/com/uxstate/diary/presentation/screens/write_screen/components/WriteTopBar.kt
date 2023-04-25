@@ -61,7 +61,8 @@ fun WriteTopBar(selectedDiary: Diary?, onBackPressed: () -> Unit, onDeleteConfir
         IconButton(onClick = { /*TODO*/ }) {
             Icon(
                     imageVector = Icons.Default.DateRange,
-                    contentDescription = stringResource(R.string.date_icon)
+                    contentDescription = stringResource(R.string.date_icon),
+                    tint = MaterialTheme.colorScheme.onSurface
             )
         }
 
