@@ -17,6 +17,10 @@
     <string name="write_something_text">Write Something</string>
     <string name="empty_diary_text">Empty Diary</string>
     <string name="error_text">Error</string>
+    <string name="back_arrow_text">Back Arrow Icon</string>
+    <string name="date_icon">Date Icon</string>
+    <string name="delete_action_text">Delete</string>
+    <string name="overflow_menu_icon">Overflow menu icon</string>
 
 
 </resources>
