@@ -65,7 +65,7 @@ fun DiaryHolder(diary: Diary, onClickDiary: (objectId: String) -> Unit) {
                     interactionSource = remember { MutableInteractionSource() }
             )
             {
-                onClickDiary(diary._id.toString())
+                onClickDiary(diary._id.toHexString())
             })
     {
 
