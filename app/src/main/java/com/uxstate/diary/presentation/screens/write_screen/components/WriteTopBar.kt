@@ -15,6 +15,7 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -28,8 +29,12 @@ import com.uxstate.diary.R
 import com.uxstate.diary.domain.model.Diary
 import com.uxstate.diary.presentation.screens.home_screen.components.DisplayAlertDialog
 import com.uxstate.diary.util.toInstant
+import com.uxstate.diary.util.toStringDate
 import com.uxstate.diary.util.toStringDateTime
+import com.uxstate.diary.util.toStringTime
+import java.time.LocalDate
 import java.time.LocalDateTime
+import java.time.LocalTime
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -38,18 +43,36 @@ fun WriteTopBar(selectedDiary: Diary?,
                 onBackPressed: () -> Unit,
                 onDeleteConfirmed: () -> Unit) {
 
+    val currentDate by remember {
+        mutableStateOf(LocalDate.now())
+    }
+
+    val currentTime by remember {
+        mutableStateOf(LocalTime.now())
+    }
+
+    val formattedDate by remember(key1 = currentDate) {
+
+        derivedStateOf{
+
+            currentDate.toStringDate()
+        }
+    }
+
+
+    val formattedTime by remember (key1 = currentTime){
+
+        derivedStateOf { currentTime.toStringTime() }
+
+    }
 
     val selectedDiaryDateTime = remember(key1 =selectedDiary ) {
 
 
-        if (selectedDiary != null) {
-            selectedDiary.date.toInstant()
-                    .toStringDateTime()
-                    .uppercase()
-        }else{
+        selectedDiary?.date?.toInstant()
+                ?.toStringDateTime()
+                ?.uppercase()
 
-            LocalDateTime.now().toStringDateTime()
-        }
 
     }
 
@@ -73,7 +96,7 @@ fun WriteTopBar(selectedDiary: Diary?,
             )
 
             Text(
-                    text = selectedDiaryDateTime ?: "Unknown",
+                    text = selectedDiaryDateTime ?: "$formattedDate $formattedTime",
                     style = TextStyle(fontSize = MaterialTheme.typography.bodySmall.fontSize),
                     modifier = Modifier.fillMaxWidth(),
                     textAlign = TextAlign.Center
