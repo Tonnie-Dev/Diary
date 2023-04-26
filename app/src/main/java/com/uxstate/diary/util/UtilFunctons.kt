@@ -2,7 +2,9 @@ package com.uxstate.diary.util
 
 import io.realm.kotlin.types.RealmInstant
 import java.time.Instant
+import java.time.LocalDate
 import java.time.LocalDateTime
+import java.time.LocalTime
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 
@@ -31,16 +33,43 @@ fun Instant.toStringTime():String  {
 }
 
 
-fun Instant.toStringDate() :String{
+fun Instant.toStringDateTime() :String{
 
     val localDateTime = LocalDateTime.ofInstant(this, ZoneId.systemDefault())
 
-    val pattern = "dd MMM yyy hh:mm a"
+    val pattern = "dd MMM yyyy hh:mm a"
 
     val dateTimeFormatter = DateTimeFormatter.ofPattern(pattern)
 
     return localDateTime.format(dateTimeFormatter)
 
+}
+
+
+fun LocalDateTime.toStringDateTime():String {
+
+    val pattern = "dd MMM yyyy hh:mm a"
+    val formatter = DateTimeFormatter.ofPattern(pattern)
+
+    return this.format(formatter)
+
+}
+
+fun LocalDate.toStringDate():String {
+
+    val pattern = "dd MMM yyyy"
+    val formatter = DateTimeFormatter.ofPattern(pattern)
+    return  this.format(formatter)
+}
+
+
+fun LocalTime.toStringTime():String {
+
+    val pattern = "hh:mm a"
+
+    val formatter = DateTimeFormatter.ofPattern(pattern )
+
+    return this.format(formatter)
 }
 
 

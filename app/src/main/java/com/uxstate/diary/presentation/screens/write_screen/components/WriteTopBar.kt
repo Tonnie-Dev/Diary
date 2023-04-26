@@ -27,6 +27,9 @@ import androidx.compose.ui.text.style.TextAlign
 import com.uxstate.diary.R
 import com.uxstate.diary.domain.model.Diary
 import com.uxstate.diary.presentation.screens.home_screen.components.DisplayAlertDialog
+import com.uxstate.diary.util.toInstant
+import com.uxstate.diary.util.toStringDateTime
+import java.time.LocalDateTime
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -34,6 +37,22 @@ fun WriteTopBar(selectedDiary: Diary?,
                 moodName: ()-> String,
                 onBackPressed: () -> Unit,
                 onDeleteConfirmed: () -> Unit) {
+
+
+    val selectedDiaryDateTime = remember(key1 =selectedDiary ) {
+
+
+        if (selectedDiary != null) {
+            selectedDiary.date.toInstant()
+                    .toStringDateTime()
+                    .uppercase()
+        }else{
+
+            LocalDateTime.now().toStringDateTime()
+        }
+
+    }
+
     CenterAlignedTopAppBar(navigationIcon = {
         IconButton(onClick = onBackPressed) {
 
@@ -54,7 +73,7 @@ fun WriteTopBar(selectedDiary: Diary?,
             )
 
             Text(
-                    text = "25 APR 2023, 7:13 AM",
+                    text = selectedDiaryDateTime ?: "Unknown",
                     style = TextStyle(fontSize = MaterialTheme.typography.bodySmall.fontSize),
                     modifier = Modifier.fillMaxWidth(),
                     textAlign = TextAlign.Center
