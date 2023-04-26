@@ -43,7 +43,7 @@ class WriteViewModel @Inject constructor(handle: SavedStateHandle) : ViewModel()
                 val diary =
                     MongoDB.getSelectedDiary(diaryId = ObjectId.invoke(_uiState.value.selectedDiaryId!!))
 
-                if(diary is RequestState.Success){
+                if (diary is RequestState.Success) {
 
 
                 }
@@ -52,11 +52,15 @@ class WriteViewModel @Inject constructor(handle: SavedStateHandle) : ViewModel()
 
     }
 
-    private fun setTitle( title:String ){
+    private fun setTitle(title: String) {
         _uiState.update {
             it.copy(title = title)
         }
     }
 
+    private fun setDescription(description: String) {
+
+        _uiState.update { it.copy(description = description) }
+    }
 
 }
