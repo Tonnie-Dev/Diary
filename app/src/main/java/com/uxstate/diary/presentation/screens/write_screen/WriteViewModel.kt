@@ -28,6 +28,9 @@ class WriteViewModel @Inject constructor(handle: SavedStateHandle) : ViewModel()
     private val diaryId = handle.navArgs<WriteScreenNavArgs>().id
 
 
+    init {
+        fetchSelectedDiary()
+    }
     private fun fetchSelectedDiary() {
 
 
@@ -46,6 +49,11 @@ class WriteViewModel @Inject constructor(handle: SavedStateHandle) : ViewModel()
 
                 if (diary is RequestState.Success) {
 
+                    setTitle(title = diary.data.title)
+
+                    setDescription(description = diary.data.description)
+
+                    setMood(mood = Mood.valueOf(diary.data.mood))
 
                 }
             }
