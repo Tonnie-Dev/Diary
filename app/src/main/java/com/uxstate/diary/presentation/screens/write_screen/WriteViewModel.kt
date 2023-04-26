@@ -5,6 +5,7 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.uxstate.diary.data.repository.MongoDB
+import com.uxstate.diary.domain.model.Mood
 import com.uxstate.diary.presentation.screens.navArgs
 import com.uxstate.diary.presentation.screens.write_screen.state.UiState
 import com.uxstate.diary.util.RequestState
@@ -61,6 +62,11 @@ class WriteViewModel @Inject constructor(handle: SavedStateHandle) : ViewModel()
     private fun setDescription(description: String) {
 
         _uiState.update { it.copy(description = description) }
+    }
+
+    private fun setMood(mood:Mood){
+
+        _uiState.update { it.copy(mood = mood) }
     }
 
 }
