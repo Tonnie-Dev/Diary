@@ -4,7 +4,9 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.rememberPagerState
@@ -13,7 +15,6 @@ import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import com.uxstate.diary.domain.model.Mood
 import com.uxstate.diary.presentation.screens.write_screen.components.WriteContent
 import com.uxstate.diary.presentation.screens.write_screen.components.WriteTopBar
-import timber.log.Timber
 
 @OptIn(ExperimentalPagerApi::class)
 @Destination(navArgsDelegate = WriteScreenNavArgs::class)
@@ -22,13 +23,18 @@ fun WriteScreen(viewModel: WriteViewModel = hiltViewModel(), navigator: Destinat
 
     val state by viewModel.uiState.collectAsState()
 
-    val pagerSate = rememberPagerState()
+    val pagerState = rememberPagerState()
+    val pageNumber by remember {
+        //buffer to prevent recomposition
+        derivedStateOf { pagerState.currentPage }
+    }
+
 
 
     //Update the Mood when selecting an existing Diary
     LaunchedEffect(key1 = state.mood, block = {
-        pagerSate.scrollToPage(Mood.valueOf(state.mood.name).ordinal)
-        
+        pagerState.scrollToPage(Mood.valueOf(state.mood.name).ordinal)
+
     })
 
 
@@ -37,6 +43,8 @@ fun WriteScreen(viewModel: WriteViewModel = hiltViewModel(), navigator: Destinat
                 selectedDiary = null/*Diary().apply { title = "Light House"
                     description = "Some light in the Sear"
                 }*/,
+
+                moodName = {Mood.values()[pageNumber].name },
                 onDeleteConfirmed = {},
                 onBackPressed = { navigator.navigateUp() }
 
@@ -50,10 +58,11 @@ fun WriteScreen(viewModel: WriteViewModel = hiltViewModel(), navigator: Destinat
                 description = state.description,
                 onDescriptionChanged = viewModel::setDescription,
                 paddingValues = it,
-                pagerState = pagerSate
+                pagerState = pagerState
         )
     })
 }
 
 
 data class WriteScreenNavArgs(val id: String?)
+

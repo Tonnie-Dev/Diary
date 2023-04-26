@@ -30,7 +30,10 @@ import com.uxstate.diary.presentation.screens.home_screen.components.DisplayAler
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun WriteTopBar(selectedDiary: Diary?, onBackPressed: () -> Unit, onDeleteConfirmed: () -> Unit) {
+fun WriteTopBar(selectedDiary: Diary?,
+                moodName: ()-> String,
+                onBackPressed: () -> Unit,
+                onDeleteConfirmed: () -> Unit) {
     CenterAlignedTopAppBar(navigationIcon = {
         IconButton(onClick = onBackPressed) {
 
@@ -43,7 +46,8 @@ fun WriteTopBar(selectedDiary: Diary?, onBackPressed: () -> Unit, onDeleteConfir
 
         Column {
             Text(
-                    text = "Happy", style = TextStyle(
+                    text = moodName(),
+                    style = TextStyle(
                     fontSize = MaterialTheme.typography.titleLarge.fontSize,
                     fontWeight = FontWeight.Bold
             ), modifier = Modifier.fillMaxWidth(), textAlign = TextAlign.Center
