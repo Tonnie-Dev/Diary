@@ -57,6 +57,8 @@ class WriteViewModel @Inject constructor(handle: SavedStateHandle) : ViewModel()
 
                     setMood(mood = Mood.valueOf(diary.data.mood))
 
+                    setSelectedDiary(diary =diary.data)
+
                 }
             }
         }

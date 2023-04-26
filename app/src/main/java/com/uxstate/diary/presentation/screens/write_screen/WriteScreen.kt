@@ -40,10 +40,8 @@ fun WriteScreen(viewModel: WriteViewModel = hiltViewModel(), navigator: Destinat
 
     Scaffold(topBar = {
         WriteTopBar(
-                selectedDiary = null/*Diary().apply { title = "Light House"
-                    description = "Some light in the Sear"
-                }*/,
 
+                selectedDiary = state.selectedDiary,
                 moodName = {Mood.values()[pageNumber].name },
                 onDeleteConfirmed = {},
                 onBackPressed = { navigator.navigateUp() }

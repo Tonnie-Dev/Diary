@@ -31,6 +31,19 @@ fun Instant.toStringTime():String  {
 }
 
 
+fun Instant.toStringDate() :String{
+
+    val localDateTime = LocalDateTime.ofInstant(this, ZoneId.systemDefault())
+
+    val pattern = "dd MMM yyy hh:mm a"
+
+    val dateTimeFormatter = DateTimeFormatter.ofPattern(pattern)
+
+    return localDateTime.format(dateTimeFormatter)
+
+}
+
+
 
 
 
