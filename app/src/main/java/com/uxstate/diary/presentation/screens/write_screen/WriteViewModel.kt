@@ -12,6 +12,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import org.mongodb.kbson.ObjectId
 
@@ -44,11 +45,17 @@ class WriteViewModel @Inject constructor(handle: SavedStateHandle) : ViewModel()
 
                 if(diary is RequestState.Success){
 
-                    
+
                 }
             }
         }
 
+    }
+
+    private fun setTitle( title:String ){
+        _uiState.update {
+            it.copy(title = title)
+        }
     }
 
 
