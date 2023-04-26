@@ -15,7 +15,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
-import com.uxstate.data.repository.MongoDB
+import com.uxstate.diary.data.repository.MongoDB
 import com.uxstate.diary.R
 import com.uxstate.diary.presentation.keepSplashScreen
 import com.uxstate.diary.presentation.screens.destinations.AuthenticationScreenDestination

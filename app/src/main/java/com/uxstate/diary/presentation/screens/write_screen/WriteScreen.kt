@@ -11,7 +11,7 @@ import com.uxstate.diary.presentation.screens.write_screen.components.WriteConte
 import com.uxstate.diary.presentation.screens.write_screen.components.WriteTopBar
 
 @OptIn(ExperimentalPagerApi::class)
-@Destination
+@Destination(navArgsDelegate = WriteScreenNavArgs::class)
 @Composable
 fun WriteScreen(navigator: DestinationsNavigator) {
 
@@ -40,3 +40,6 @@ fun WriteScreen(navigator: DestinationsNavigator) {
         )
     })
 }
+
+
+data class WriteScreenNavArgs(val id:String)

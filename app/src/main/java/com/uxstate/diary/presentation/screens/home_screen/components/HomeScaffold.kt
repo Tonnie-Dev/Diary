@@ -48,7 +48,7 @@ fun HomeScaffold(diaries: Diaries, onMenuClicked: () -> Unit, navigator: Destina
             },
             floatingActionButton = {
                 FloatingActionButton(
-                        onClick = { navigator.navigate(WriteScreenDestination) },
+                        onClick = { navigator.navigate(WriteScreenDestination(id = "")) },
                         modifier = Modifier.padding(
                                 end = padding.calculateEndPadding(LayoutDirection.Ltr)
                         )
@@ -69,7 +69,14 @@ fun HomeScaffold(diaries: Diaries, onMenuClicked: () -> Unit, navigator: Destina
             is RequestState.Success -> {
 
 
-                HomeContent(diaryNotes = diaries.data, onClick = {}, paddingValues = it)
+                HomeContent(
+                        diaryNotes = diaries.data,
+                        onClickDiary = {
+                            navigator.navigate(WriteScreenDestination(it))
+
+                        },
+                        paddingValues = it
+                )
             }
 
             is RequestState.Loading -> {

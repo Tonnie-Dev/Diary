@@ -5,7 +5,7 @@ import androidx.compose.runtime.mutableStateMapOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.uxstate.data.repository.MongoDB
+import com.uxstate.diary.data.repository.MongoDB
 import com.uxstate.diary.domain.repository.Diaries
 import com.uxstate.diary.util.RequestState
 import dagger.hilt.android.lifecycle.HiltViewModel

@@ -1,4 +1,4 @@
-package com.uxstate.data.repository
+package com.uxstate.diary.data.repository
 
 import com.uxstate.diary.domain.model.Diary
 import com.uxstate.diary.domain.repository.Diaries

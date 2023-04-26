@@ -8,7 +8,7 @@ import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.WindowCompat
 import com.ramcosta.composedestinations.DestinationsNavHost
 import com.ramcosta.composedestinations.spec.Route
-import com.uxstate.data.repository.MongoDB
+import com.uxstate.diary.data.repository.MongoDB
 import com.uxstate.diary.presentation.screens.NavGraphs
 import com.uxstate.diary.presentation.screens.destinations.AuthenticationScreenDestination
 import com.uxstate.diary.presentation.screens.destinations.HomeScreenDestination
