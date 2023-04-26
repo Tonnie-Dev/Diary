@@ -71,10 +71,10 @@ fun WriteContent(
 
             Spacer(modifier = Modifier.height(spacing.spaceLarge))
 
-            HorizontalPager(count = Mood.values().size) { page: Int ->
+            HorizontalPager(state = pagerState, count = Mood.values().size) { page: Int ->
 
 
-               val painter = rememberAsyncImagePainter(
+                val painter = rememberAsyncImagePainter(
                         model = ImageRequest.Builder(context)
                                 .data(Mood.values()[page].icon)
                                 .crossfade(true)

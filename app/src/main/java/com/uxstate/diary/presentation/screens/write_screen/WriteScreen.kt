@@ -10,6 +10,7 @@ import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.rememberPagerState
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
+import com.uxstate.diary.domain.model.Mood
 import com.uxstate.diary.presentation.screens.write_screen.components.WriteContent
 import com.uxstate.diary.presentation.screens.write_screen.components.WriteTopBar
 import timber.log.Timber
@@ -19,15 +20,15 @@ import timber.log.Timber
 @Composable
 fun WriteScreen(viewModel: WriteViewModel = hiltViewModel(), navigator: DestinationsNavigator) {
 
-    val uiState by viewModel.uiState.collectAsState()
+    val state by viewModel.uiState.collectAsState()
 
     val pagerSate = rememberPagerState()
 
 
-    LaunchedEffect(key1 = Unit, block = {
-
-        Timber.i("The id is: ${uiState.selectedDiaryId} ")
-        Timber.i("The id is a String: ${uiState.selectedDiaryId is String} ")
+    //Update the Mood when selecting an existing Diary
+    LaunchedEffect(key1 = state.mood, block = {
+        pagerSate.scrollToPage(Mood.valueOf(state.mood.name).ordinal)
+        
     })
 
 
@@ -44,10 +45,10 @@ fun WriteScreen(viewModel: WriteViewModel = hiltViewModel(), navigator: Destinat
     }, content = {
 
         WriteContent(
-                title = "",
-                onTitleChanged = {},
-                description = "",
-                onDescriptionChanged = {},
+                title = state.title,
+                onTitleChanged = viewModel::setTitle,
+                description = state.description,
+                onDescriptionChanged = viewModel::setDescription,
                 paddingValues = it,
                 pagerState = pagerSate
         )

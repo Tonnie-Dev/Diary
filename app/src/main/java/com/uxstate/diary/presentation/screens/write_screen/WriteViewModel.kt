@@ -16,7 +16,6 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import org.mongodb.kbson.ObjectId
-
 import javax.inject.Inject
 
 @HiltViewModel
@@ -31,6 +30,7 @@ class WriteViewModel @Inject constructor(handle: SavedStateHandle) : ViewModel()
     init {
         fetchSelectedDiary()
     }
+
     private fun fetchSelectedDiary() {
 
 
@@ -44,8 +44,9 @@ class WriteViewModel @Inject constructor(handle: SavedStateHandle) : ViewModel()
                - if you pass in a hex value that will return an existing ObjectId
                 */
 
+
                 val diary =
-                    MongoDB.getSelectedDiary(diaryId = ObjectId.invoke(_uiState.value.selectedDiaryId!!))
+                    MongoDB.getSelectedDiary(diaryId = ObjectId.invoke(diaryId))
 
                 if (diary is RequestState.Success) {
 
@@ -61,18 +62,18 @@ class WriteViewModel @Inject constructor(handle: SavedStateHandle) : ViewModel()
 
     }
 
-    private fun setTitle(title: String) {
+    fun setTitle(title: String) {
         _uiState.update {
             it.copy(title = title)
         }
     }
 
-    private fun setDescription(description: String) {
+    fun setDescription(description: String) {
 
         _uiState.update { it.copy(description = description) }
     }
 
-    private fun setMood(mood:Mood){
+    fun setMood(mood: Mood) {
 
         _uiState.update { it.copy(mood = mood) }
     }
