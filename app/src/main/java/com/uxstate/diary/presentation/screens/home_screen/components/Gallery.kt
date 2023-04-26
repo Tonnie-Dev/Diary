@@ -39,7 +39,7 @@ fun Gallery(
         //cache and retain value across recompositions
         val numberOfVisibleImages by remember {
 
-            //Buffer to prevent recomposition
+            //Buffer to prevent recomposition once the value changes
             derivedStateOf {
 
                 max(

@@ -21,6 +21,9 @@
     <string name="date_icon">Date Icon</string>
     <string name="delete_action_text">Delete</string>
     <string name="overflow_menu_icon">Overflow menu icon</string>
+    <string name="title_text">Title</string>
+    <string name="desc_placeholder_text">Tell me about it ...</string>
+    <string name="save_action">Save</string>
 
 
 </resources>
