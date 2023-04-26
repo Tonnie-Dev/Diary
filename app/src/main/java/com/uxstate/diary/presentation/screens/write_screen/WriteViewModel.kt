@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.uxstate.diary.data.repository.MongoDB
 import com.uxstate.diary.presentation.screens.navArgs
 import com.uxstate.diary.presentation.screens.write_screen.state.UiState
+import com.uxstate.diary.util.RequestState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -33,9 +34,18 @@ class WriteViewModel @Inject constructor(handle: SavedStateHandle) : ViewModel()
 
             viewModelScope.launch(IO) {
 
+                /*
+               - empty invoke() is used to generate a new ObjectId
+               - if you pass in a hex value that will return an existing ObjectId
+                */
 
-                //val diary =
-                   // MongoDB.getSelectedDiary(diaryId = ObjectId.Companion.from(_uiState.value.selectedDiaryId))
+                val diary =
+                    MongoDB.getSelectedDiary(diaryId = ObjectId.invoke(_uiState.value.selectedDiaryId!!))
+
+                if(diary is RequestState.Success){
+
+                    
+                }
             }
         }
 
