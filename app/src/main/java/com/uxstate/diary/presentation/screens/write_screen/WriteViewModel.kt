@@ -12,10 +12,12 @@ import com.uxstate.diary.presentation.screens.write_screen.state.UiState
 import com.uxstate.diary.util.RequestState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers.IO
+import kotlinx.coroutines.Dispatchers.Main
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import org.mongodb.kbson.ObjectId
 import javax.inject.Inject
 
@@ -57,7 +59,7 @@ class WriteViewModel @Inject constructor(handle: SavedStateHandle) : ViewModel()
 
                     setMood(mood = Mood.valueOf(diary.data.mood))
 
-                    setSelectedDiary(diary =diary.data)
+                    setSelectedDiary(diary = diary.data)
 
                 }
             }
@@ -81,8 +83,46 @@ class WriteViewModel @Inject constructor(handle: SavedStateHandle) : ViewModel()
         _uiState.update { it.copy(mood = mood) }
     }
 
-    fun setSelectedDiary(diary: Diary) {
+    private fun setSelectedDiary(diary: Diary) {
         _uiState.update { it.copy(selectedDiary = diary) }
     }
 
+
+    fun insertDiary(
+        diary: Diary,
+        onSuccess: () -> Unit,
+        onError: (String) -> Unit
+    ) {
+
+
+        viewModelScope.launch(IO) {
+
+
+            val result = MongoDB.addNewDiary(diary)
+
+            when(result){
+
+                is RequestState.Success -> {
+                    withContext(Main){
+
+                        onSuccess()
+                    }
+
+                }
+                is RequestState.Error -> {
+
+                    withContext(Main){
+
+                        onError(result.error.message?: "Unknown Error")
+                    }
+                }
+
+                else -> Unit
+            }
+
+
+        }
+
+
+    }
 }
