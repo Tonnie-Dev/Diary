@@ -74,7 +74,6 @@ fun LocalTime.toStringTime():String {
 
 fun Instant.toRealmInstant():RealmInstant{
 
-
     val sec:Long = this.epochSecond
     val nano:Int = this.nano
 
