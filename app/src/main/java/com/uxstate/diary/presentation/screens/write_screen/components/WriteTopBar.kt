@@ -43,13 +43,9 @@ fun WriteTopBar(selectedDiary: Diary?,
                 onBackPressed: () -> Unit,
                 onDeleteConfirmed: () -> Unit) {
 
-    val currentDate by remember {
-        mutableStateOf(LocalDate.now())
-    }
+    val currentDate by remember { mutableStateOf(LocalDate.now()) }
 
-    val currentTime by remember {
-        mutableStateOf(LocalTime.now())
-    }
+    val currentTime by remember { mutableStateOf(LocalTime.now()) }
 
     val formattedDate by remember(key1 = currentDate) {
 
@@ -67,7 +63,6 @@ fun WriteTopBar(selectedDiary: Diary?,
     }
 
     val selectedDiaryDateTime = remember(key1 =selectedDiary ) {
-
 
         selectedDiary?.date?.toInstant()
                 ?.toStringDateTime()

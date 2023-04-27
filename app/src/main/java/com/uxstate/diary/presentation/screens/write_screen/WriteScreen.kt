@@ -46,7 +46,6 @@ fun WriteScreen(viewModel: WriteViewModel = hiltViewModel(), navigator: Destinat
                 onDeleteConfirmed = {},
                 onBackPressed = { navigator.navigateUp() }
 
-
         )
     }, content = {
 

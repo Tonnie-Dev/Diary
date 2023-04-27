@@ -46,11 +46,9 @@ fun WriteContent(
     pagerState: PagerState
 ) {
 
-
     val scrollState = rememberScrollState()
     val spacing = LocalSpacing.current
     val context = LocalContext.current
-
 
     Column(
             modifier = Modifier
@@ -111,7 +109,6 @@ fun WriteContent(
                             )
 
                     ),
-
                     /*when focussed the ime action will be Next*/
                     keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
                     keyboardActions = KeyboardActions(onNext = {}),
@@ -132,10 +129,8 @@ fun WriteContent(
                             focusedPlaceholderColor = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.38f),
                             unfocusedPlaceholderColor = MaterialTheme.colorScheme.onSurface.copy(
                                     alpha = 0.38f
-                            ),
-
-
-                            ),
+                            )
+                    ),
                     keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
                     keyboardActions = KeyboardActions(onNext = {})
             )
