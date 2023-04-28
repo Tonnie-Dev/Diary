@@ -48,20 +48,25 @@ class WriteViewModel @Inject constructor(handle: SavedStateHandle) : ViewModel()
                 */
 
 
-                val diary =
-                    MongoDB.getSelectedDiary(diaryId = ObjectId.invoke(diaryId))
 
-                if (diary is RequestState.Success) {
+                    MongoDB.getSelectedDiary(diaryId = ObjectId.invoke(diaryId)).collect{
 
-                    setTitle(title = diary.data.title)
+                        diary ->
+                        if (diary is RequestState.Success) {
 
-                    setDescription(description = diary.data.description)
+                            setTitle(title = diary.data.title)
 
-                    setMood(mood = Mood.valueOf(diary.data.mood))
+                            setDescription(description = diary.data.description)
 
-                    setSelectedDiary(diary = diary.data)
+                            setMood(mood = Mood.valueOf(diary.data.mood))
 
-                }
+                            setSelectedDiary(diary = diary.data)
+
+                        }
+
+                    }
+
+
             }
         }
 

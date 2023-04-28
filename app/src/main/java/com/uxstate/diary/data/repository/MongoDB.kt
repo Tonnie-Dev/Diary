@@ -86,7 +86,7 @@ object MongoDB : MongoRepository {
         }
     }
 
-    override fun getSelectedDiary(diaryId: ObjectId): RequestState<Diary> {
+    override fun getSelectedDiary(diaryId: ObjectId): Flow<RequestState<Diary>> {
 
 
         return if (user != null) {
@@ -107,17 +107,28 @@ object MongoDB : MongoRepository {
 
                 - first() returns the first matching object
                 */
-                val diary = realm.query<Diary>(query = "_id == $0", diaryId)
-                        .find()
-                        .first()
-                RequestState.Success(diary)
-            } catch (e: Exception) {
-                RequestState.Error(e)
+                 realm.query<Diary>(query = "_id == $0", diaryId).asFlow().map {
 
+                     RequestState.Success(data = it.list.first())
+
+                 }
+
+                //RequestState.Success(diary)
+            } catch (e: Exception) {
+
+
+                flow {  emit(RequestState.Error(e))  }
             }
         } else {
 
-            RequestState.Error(UserNotAuthenticatedException())
+            flow {
+
+                emit(
+                        RequestState.Error(UserNotAuthenticatedException())
+                )
+
+            }
+
         }
     }
 
