@@ -30,7 +30,6 @@ fun WriteScreen(viewModel: WriteViewModel = hiltViewModel(), navigator: Destinat
     }
 
 
-
     //Update the Mood when selecting an existing Diary
     LaunchedEffect(key1 = state.mood, block = {
         pagerState.scrollToPage(Mood.valueOf(state.mood.name).ordinal)
@@ -42,7 +41,7 @@ fun WriteScreen(viewModel: WriteViewModel = hiltViewModel(), navigator: Destinat
         WriteTopBar(
 
                 selectedDiary = state.selectedDiary,
-                moodName = {Mood.values()[pageNumber].name },
+                moodName = { Mood.values()[pageNumber].name },
                 onDeleteConfirmed = {},
                 onBackPressed = { navigator.navigateUp() }
 
@@ -55,7 +54,17 @@ fun WriteScreen(viewModel: WriteViewModel = hiltViewModel(), navigator: Destinat
                 description = state.description,
                 onDescriptionChanged = viewModel::setDescription,
                 paddingValues = it,
-                pagerState = pagerState
+                pagerState = pagerState,
+                uiState = state,
+                onSaveClicked = { diary ->
+                    viewModel.insertDiary(diary = diary.apply {
+                        mood = Mood.values()[pageNumber].name
+                    },
+                            onSuccess = {
+                                navigator.navigateUp()
+                            },
+                            onError = {})
+                }
         )
     })
 }

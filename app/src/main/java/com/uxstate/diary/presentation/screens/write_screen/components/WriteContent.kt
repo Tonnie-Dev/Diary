@@ -1,5 +1,6 @@
 package com.uxstate.diary.presentation.screens.write_screen.components
 
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -32,7 +33,9 @@ import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.PagerState
 import com.uxstate.diary.R
+import com.uxstate.diary.domain.model.Diary
 import com.uxstate.diary.domain.model.Mood
+import com.uxstate.diary.presentation.screens.write_screen.state.UiState
 import com.uxstate.diary.presentation.ui.theme.LocalSpacing
 
 @OptIn(ExperimentalPagerApi::class, ExperimentalMaterial3Api::class)
@@ -42,9 +45,12 @@ fun WriteContent(
     onTitleChanged: (String) -> Unit,
     description: String,
     onDescriptionChanged: (String) -> Unit,
+    onSaveClicked: (diary:Diary) -> Unit,
+    uiState: UiState,
     paddingValues: PaddingValues,
-    pagerState: PagerState
-) {
+    pagerState: PagerState,
+
+    ) {
 
     val scrollState = rememberScrollState()
     val spacing = LocalSpacing.current
@@ -140,7 +146,21 @@ fun WriteContent(
         Column(verticalArrangement = Arrangement.Bottom) {
             Spacer(modifier = Modifier.height(spacing.spaceMedium))
             Button(
-                    onClick = { /*TODO*/ },
+                    onClick = {
+
+                        if (uiState.title.isNotEmpty() && uiState.description.isNotEmpty()) {
+
+                            onSaveClicked(Diary().apply{
+                                this.title = uiState.title
+                                this.description = uiState.description
+                            })
+                        } else {
+
+
+                            Toast.makeText(context, R.string.empty_field_text, Toast.LENGTH_SHORT)
+                                    .show()
+                        }
+                    },
                     modifier = Modifier
                             .fillMaxWidth()
                             .height(spacing.spaceLarge),

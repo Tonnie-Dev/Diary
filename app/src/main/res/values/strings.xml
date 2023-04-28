@@ -24,6 +24,7 @@
     <string name="title_text">Title</string>
     <string name="desc_placeholder_text">Tell me about it ...</string>
     <string name="save_action">Save</string>
+    <string name="empty_field_text">Fields Cannot be empty</string>
 
 
 </resources>
