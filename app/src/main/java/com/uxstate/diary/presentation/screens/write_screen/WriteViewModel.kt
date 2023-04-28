@@ -103,7 +103,7 @@ class WriteViewModel @Inject constructor(handle: SavedStateHandle) : ViewModel()
         viewModelScope.launch(IO) {
 
 
-            val result = MongoDB.addNewDiary(diary)
+            val result = MongoDB.insertDiary(diary)
 
             when(result){
 
