@@ -107,17 +107,19 @@ object MongoDB : MongoRepository {
 
                 - first() returns the first matching object
                 */
-                 realm.query<Diary>(query = "_id == $0", diaryId).asFlow().map {
+                realm.query<Diary>(query = "_id == $0", diaryId)
+                        .asFlow()
+                        .map {
 
-                     RequestState.Success(data = it.list.first())
+                            RequestState.Success(data = it.list.first())
 
-                 }
+                        }
 
                 //RequestState.Success(diary)
             } catch (e: Exception) {
 
 
-                flow {  emit(RequestState.Error(e))  }
+                flow { emit(RequestState.Error(e)) }
             }
         } else {
 
@@ -154,6 +156,35 @@ object MongoDB : MongoRepository {
             RequestState.Error(UserNotAuthenticatedException())
         }
 
+    }
+
+    override suspend fun updateDiary(diary: Diary): RequestState<Diary> {
+        return if (user != null) {
+
+            realm.write {
+
+                val queriedDiary = realm.query<Diary>("_id == $0", diary._id)
+                        .first()
+                        .find()
+
+
+                if (queriedDiary != null) {
+
+                    queriedDiary.title = diary.title
+                    queriedDiary.description = diary.description
+                    queriedDiary.mood = diary.mood
+                    queriedDiary.images = diary.images
+                    queriedDiary.date = diary.date
+                    RequestState.Success(data = queriedDiary)
+                } else {
+
+                    RequestState.Error(Exception("Queried Diary Doesn't Exist"))
+                }
+            }
+        } else {
+
+            RequestState.Error(error = UserNotAuthenticatedException())
+        }
     }
 
 
