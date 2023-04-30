@@ -12,12 +12,10 @@ import com.uxstate.diary.presentation.screens.write_screen.state.UiState
 import com.uxstate.diary.util.RequestState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers.IO
-import kotlinx.coroutines.Dispatchers.Main
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import org.mongodb.kbson.ObjectId
 import javax.inject.Inject
 
@@ -99,67 +97,45 @@ class WriteViewModel @Inject constructor(handle: SavedStateHandle) : ViewModel()
         onSuccess: () -> Unit,
         onError: (String) -> Unit
     ) {
-
-
         viewModelScope.launch(IO) {
-
-
             val result = MongoDB.insertDiary(diary)
 
-            when (result) {
-
-                is RequestState.Success -> {
-                    withContext(Main) {
-
-                        onSuccess()
-                    }
-
-                }
-
-                is RequestState.Error -> {
-
-                    withContext(Main) {
-
-                        onError(result.error.message ?: "Unknown Error")
-                    }
-                }
-
-                else -> Unit
-            }
-
+            safeCall(result, onSuccess, onError)
 
         }
 
 
     }
 
-    suspend fun updateDiary(diary: Diary, onSuccess: () -> Unit, onError: (String) -> Unit) {
+    fun updateDiary(diary: Diary, onSuccess: () -> Unit, onError: (String) -> Unit) {
+        viewModelScope.launch {
+            val result = MongoDB.updateDiary(diary = diary)
+            safeCall(result, onSuccess, onError)
 
-        val result = MongoDB.updateDiary(diary = diary)
+        }
+
+
+    }
+
+    private fun safeCall(
+        result: RequestState<Diary>,
+        onSuccess: () -> Unit,
+        onError: (String) -> Unit
+    ) {
+
         when (result) {
 
             is RequestState.Success -> {
 
-                withContext(Main){
-                    onSuccess()
-
-                }
-
+                onSuccess()
             }
 
             is RequestState.Error -> {
-
-                withContext(Main){
-
-                    onError(result.error.message ?: "Unknown Error")
-                }
-
-
+                onError(result.error.message ?: "Unknown Error Occurred")
             }
 
             else -> Unit
         }
-
 
     }
 }
