@@ -10,6 +10,7 @@ import com.uxstate.diary.domain.model.Mood
 import com.uxstate.diary.presentation.screens.navArgs
 import com.uxstate.diary.presentation.screens.write_screen.state.UiState
 import com.uxstate.diary.util.RequestState
+import com.uxstate.diary.util.toRealmInstant
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.Dispatchers.Main
@@ -19,6 +20,7 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.mongodb.kbson.ObjectId
+import java.time.ZonedDateTime
 import javax.inject.Inject
 
 @HiltViewModel
@@ -91,6 +93,15 @@ class WriteViewModel @Inject constructor(handle: SavedStateHandle) : ViewModel()
 
     private fun setSelectedDiary(diary: Diary) {
         _uiState.update { it.copy(selectedDiary = diary) }
+    }
+
+    private fun updateDateTime(zonedDateTime: ZonedDateTime){
+
+        _uiState.update {
+
+        //change zonedDateTime to regular instant then toRealmInstant
+            it.copy(updatedDateTime = zonedDateTime.toInstant().toRealmInstant())
+        }
     }
 
     fun upsertDiary(diary: Diary, onSuccess: () -> Unit, onError: (String) -> Unit) {
