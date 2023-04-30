@@ -118,6 +118,9 @@ class WriteViewModel @Inject constructor(handle: SavedStateHandle) : ViewModel()
         viewModelScope.launch {
             val result = MongoDB.updateDiary(diary = diary.apply {
                 _id = ObjectId.invoke(diaryId!!)
+
+                //extract the date
+                date = _uiState.value.selectedDiary!!.date
             })
 
             withContext(Main) {
