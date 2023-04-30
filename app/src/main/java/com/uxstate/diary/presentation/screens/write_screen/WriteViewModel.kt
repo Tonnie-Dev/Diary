@@ -130,8 +130,15 @@ fun updateDateTime(zonedDateTime: ZonedDateTime){
             val result = MongoDB.updateDiary(diary = diary.apply {
                 _id = ObjectId.invoke(diaryId!!)
 
-                //extract the date
-                date = _uiState.value.selectedDiary!!.date
+
+                if (_uiState.value.updatedDateTime != null){
+
+                    this.date =_uiState.value.updatedDateTime!!
+                } else{
+                    
+                    //extract the date from the diary itself
+                    date = _uiState.value.selectedDiary!!.date
+                }
             })
 
             withContext(Main) {
