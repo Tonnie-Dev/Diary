@@ -115,7 +115,14 @@ fun updateDateTime(zonedDateTime: ZonedDateTime){
 
     private fun insertDiary(diary: Diary, onSuccess: () -> Unit, onError: (String) -> Unit) {
         viewModelScope.launch(IO) {
-            val result = MongoDB.insertDiary(diary)
+            val result = MongoDB.insertDiary(diary.apply {
+
+//Although this is a new diary, the user have tampered with the dates
+                if (_uiState.value .updatedDateTime!= null){
+
+                    this.date = _uiState.value.updatedDateTime!!
+                }
+            })
 
             withContext(Main) {
 
@@ -135,7 +142,7 @@ fun updateDateTime(zonedDateTime: ZonedDateTime){
 
                     this.date =_uiState.value.updatedDateTime!!
                 } else{
-                    
+
                     //extract the date from the diary itself
                     date = _uiState.value.selectedDiary!!.date
                 }
