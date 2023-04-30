@@ -49,22 +49,23 @@ class WriteViewModel @Inject constructor(handle: SavedStateHandle) : ViewModel()
 
 
 
-                    MongoDB.getSelectedDiary(diaryId = ObjectId.invoke(diaryId)).collect{
+                MongoDB.getSelectedDiary(diaryId = ObjectId.invoke(diaryId))
+                        .collect {
 
-                        diary ->
-                        if (diary is RequestState.Success) {
+                            diary ->
+                            if (diary is RequestState.Success) {
 
-                            setTitle(title = diary.data.title)
+                                setTitle(title = diary.data.title)
 
-                            setDescription(description = diary.data.description)
+                                setDescription(description = diary.data.description)
 
-                            setMood(mood = Mood.valueOf(diary.data.mood))
+                                setMood(mood = Mood.valueOf(diary.data.mood))
 
-                            setSelectedDiary(diary = diary.data)
+                                setSelectedDiary(diary = diary.data)
+
+                            }
 
                         }
-
-                    }
 
 
             }
@@ -105,20 +106,21 @@ class WriteViewModel @Inject constructor(handle: SavedStateHandle) : ViewModel()
 
             val result = MongoDB.insertDiary(diary)
 
-            when(result){
+            when (result) {
 
                 is RequestState.Success -> {
-                    withContext(Main){
+                    withContext(Main) {
 
                         onSuccess()
                     }
 
                 }
+
                 is RequestState.Error -> {
 
-                    withContext(Main){
+                    withContext(Main) {
 
-                        onError(result.error.message?: "Unknown Error")
+                        onError(result.error.message ?: "Unknown Error")
                     }
                 }
 
@@ -126,6 +128,36 @@ class WriteViewModel @Inject constructor(handle: SavedStateHandle) : ViewModel()
             }
 
 
+        }
+
+
+    }
+
+    suspend fun updateDiary(diary: Diary, onSuccess: () -> Unit, onError: (String) -> Unit) {
+
+        val result = MongoDB.updateDiary(diary = diary)
+        when (result) {
+
+            is RequestState.Success -> {
+
+                withContext(Main){
+                    onSuccess()
+
+                }
+
+            }
+
+            is RequestState.Error -> {
+
+                withContext(Main){
+
+                    onError(result.error.message ?: "Unknown Error")
+                }
+
+
+            }
+
+            else -> Unit
         }
 
 
