@@ -95,7 +95,7 @@ class WriteViewModel @Inject constructor(handle: SavedStateHandle) : ViewModel()
         _uiState.update { it.copy(selectedDiary = diary) }
     }
 
-    private fun updateDateTime(zonedDateTime: ZonedDateTime){
+fun updateDateTime(zonedDateTime: ZonedDateTime){
 
         _uiState.update {
 

@@ -43,8 +43,8 @@ fun WriteScreen(viewModel: WriteViewModel = hiltViewModel(), navigator: Destinat
                 selectedDiary = state.selectedDiary,
                 moodName = { Mood.values()[pageNumber].name },
                 onDeleteConfirmed = {},
-                onBackPressed = { navigator.navigateUp() }
-
+                onBackPressed = { navigator.navigateUp() },
+                onUpdateDateTime = viewModel::updateDateTime
         )
     }, content = {
 
