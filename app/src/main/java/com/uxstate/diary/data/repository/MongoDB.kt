@@ -10,11 +10,14 @@ import io.realm.kotlin.Realm
 import io.realm.kotlin.ext.query
 import io.realm.kotlin.log.LogLevel
 import io.realm.kotlin.mongodb.App
+import io.realm.kotlin.mongodb.User
 import io.realm.kotlin.mongodb.sync.SyncConfiguration
 import io.realm.kotlin.query.Sort
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.withContext
 import org.mongodb.kbson.ObjectId
 import timber.log.Timber
 import java.time.ZoneId
@@ -187,7 +190,31 @@ object MongoDB : MongoRepository {
         }
     }
 
+    override suspend fun deleteDiary(id: ObjectId): RequestState<Diary> {
+        TODO("Not yet implemented")
+    }
+
 
 }
+
+suspend fun <T> authenticateUser(
+    user: User?,
+    dispatcher: CoroutineDispatcher,
+    authenticate: suspend () -> T
+): RequestState<T> {
+
+    return withContext(dispatcher) {
+
+        if (user != null) {
+            RequestState.Success(authenticate.invoke())
+        }else{
+            RequestState.Error(error = e)
+
+        }
+
+
+    }
+}
+
 
 private class UserNotAuthenticatedException : Exception("User is not Logged In")

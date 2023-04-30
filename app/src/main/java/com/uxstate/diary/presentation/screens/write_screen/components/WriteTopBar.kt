@@ -28,7 +28,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import com.maxkeppeker.sheets.core.models.base.rememberUseCaseState
 import com.maxkeppeler.sheets.calendar.CalendarDialog
-import com.maxkeppeler.sheets.calendar.models.CalendarConfig
 import com.maxkeppeler.sheets.calendar.models.CalendarSelection
 import com.maxkeppeler.sheets.clock.ClockDialog
 import com.maxkeppeler.sheets.clock.models.ClockSelection
@@ -51,7 +50,7 @@ fun WriteTopBar(
     moodName: () -> String,
     onBackPressed: () -> Unit,
     onDeleteConfirmed: () -> Unit,
-    onUpdateDateTime: (dateTime: ZonedDateTime) -> Unit
+    onUpdateDateTime: (dateTime: ZonedDateTime?) -> Unit
 ) {
 
     //Local Date & Time Pair
@@ -134,9 +133,13 @@ fun WriteTopBar(
 
         if (isDateTimeUpdated) {
             IconButton(onClick = {
+                dateDialog.show()
                 currentDate = LocalDate.now()
                 currentTime = LocalTime.now()
                 isDateTimeUpdated = false
+
+                //reset date
+                onUpdateDateTime(null)
             }) {
                 Icon(
                         imageVector = Icons.Default.Close,
@@ -147,7 +150,7 @@ fun WriteTopBar(
 
 
         } else {
-            IconButton(onClick = { /*TODO*/ }) {
+            IconButton(onClick = { dateDialog.show() }) {
                 Icon(
                         imageVector = Icons.Default.DateRange,
                         contentDescription = stringResource(R.string.date_icon),
@@ -166,14 +169,10 @@ fun WriteTopBar(
 
     CalendarDialog(
             state = dateDialog,
-            selection = CalendarSelection.Date {
-
-
-                localDate ->
+            selection = CalendarSelection.Date { localDate ->
                 currentDate = localDate
                 timeDialog.show()
-            },
-            config = CalendarConfig(monthSelection = true, yearSelection = true)
+            }
     )
 
     //triggered after Date Selection

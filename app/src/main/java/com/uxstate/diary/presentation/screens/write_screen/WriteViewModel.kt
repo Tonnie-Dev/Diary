@@ -95,12 +95,21 @@ class WriteViewModel @Inject constructor(handle: SavedStateHandle) : ViewModel()
         _uiState.update { it.copy(selectedDiary = diary) }
     }
 
-fun updateDateTime(zonedDateTime: ZonedDateTime){
+    fun updateDateTime(zonedDateTime: ZonedDateTime?) {
 
         _uiState.update {
+            if (zonedDateTime != null) {
 
-        //change zonedDateTime to regular instant then toRealmInstant
-            it.copy(updatedDateTime = zonedDateTime.toInstant().toRealmInstant())
+                //change zonedDateTime to regular instant then toRealmInstant
+                it.copy(
+                        updatedDateTime = zonedDateTime.toInstant()
+                                .toRealmInstant()
+                )
+            } else {
+
+                it.copy(updatedDateTime = null)
+            }
+
         }
     }
 
@@ -117,8 +126,8 @@ fun updateDateTime(zonedDateTime: ZonedDateTime){
         viewModelScope.launch(IO) {
             val result = MongoDB.insertDiary(diary.apply {
 
-//Although this is a new diary, the user have tampered with the dates
-                if (_uiState.value .updatedDateTime!= null){
+                //Although this is a new diary, the user have tampered with the dates
+                if (_uiState.value.updatedDateTime != null) {
 
                     this.date = _uiState.value.updatedDateTime!!
                 }
@@ -138,10 +147,11 @@ fun updateDateTime(zonedDateTime: ZonedDateTime){
                 _id = ObjectId.invoke(diaryId!!)
 
 
-                if (_uiState.value.updatedDateTime != null){
+                //checks if there is a new update
+                if (_uiState.value.updatedDateTime != null) {
 
-                    this.date =_uiState.value.updatedDateTime!!
-                } else{
+                    this.date = _uiState.value.updatedDateTime!!
+                } else {
 
                     //extract the date from the diary itself
                     date = _uiState.value.selectedDiary!!.date
