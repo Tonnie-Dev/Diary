@@ -12,10 +12,12 @@ import com.uxstate.diary.presentation.screens.write_screen.state.UiState
 import com.uxstate.diary.util.RequestState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers.IO
+import kotlinx.coroutines.Dispatchers.Main
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import org.mongodb.kbson.ObjectId
 import javax.inject.Inject
 
@@ -99,22 +101,32 @@ class WriteViewModel @Inject constructor(handle: SavedStateHandle) : ViewModel()
             updateDiary(diary, onSuccess, onError)
         }
     }
+
     private fun insertDiary(diary: Diary, onSuccess: () -> Unit, onError: (String) -> Unit) {
         viewModelScope.launch(IO) {
             val result = MongoDB.insertDiary(diary)
-            safeCall(result, onSuccess, onError)
+
+            withContext(Main) {
+
+                safeCall(result, onSuccess, onError)
+            }
+
         }
     }
 
     private fun updateDiary(diary: Diary, onSuccess: () -> Unit, onError: (String) -> Unit) {
         viewModelScope.launch {
-            val result = MongoDB.updateDiary(diary = diary)
-            safeCall(result, onSuccess, onError)
+            val result = MongoDB.updateDiary(diary = diary.apply {
+                _id = ObjectId.invoke(diaryId!!)
+            })
+
+            withContext(Main) {
+                safeCall(result, onSuccess, onError)
+            }
+
 
         }
     }
-
-
 
 
     private fun safeCall(

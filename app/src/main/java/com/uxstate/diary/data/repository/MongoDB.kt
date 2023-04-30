@@ -163,7 +163,7 @@ object MongoDB : MongoRepository {
 
             realm.write {
 
-                val queriedDiary = realm.query<Diary>("_id == $0", diary._id)
+                val queriedDiary = query<Diary>("_id == $0", diary._id)
                         .first()
                         .find()
 
