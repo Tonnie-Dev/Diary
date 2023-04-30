@@ -57,7 +57,7 @@ fun WriteScreen(viewModel: WriteViewModel = hiltViewModel(), navigator: Destinat
                 pagerState = pagerState,
                 uiState = state,
                 onSaveClicked = { diary ->
-                    viewModel.insertDiary(diary = diary.apply {
+                    viewModel.upsertDiary(diary = diary.apply {
                         mood = Mood.values()[pageNumber].name
                     },
                             onSuccess = {

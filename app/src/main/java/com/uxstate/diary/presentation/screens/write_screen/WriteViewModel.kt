@@ -91,31 +91,31 @@ class WriteViewModel @Inject constructor(handle: SavedStateHandle) : ViewModel()
         _uiState.update { it.copy(selectedDiary = diary) }
     }
 
+    fun upsertDiary(diary: Diary, onSuccess: () -> Unit, onError: (String) -> Unit) {
 
-    fun insertDiary(
-        diary: Diary,
-        onSuccess: () -> Unit,
-        onError: (String) -> Unit
-    ) {
+        if (_uiState.value.selectedDiary == null) {
+            insertDiary(diary, onSuccess, onError)
+        } else {
+            updateDiary(diary, onSuccess, onError)
+        }
+    }
+    private fun insertDiary(diary: Diary, onSuccess: () -> Unit, onError: (String) -> Unit) {
         viewModelScope.launch(IO) {
             val result = MongoDB.insertDiary(diary)
-
             safeCall(result, onSuccess, onError)
-
         }
-
-
     }
 
-    fun updateDiary(diary: Diary, onSuccess: () -> Unit, onError: (String) -> Unit) {
+    private fun updateDiary(diary: Diary, onSuccess: () -> Unit, onError: (String) -> Unit) {
         viewModelScope.launch {
             val result = MongoDB.updateDiary(diary = diary)
             safeCall(result, onSuccess, onError)
 
         }
-
-
     }
+
+
+
 
     private fun safeCall(
         result: RequestState<Diary>,
