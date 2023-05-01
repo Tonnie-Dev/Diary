@@ -25,9 +25,14 @@ import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusDirection
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.stringResource
@@ -42,6 +47,7 @@ import com.uxstate.diary.domain.model.Diary
 import com.uxstate.diary.domain.model.Mood
 import com.uxstate.diary.presentation.screens.write_screen.state.UiState
 import com.uxstate.diary.presentation.ui.theme.LocalSpacing
+import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalPagerApi::class, ExperimentalMaterial3Api::class)
 @Composable
@@ -57,12 +63,14 @@ fun WriteContent(
 
     ) {
 
-    val scrollState = rememberScrollState()
+
     val spacing = LocalSpacing.current
     val context = LocalContext.current
     val focusManager = LocalFocusManager.current
 
-
+    val scrollState = rememberScrollState()
+    val scope = rememberCoroutineScope()
+    val focusRequester = FocusRequester()
     //LaunchedEffect to scroll to the end of the text
 
     LaunchedEffect(key1 = scrollState.maxValue, block = {
@@ -114,11 +122,12 @@ fun WriteContent(
             Spacer(modifier = Modifier.height(spacing.spaceMedium))
 
 
-            /*    focusedPlaceholderColor = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.38f),
-                                       unfocusedPlaceholderColor = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.38f)*/
+
             TextField(
                     value = title,
                     onValueChange = onTitleChanged,
+
+
                     placeholder = { Text(text = stringResource(R.string.title_text)) },
                     colors = TextFieldDefaults.colors(
                             focusedContainerColor = Color.Transparent,
@@ -132,10 +141,20 @@ fun WriteContent(
                             )
 
                     ),
-                    /*when focussed the ime action will be Next*/
+                    /*when focussed the ime action will be Next */
                     keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
-                    keyboardActions = KeyboardActions(onNext = { focusManager.moveFocus(
-                            FocusDirection.Down)}),
+                    keyboardActions = KeyboardActions(
+
+                            onNext = {
+
+                                scope.launch {
+
+                                    scrollState.animateScrollTo(Int.MAX_VALUE)
+                                    //- switch focus to next line
+                                    focusManager.moveFocus(FocusDirection.Down)}
+
+                                }
+                        ),
                     maxLines = 1,
                     singleLine = true
             )
