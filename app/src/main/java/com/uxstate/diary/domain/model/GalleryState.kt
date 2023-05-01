@@ -1,7 +1,9 @@
 package com.uxstate.diary.domain.model
 
 import android.net.Uri
+import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.runtime.remember
 
 class GalleryState {
 
@@ -23,5 +25,15 @@ class GalleryState {
     }
 }
 
+/*
+ - composable function with small letter as this compose returns something
+ - remembers GalleryState across multiple recompositions
+  - this will be used used within composable code to initilize the gallery state
+ */
 
+@Composable
+fun rememberGalleryState(): GalleryState {
+
+    return remember { GalleryState() }
+}
 data class GalleryImage(val image:Uri, val remoteImagePath:String = "")
