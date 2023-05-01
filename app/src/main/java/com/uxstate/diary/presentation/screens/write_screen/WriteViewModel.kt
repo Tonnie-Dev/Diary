@@ -16,6 +16,7 @@ import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.Dispatchers.Main
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -48,11 +49,13 @@ class WriteViewModel @Inject constructor(handle: SavedStateHandle) : ViewModel()
                 /*
                - empty invoke() is used to generate a new ObjectId
                - if you pass in a hex value that will return an existing ObjectId
+               - we also need to intercept the delete-error
                 */
 
 
 
                 MongoDB.getSelectedDiary(diaryId = ObjectId.invoke(diaryId))
+                        .catch { emit(RequestState.Error(Exception("Diary is already Deleted"))) }
                         .collect {
 
                             diary ->

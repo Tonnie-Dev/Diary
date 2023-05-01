@@ -108,6 +108,7 @@ object MongoDB : MongoRepository {
                 - first() returns the first matching object
                 */
                 realm.query<Diary>(query = "_id == $0", diaryId)
+
                         .asFlow()
                         .map {
 
@@ -163,11 +164,9 @@ object MongoDB : MongoRepository {
             realm.write {
 
                 val queriedDiary = query<Diary>("_id == $0", diary._id)
-                        .first()
                         .find()
+                        .first()
 
-
-                if (queriedDiary != null) {
 
                     queriedDiary.title = diary.title
                     queriedDiary.description = diary.description
@@ -175,10 +174,7 @@ object MongoDB : MongoRepository {
                     queriedDiary.images = diary.images
                     queriedDiary.date = diary.date
                     RequestState.Success(data = queriedDiary)
-                } else {
 
-                    RequestState.Error(Exception("Queried Diary Doesn't Exist"))
-                }
             }
         }
     }
@@ -189,25 +185,19 @@ object MongoDB : MongoRepository {
             realm.write {
                 val diary =
                     query<Diary>(query = "_id == $0 AND ownerId == $1", id, user!!.id)
-                            .first()
+
                             .find()
+                            .first()
+                try {
 
-                if (diary != null) {
-                    try {
+                    delete(diary)
 
-                        delete(diary)
+                    RequestState.Success(data = diary)
 
-                        RequestState.Success(data = diary)
+                } catch (e: Exception) {
 
-                    } catch (e: Exception) {
-
-                        //first() throws NoSuchElementException
-                        RequestState.Error(e)
-                    }
-                }else {
-
-                    //Custom Exception
-                    RequestState.Error(Exception("Diary Doesn't Exist"))
+                    //first() throws NoSuchElementException
+                    RequestState.Error(e)
                 }
 
 
