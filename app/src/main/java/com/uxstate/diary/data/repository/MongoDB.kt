@@ -56,11 +56,9 @@ object MongoDB : MongoRepository {
     override fun getAllDiaries(): Flow<Diaries> {
 
 
-        return if (user != null) {
-
-
+        return authenticateAndInvokeMongoFlowOp(user) {
             try {
-                realm.query<Diary>(query = "ownerId == $0", user.id)
+                realm.query<Diary>(query = "ownerId == $0", user!!.id)
                         .sort(property = "date", sortOrder = Sort.DESCENDING)
                         .asFlow()
                         .map { result ->
@@ -77,18 +75,13 @@ object MongoDB : MongoRepository {
 
                 flow { emit(RequestState.Error(e)) }
             }
-
-
-        } else {
-
-            flow { emit(RequestState.Error(UserNotAuthenticatedException())) }
         }
     }
 
     override fun getSelectedDiary(diaryId: ObjectId): Flow<RequestState<Diary>> {
 
 
-        return if (user != null) {
+        return authenticateAndInvokeMongoFlowOp(user) {
 
             try {
 
@@ -116,16 +109,10 @@ object MongoDB : MongoRepository {
 
                 flow { emit(RequestState.Error(e)) }
             }
-        } else {
-
-            flow {
-
-                emit(
-                        RequestState.Error(UserNotAuthenticatedException())
-                )
-            }
 
         }
+
+
     }
 
     override suspend fun insertDiary(diary: Diary): RequestState<Diary> {
@@ -163,12 +150,12 @@ object MongoDB : MongoRepository {
                         .find()
                         .first()
 
-                    queriedDiary.title = diary.title
-                    queriedDiary.description = diary.description
-                    queriedDiary.mood = diary.mood
-                    queriedDiary.images = diary.images
-                    queriedDiary.date = diary.date
-                    RequestState.Success(data = queriedDiary)
+                queriedDiary.title = diary.title
+                queriedDiary.description = diary.description
+                queriedDiary.mood = diary.mood
+                queriedDiary.images = diary.images
+                queriedDiary.date = diary.date
+                RequestState.Success(data = queriedDiary)
 
             }
         }
@@ -178,7 +165,6 @@ object MongoDB : MongoRepository {
 
         return authenticateAndInvokeMongoOp(user) {
             realm.write {
-
 
                 val diary =
                     query<Diary>(query = "_id == $0 AND ownerId == $1", id, user!!.id)
@@ -202,6 +188,26 @@ object MongoDB : MongoRepository {
 
 }
 
+private fun <T> authenticateAndInvokeMongoFlowOp(
+    user: User?,
+    mongoRepoOperation: () -> Flow<RequestState<T>>
+): Flow<RequestState<T>> {
+
+    return if (user != null) {
+
+        mongoRepoOperation.invoke()
+    } else {
+
+        flow {
+
+            emit(
+                    RequestState.Error(UserNotAuthenticatedException())
+            )
+        }
+    }
+}
+
+
 private suspend fun <T> authenticateAndInvokeMongoOp(
     user: User?,
     mongoRepoOperation: suspend () -> RequestState<T>
@@ -215,6 +221,7 @@ private suspend fun <T> authenticateAndInvokeMongoOp(
         RequestState.Error(UserNotAuthenticatedException())
     }
 }
+
 
 
 private class UserNotAuthenticatedException : Exception("User is not Logged In")
