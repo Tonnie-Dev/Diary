@@ -13,11 +13,9 @@ import io.realm.kotlin.mongodb.App
 import io.realm.kotlin.mongodb.User
 import io.realm.kotlin.mongodb.sync.SyncConfiguration
 import io.realm.kotlin.query.Sort
-import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.withContext
 import org.mongodb.kbson.ObjectId
 import timber.log.Timber
 import java.time.ZoneId
@@ -162,59 +160,78 @@ object MongoDB : MongoRepository {
     }
 
     override suspend fun updateDiary(diary: Diary): RequestState<Diary> {
-        return if (user != null) {
+       return authenticateUser(user){
+           realm.write {
 
-            realm.write {
-
-                val queriedDiary = query<Diary>("_id == $0", diary._id)
-                        .first()
-                        .find()
+               val queriedDiary = query<Diary>("_id == $0", diary._id)
+                       .first()
+                       .find()
 
 
-                if (queriedDiary != null) {
+               if (queriedDiary != null) {
 
-                    queriedDiary.title = diary.title
-                    queriedDiary.description = diary.description
-                    queriedDiary.mood = diary.mood
-                    queriedDiary.images = diary.images
-                    queriedDiary.date = diary.date
-                    RequestState.Success(data = queriedDiary)
-                } else {
+                   queriedDiary.title = diary.title
+                   queriedDiary.description = diary.description
+                   queriedDiary.mood = diary.mood
+                   queriedDiary.images = diary.images
+                   queriedDiary.date = diary.date
+                   RequestState.Success(data = queriedDiary)
+               } else {
 
-                    RequestState.Error(Exception("Queried Diary Doesn't Exist"))
-                }
-            }
-        } else {
+                   RequestState.Error(Exception("Queried Diary Doesn't Exist"))
+               }
+       }
+    }}
 
-            RequestState.Error(error = UserNotAuthenticatedException())
-        }
-    }
 
-    override suspend fun deleteDiary(id: ObjectId): RequestState<Diary> {
-        TODO("Not yet implemented")
-    }
+    /* override suspend fun updateDiary(diary: Diary): RequestState<Diary> {
+         return if (user != null) {
+
+             realm.write {
+
+                 val queriedDiary = query<Diary>("_id == $0", diary._id)
+                         .first()
+                         .find()
+
+
+                 if (queriedDiary != null) {
+
+                     queriedDiary.title = diary.title
+                     queriedDiary.description = diary.description
+                     queriedDiary.mood = diary.mood
+                     queriedDiary.images = diary.images
+                     queriedDiary.date = diary.date
+                     RequestState.Success(data = queriedDiary)
+                 } else {
+
+                     RequestState.Error(Exception("Queried Diary Doesn't Exist"))
+                 }
+             }
+         } else {
+
+             RequestState.Error(error = UserNotAuthenticatedException())
+         }
+     }*/
+
 
 
 }
 
-suspend fun <T> authenticateUser(
+private suspend fun <T> authenticateUser(
     user: User?,
-    dispatcher: CoroutineDispatcher,
-    authenticate: suspend () -> T
+    mongoRepoOperation: suspend () -> RequestState<T>
 ): RequestState<T> {
 
-    return withContext(dispatcher) {
+    return if (user != null) {
 
-        if (user != null) {
-            RequestState.Success(authenticate.invoke())
-        }else{
-            RequestState.Error(error = e)
-
-        }
-
-
+        mongoRepoOperation.invoke()
+    } else {
+        RequestState.Error(UserNotAuthenticatedException())
     }
 }
+
+
+
 
 
 private class UserNotAuthenticatedException : Exception("User is not Logged In")
