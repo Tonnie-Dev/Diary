@@ -160,28 +160,50 @@ object MongoDB : MongoRepository {
     }
 
     override suspend fun updateDiary(diary: Diary): RequestState<Diary> {
-       return authenticateUser(user){
-           realm.write {
+        return authenticateAndInvokeMongoOp(user) {
+            realm.write {
 
-               val queriedDiary = query<Diary>("_id == $0", diary._id)
-                       .first()
-                       .find()
+                val queriedDiary = query<Diary>("_id == $0", diary._id)
+                        .first()
+                        .find()
 
 
-               if (queriedDiary != null) {
+                if (queriedDiary != null) {
 
-                   queriedDiary.title = diary.title
-                   queriedDiary.description = diary.description
-                   queriedDiary.mood = diary.mood
-                   queriedDiary.images = diary.images
-                   queriedDiary.date = diary.date
-                   RequestState.Success(data = queriedDiary)
-               } else {
+                    queriedDiary.title = diary.title
+                    queriedDiary.description = diary.description
+                    queriedDiary.mood = diary.mood
+                    queriedDiary.images = diary.images
+                    queriedDiary.date = diary.date
+                    RequestState.Success(data = queriedDiary)
+                } else {
 
-                   RequestState.Error(Exception("Queried Diary Doesn't Exist"))
-               }
-       }
-    }}
+                    RequestState.Error(Exception("Queried Diary Doesn't Exist"))
+                }
+            }
+        }
+    }
+
+    override suspend fun deleteDiary(id: ObjectId): RequestState<Diary> {
+        return authenticateAndInvokeMongoOp(user) {
+            realm.write {
+
+                try {
+                    val diary =
+                        query<Diary>(query = "_id == $0 AND ownerId == $1", id, user?.id)
+                                .find()
+                                .first()
+                    delete(diary)
+                    RequestState.Success(data = diary)
+                } catch (e: Exception) {
+
+                    //first() throws NosuchElementException
+                    RequestState.Error(e)
+                }
+
+            }
+        }
+    }
 
 
     /* override suspend fun updateDiary(diary: Diary): RequestState<Diary> {
@@ -214,10 +236,9 @@ object MongoDB : MongoRepository {
      }*/
 
 
-
 }
 
-private suspend fun <T> authenticateUser(
+private suspend fun <T> authenticateAndInvokeMongoOp(
     user: User?,
     mongoRepoOperation: suspend () -> RequestState<T>
 ): RequestState<T> {
@@ -229,9 +250,6 @@ private suspend fun <T> authenticateUser(
         RequestState.Error(UserNotAuthenticatedException())
     }
 }
-
-
-
 
 
 private class UserNotAuthenticatedException : Exception("User is not Logged In")
