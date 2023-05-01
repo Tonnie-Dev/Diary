@@ -183,26 +183,33 @@ object MongoDB : MongoRepository {
         }
     }
 
-    override suspend fun deleteDiary(id: ObjectId): RequestState<Boolean> {
+    override suspend fun deleteDiary(id: ObjectId): RequestState<Diary> {
 
-        
         return authenticateAndInvokeMongoOp(user) {
             realm.write {
+                val diary =
+                    query<Diary>(query = "_id == $0 AND ownerId == $1", id, user!!.id)
+                            .first()
+                            .find()
 
-                try {
-                    val diary =
-                        query<Diary>(query = "_id == $0 AND ownerId == $1", id, user!!.id)
-                                .find()
-                                .first()
-                    delete(diary)
+                if (diary != null) {
+                    try {
 
-                    RequestState.Success(data = true)
+                        delete(diary)
 
-                } catch (e: Exception) {
+                        RequestState.Success(data = diary)
 
-                    //first() throws NoSuchElementException
-                    RequestState.Error(e)
+                    } catch (e: Exception) {
+
+                        //first() throws NoSuchElementException
+                        RequestState.Error(e)
+                    }
+                }else {
+
+                    //Custom Exception
+                    RequestState.Error(Exception("Diary Doesn't Exist"))
                 }
+
 
             }
         }
