@@ -65,8 +65,7 @@ object MongoDB : MongoRepository {
                         .sort(property = "date", sortOrder = Sort.DESCENDING)
                         .asFlow()
                         .map { result ->
-                            Timber.i("List size is: ${result.list.size}")
-                            Timber.i("The data is: ${result.list}")
+
                             RequestState.Success(data = result.list.groupBy {
                                 it.date.toInstant()
                                         .atZone(ZoneId.systemDefault())
@@ -76,13 +75,13 @@ object MongoDB : MongoRepository {
 
             } catch (e: Exception) {
 
-                Timber.i("Error Caught")
+
                 flow { emit(RequestState.Error(e)) }
             }
 
 
         } else {
-            Timber.i(" The User is Null")
+
             flow { emit(RequestState.Error(UserNotAuthenticatedException())) }
         }
     }
@@ -184,20 +183,24 @@ object MongoDB : MongoRepository {
         }
     }
 
-    override suspend fun deleteDiary(id: ObjectId): RequestState<Diary> {
+    override suspend fun deleteDiary(id: ObjectId): RequestState<Boolean> {
+
+        
         return authenticateAndInvokeMongoOp(user) {
             realm.write {
 
                 try {
                     val diary =
-                        query<Diary>(query = "_id == $0 AND ownerId == $1", id, user?.id)
+                        query<Diary>(query = "_id == $0 AND ownerId == $1", id, user!!.id)
                                 .find()
                                 .first()
                     delete(diary)
-                    RequestState.Success(data = diary)
+
+                    RequestState.Success(data = true)
+
                 } catch (e: Exception) {
 
-                    //first() throws NosuchElementException
+                    //first() throws NoSuchElementException
                     RequestState.Error(e)
                 }
 
@@ -247,6 +250,7 @@ private suspend fun <T> authenticateAndInvokeMongoOp(
 
         mongoRepoOperation.invoke()
     } else {
+
         RequestState.Error(UserNotAuthenticatedException())
     }
 }

@@ -20,6 +20,7 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.mongodb.kbson.ObjectId
+import timber.log.Timber
 import java.time.ZonedDateTime
 import javax.inject.Inject
 
@@ -170,10 +171,10 @@ class WriteViewModel @Inject constructor(handle: SavedStateHandle) : ViewModel()
     fun deleteDiary(onSuccess: () -> Unit, onError: (String) -> Unit) {
 
         viewModelScope.launch(IO) {
-            if (_uiState.value.selectedDiaryId != null) {
+            if (diaryId != null) {
 
                 val result =
-                    MongoDB.deleteDiary(id = ObjectId.invoke(_uiState.value.selectedDiaryId!!))
+                    MongoDB.deleteDiary(id = ObjectId.invoke(diaryId))
                 withContext(Main) {
                     processResult(result, onSuccess, onError)
                 }
@@ -183,8 +184,8 @@ class WriteViewModel @Inject constructor(handle: SavedStateHandle) : ViewModel()
 
     }
 
-    private fun processResult(
-        result: RequestState<Diary>,
+    private fun <T> processResult(
+        result: RequestState<T>,
         onSuccess: () -> Unit,
         onError: (String) -> Unit
     ) {
