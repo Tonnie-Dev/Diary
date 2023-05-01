@@ -8,6 +8,8 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.imePadding
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
@@ -56,11 +58,13 @@ fun WriteContent(
     val spacing = LocalSpacing.current
     val context = LocalContext.current
 
+    //we don't need start, end, bottom if we are using navigationBarsPadding
     Column(
             modifier = Modifier
                     .fillMaxWidth()
+                    .imePadding()
+                    .navigationBarsPadding()
                     .padding(top = paddingValues.calculateTopPadding())
-                    .padding(bottom = paddingValues.calculateBottomPadding())
                     .padding(spacing.spaceMedium)
                     .padding(horizontal = spacing.spaceMedium),
 
