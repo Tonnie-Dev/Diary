@@ -117,12 +117,12 @@ object MongoDB : MongoRepository {
 
     override suspend fun insertDiary(diary: Diary): RequestState<Diary> {
 
-        return if (user != null) {
+        return authenticateAndInvokeMongoOp(user){
 
             realm.write {
 
                 try {
-                    val addedDiary = copyToRealm(diary.apply { ownerId = user.id })
+                    val addedDiary = copyToRealm(diary.apply { ownerId = user!!.id })
 
                     RequestState.Success(data = addedDiary)
                 } catch (e: Exception) {
@@ -131,13 +131,9 @@ object MongoDB : MongoRepository {
                 }
 
             }
-        } else {
-
-            RequestState.Error(UserNotAuthenticatedException())
         }
 
     }
-
     override suspend fun updateDiary(diary: Diary): RequestState<Diary> {
         return authenticateAndInvokeMongoOp(user) {
             realm.write {

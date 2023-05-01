@@ -163,7 +163,7 @@ fun WriteContent(
                     },
                     modifier = Modifier
                             .fillMaxWidth()
-                            .height(spacing.spaceLarge),
+                            .height(spacing.spaceLargeMedium + spacing.spaceSmall),
                     shape = Shapes().small
             ) {
                 Text(text = stringResource(R.string.save_action))
