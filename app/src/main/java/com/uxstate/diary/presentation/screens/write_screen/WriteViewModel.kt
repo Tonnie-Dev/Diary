@@ -135,7 +135,7 @@ class WriteViewModel @Inject constructor(handle: SavedStateHandle) : ViewModel()
 
             withContext(Main) {
 
-                safeCall(result, onSuccess, onError)
+                processResult(result, onSuccess, onError)
             }
 
         }
@@ -159,7 +159,7 @@ class WriteViewModel @Inject constructor(handle: SavedStateHandle) : ViewModel()
             })
 
             withContext(Main) {
-                safeCall(result, onSuccess, onError)
+                processResult(result, onSuccess, onError)
             }
 
 
@@ -167,7 +167,23 @@ class WriteViewModel @Inject constructor(handle: SavedStateHandle) : ViewModel()
     }
 
 
-    private fun safeCall(
+    fun deleteDiary(onSuccess: () -> Unit, onError: (String) -> Unit) {
+
+        viewModelScope.launch(IO) {
+            if (_uiState.value.selectedDiaryId != null) {
+
+                val result =
+                    MongoDB.deleteDiary(id = ObjectId.invoke(_uiState.value.selectedDiaryId!!))
+                withContext(Main) {
+                    processResult(result, onSuccess, onError)
+                }
+            }
+
+        }
+
+    }
+
+    private fun processResult(
         result: RequestState<Diary>,
         onSuccess: () -> Unit,
         onError: (String) -> Unit
