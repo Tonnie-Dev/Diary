@@ -70,7 +70,7 @@ fun WriteContent(
 
     val scrollState = rememberScrollState()
     val scope = rememberCoroutineScope()
-    val focusRequester = FocusRequester()
+    val focusRequester = remember { FocusRequester() }
     //LaunchedEffect to scroll to the end of the text
 
     LaunchedEffect(key1 = scrollState.maxValue, block = {
@@ -126,7 +126,11 @@ fun WriteContent(
             TextField(
                     value = title,
                     onValueChange = onTitleChanged,
-
+                    modifier = Modifier
+                            .focusRequester(focusRequester)
+                            /*.onGloballyPositioned {
+                                focusRequester.requestFocus() // IMPORTANT
+                            }*/,
 
                     placeholder = { Text(text = stringResource(R.string.title_text)) },
                     colors = TextFieldDefaults.colors(
