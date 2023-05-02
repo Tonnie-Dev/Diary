@@ -15,10 +15,11 @@ import com.google.accompanist.pager.rememberPagerState
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import com.uxstate.diary.R
+import com.uxstate.diary.domain.model.GalleryImage
 import com.uxstate.diary.domain.model.Mood
+import com.uxstate.diary.domain.model.rememberGalleryState
 import com.uxstate.diary.presentation.screens.write_screen.components.WriteContent
 import com.uxstate.diary.presentation.screens.write_screen.components.WriteTopBar
-import timber.log.Timber
 
 @OptIn(ExperimentalPagerApi::class)
 @Destination(navArgsDelegate = WriteScreenNavArgs::class)
@@ -27,10 +28,15 @@ fun WriteScreen(viewModel: WriteViewModel = hiltViewModel(), navigator: Destinat
 
     val state by viewModel.uiState.collectAsState()
 
+
     val pagerState = rememberPagerState()
     val pageNumber by remember { //buffer to prevent recomposition
         derivedStateOf { pagerState.currentPage }
     }
+
+    /*   from gallery state model calls compose function to be
+    able to call methods of GalleryState e.g. addImage*/
+    val galleryState = rememberGalleryState()
 
     val context = LocalContext.current //Update the Mood when selecting an existing Diary
     LaunchedEffect(key1 = state.mood, block = {
@@ -72,6 +78,10 @@ fun WriteScreen(viewModel: WriteViewModel = hiltViewModel(), navigator: Destinat
                 paddingValues = it,
                 pagerState = pagerState,
                 uiState = state,
+                galleryState = galleryState,
+                onImageSelected = { uri ->
+                    galleryState.addImage(GalleryImage(image = uri, remoteImagePath = ""))
+                },
                 onSaveClicked = { diary ->
                     viewModel.upsertDiary(diary = diary.apply {
                         mood = Mood.values()[pageNumber].name

@@ -1,5 +1,6 @@
 package com.uxstate.diary.presentation.screens.write_screen.components
 
+import android.net.Uri
 import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
@@ -43,6 +44,7 @@ import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.PagerState
 import com.uxstate.diary.R
 import com.uxstate.diary.domain.model.Diary
+import com.uxstate.diary.domain.model.GalleryState
 import com.uxstate.diary.domain.model.Mood
 import com.uxstate.diary.domain.model.rememberGalleryState
 import com.uxstate.diary.presentation.screens.write_screen.state.UiState
@@ -60,15 +62,15 @@ fun WriteContent(
     uiState: UiState,
     paddingValues: PaddingValues,
     pagerState: PagerState,
-
+    galleryState:GalleryState,
+onImageSelected:(Uri) -> Unit
     ) {
 
 
     val spacing = LocalSpacing.current
     val context = LocalContext.current
 
-    //from gallery state model calls compose function
-    val galleryState = rememberGalleryState()
+
 
 
     val scrollState = rememberScrollState()
@@ -196,7 +198,7 @@ fun WriteContent(
             GalleryUploader(
                     galleryState = galleryState,
                     onAddClicked = {},
-                    onImageSelected = {},
+                    onImageSelected = onImageSelected,
                     onImageClicked = {}
             )
             Spacer(modifier = Modifier.height(spacing.spaceMedium))

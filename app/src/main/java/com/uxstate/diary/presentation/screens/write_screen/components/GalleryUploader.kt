@@ -19,6 +19,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.Dp
@@ -100,11 +101,11 @@ fun GalleryUploader(
 
             Spacer(modifier = Modifier.width(spaceBetween))
             galleryState.images.take(numberOfVisibleImages)
-                    .forEach { image ->
+                    .forEach { galleryImage ->
 
                         val painter = rememberAsyncImagePainter(
                                 model = ImageRequest.Builder(context)
-                                        .data(image)
+                                        .data(galleryImage.image)
                                         .crossfade(true)
                                         .build()
                         )
@@ -112,10 +113,11 @@ fun GalleryUploader(
                         Image(
                                 painter = painter,
                                 contentDescription = stringResource(id = R.string.gallery_image_text),
+                                contentScale = ContentScale.Crop,
                                 modifier = Modifier
                                         .clip(imageShape)
                                         .size(imageSize)
-                                        .clickable { onImageClicked(image) }
+                                        .clickable { onImageClicked(galleryImage) }
                         )
                     }
         }
