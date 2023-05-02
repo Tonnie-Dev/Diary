@@ -11,6 +11,10 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.GoogleAuthProvider
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.annotation.RootNavGraph
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
@@ -67,19 +71,38 @@ fun AuthenticationScreen(
 
     OneTapSignInWithGoogle(state = oneTapState,
             clientId = CLIENT_ID,
-            onTokenIdReceived = { tokenId ->
+            onTokenIdReceived = {
+
+                //token id from Google
+                tokenId ->
 
 
-                viewModel.signInWithMongoAtlas(tokenId = tokenId, onSuccess = {
+                val credentials = GoogleAuthProvider.getCredential(tokenId, null)
+                FirebaseAuth.getInstance().signInWithCredential(credentials).addOnCompleteListener { task ->
 
-                    messageBarState.addSuccess("Successfully Authenticated")
-                    viewModel.setLoading(false)
+                    if (task.isSuccessful){
 
-                }, onError = {
+                        viewModel.signInWithMongoAtlas(tokenId = tokenId, onSuccess = {
 
-                    messageBarState.addError(it)
-                    viewModel.setLoading(false)
-                })
+                            messageBarState.addSuccess("Successfully Authenticated")
+                            viewModel.setLoading(false)
+
+                        }, onError = {
+
+                            messageBarState.addError(it)
+                            viewModel.setLoading(false)
+                        })
+                    }
+
+                    else{
+
+                        task.exception?.let { messageBarState.addError(it) }
+                        viewModel.setLoading(false)
+                    }
+                }
+
+
+
             },
             onDialogDismissed = { message ->
                 messageBarState.addError(Exception(message))

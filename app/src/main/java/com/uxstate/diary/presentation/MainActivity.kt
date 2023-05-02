@@ -29,7 +29,8 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-
+        //initialize firebase
+        FirebaseApp.initializeApp(this)
         //from Splash API
      installSplashScreen().setKeepOnScreenCondition {
 
@@ -39,8 +40,7 @@ class MainActivity : ComponentActivity() {
 
         WindowCompat.setDecorFitsSystemWindows(window,false)
 
-        //initialize firebase
-        FirebaseApp.initializeApp(this)
+
         setContent {
             DiaryTheme {
                 DestinationsNavHost(navGraph = NavGraphs.root, startRoute = getStartDestination())
