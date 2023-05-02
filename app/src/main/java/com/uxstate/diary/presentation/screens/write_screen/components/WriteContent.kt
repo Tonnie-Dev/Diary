@@ -197,7 +197,7 @@ onImageSelected:(Uri) -> Unit
             Spacer(modifier = Modifier.height(spacing.spaceMedium))
             GalleryUploader(
                     galleryState = galleryState,
-                    onAddClicked = {},
+                    onAddClicked = {focusManager.clearFocus()},
                     onImageSelected = onImageSelected,
                     onImageClicked = {}
             )

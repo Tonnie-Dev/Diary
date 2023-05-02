@@ -1,5 +1,6 @@
 package com.uxstate.diary.presentation.screens.auth_screen
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.statusBarsPadding
@@ -25,7 +26,7 @@ import com.uxstate.diary.util.Constants.CLIENT_ID
 @Destination
 @RootNavGraph(start = true)
 
-
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun AuthenticationScreen(
     viewModel: AuthViewModel = hiltViewModel(), navigator: DestinationsNavigator
@@ -46,7 +47,8 @@ fun AuthenticationScreen(
     Scaffold(modifier = Modifier
             .background(MaterialTheme.colorScheme.surface)
             .statusBarsPadding()
-            .navigationBarsPadding(), content = {
+            .navigationBarsPadding(),
+            content = {
 
         ContentWithMessageBar(messageBarState = messageBarState) {
             AuthenticationContent(loadingState = loadingState,
