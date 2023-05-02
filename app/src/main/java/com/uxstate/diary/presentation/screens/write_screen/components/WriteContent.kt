@@ -32,7 +32,6 @@ import androidx.compose.ui.focus.FocusDirection
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.stringResource
@@ -45,6 +44,7 @@ import com.google.accompanist.pager.PagerState
 import com.uxstate.diary.R
 import com.uxstate.diary.domain.model.Diary
 import com.uxstate.diary.domain.model.Mood
+import com.uxstate.diary.domain.model.rememberGalleryState
 import com.uxstate.diary.presentation.screens.write_screen.state.UiState
 import com.uxstate.diary.presentation.ui.theme.LocalSpacing
 import kotlinx.coroutines.launch
@@ -56,7 +56,7 @@ fun WriteContent(
     onTitleChanged: (String) -> Unit,
     description: String,
     onDescriptionChanged: (String) -> Unit,
-    onSaveClicked: (diary:Diary) -> Unit,
+    onSaveClicked: (diary: Diary) -> Unit,
     uiState: UiState,
     paddingValues: PaddingValues,
     pagerState: PagerState,
@@ -66,13 +66,17 @@ fun WriteContent(
 
     val spacing = LocalSpacing.current
     val context = LocalContext.current
-    val focusManager = LocalFocusManager.current
+
+    //from gallery state model calls compose function
+    val galleryState = rememberGalleryState()
+
 
     val scrollState = rememberScrollState()
     val scope = rememberCoroutineScope()
     val focusRequester = remember { FocusRequester() }
-    //LaunchedEffect to scroll to the end of the text
+    val focusManager = LocalFocusManager.current
 
+    //LaunchedEffect to scroll to the end of the text
     LaunchedEffect(key1 = scrollState.maxValue, block = {
 
         scrollState.scrollTo(scrollState.maxValue)
@@ -128,9 +132,9 @@ fun WriteContent(
                     onValueChange = onTitleChanged,
                     modifier = Modifier
                             .focusRequester(focusRequester)
-                            /*.onGloballyPositioned {
-                                focusRequester.requestFocus() // IMPORTANT
-                            }*/,
+                    /*.onGloballyPositioned {
+                        focusRequester.requestFocus() // IMPORTANT
+                    }*/,
 
                     placeholder = { Text(text = stringResource(R.string.title_text)) },
                     colors = TextFieldDefaults.colors(
@@ -155,10 +159,11 @@ fun WriteContent(
 
                                     scrollState.animateScrollTo(Int.MAX_VALUE)
                                     //- switch focus to next line
-                                    focusManager.moveFocus(FocusDirection.Down)}
-
+                                    focusManager.moveFocus(FocusDirection.Down)
                                 }
-                        ),
+
+                            }
+                    ),
                     maxLines = 1,
                     singleLine = true
             )
@@ -179,19 +184,28 @@ fun WriteContent(
                             )
                     ),
                     keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
-                    keyboardActions = KeyboardActions(onNext = {focusManager.clearFocus()})
+                    keyboardActions = KeyboardActions(onNext = { focusManager.clearFocus() })
             )
 
         }
 
         Column(verticalArrangement = Arrangement.Bottom) {
+
+
+            Spacer(modifier = Modifier.height(spacing.spaceMedium))
+            GalleryUploader(
+                    galleryState = galleryState,
+                    onAddClicked = {},
+                    onImageSelected = {},
+                    onImageClicked = {}
+            )
             Spacer(modifier = Modifier.height(spacing.spaceMedium))
             Button(
                     onClick = {
 
                         if (uiState.title.isNotEmpty() && uiState.description.isNotEmpty()) {
 
-                            onSaveClicked(Diary().apply{
+                            onSaveClicked(Diary().apply {
                                 this.title = uiState.title
                                 this.description = uiState.description
                             })

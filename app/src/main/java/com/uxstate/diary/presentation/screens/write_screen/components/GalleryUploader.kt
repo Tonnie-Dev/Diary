@@ -2,11 +2,15 @@ package com.uxstate.diary.presentation.screens.write_screen.components
 
 import android.net.Uri
 import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CornerBasedShape
 import androidx.compose.material3.Shapes
 import androidx.compose.runtime.Composable
@@ -85,6 +89,16 @@ fun GalleryUploader(
 
         Row {
 
+            AddImageButton(
+                    imageSize = imageSize,
+                    imageShape = imageShape,
+                    onClick = {
+                        onAddClicked()
+                        multiplePhotoPicker.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
+                    }
+            )
+
+            Spacer(modifier = Modifier.width(spaceBetween))
             galleryState.images.take(numberOfVisibleImages)
                     .forEach { image ->
 
@@ -101,6 +115,7 @@ fun GalleryUploader(
                                 modifier = Modifier
                                         .clip(imageShape)
                                         .size(imageSize)
+                                        .clickable { onImageClicked(image) }
                         )
                     }
         }
