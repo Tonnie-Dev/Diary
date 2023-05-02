@@ -28,6 +28,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import com.maxkeppeker.sheets.core.models.base.rememberUseCaseState
 import com.maxkeppeler.sheets.calendar.CalendarDialog
+import com.maxkeppeler.sheets.calendar.models.CalendarConfig
 import com.maxkeppeler.sheets.calendar.models.CalendarSelection
 import com.maxkeppeler.sheets.clock.ClockDialog
 import com.maxkeppeler.sheets.clock.models.ClockSelection
@@ -165,14 +166,15 @@ fun WriteTopBar(
             DeleteDiaryAction(diary = selectedDiary, onDeleteConfirmed = onDeleteConfirmed)
         }
     })
-
+    val boundary = LocalDate.now().minusYears(1)..LocalDate.now()
 
     CalendarDialog(
             state = dateDialog,
             selection = CalendarSelection.Date { localDate ->
                 currentDate = localDate
                 timeDialog.show()
-            }
+            },
+            config = CalendarConfig(boundary = boundary)
     )
 
     //triggered after Date Selection
