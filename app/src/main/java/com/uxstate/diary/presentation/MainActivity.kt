@@ -6,6 +6,8 @@ import androidx.activity.compose.setContent
 import androidx.compose.runtime.LaunchedEffect
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.WindowCompat
+import com.google.firebase.FirebaseApp
+import com.google.firebase.ktx.Firebase
 import com.ramcosta.composedestinations.DestinationsNavHost
 import com.ramcosta.composedestinations.spec.Route
 import com.uxstate.diary.data.repository.MongoDB
@@ -37,6 +39,8 @@ class MainActivity : ComponentActivity() {
 
         WindowCompat.setDecorFitsSystemWindows(window,false)
 
+        //initialize firebase
+        FirebaseApp.initializeApp(this)
         setContent {
             DiaryTheme {
                 DestinationsNavHost(navGraph = NavGraphs.root, startRoute = getStartDestination())
