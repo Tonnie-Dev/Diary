@@ -27,6 +27,7 @@
     <string name="empty_field_text">Fields Cannot be empty</string>
     <string name="close_icon">Close Icon</string>
     <string name="diary_deleted_toast">Diary Deleted</string>
+    <string name="add_icon_text">Add Icon</string>
 
 
 </resources>
