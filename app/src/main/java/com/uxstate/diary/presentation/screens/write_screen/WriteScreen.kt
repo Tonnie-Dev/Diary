@@ -36,7 +36,7 @@ fun WriteScreen(viewModel: WriteViewModel = hiltViewModel(), navigator: Destinat
 
     /*   from gallery state model calls compose function to be
     able to call methods of GalleryState e.g. addImage*/
-    val galleryState = rememberGalleryState()
+    val galleryState = viewModel.galleryState
 
     val context = LocalContext.current //Update the Mood when selecting an existing Diary
     LaunchedEffect(key1 = state.mood, block = {

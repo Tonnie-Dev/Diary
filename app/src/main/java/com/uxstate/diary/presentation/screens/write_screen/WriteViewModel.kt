@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.uxstate.diary.data.repository.MongoDB
 import com.uxstate.diary.domain.model.Diary
+import com.uxstate.diary.domain.model.GalleryState
 import com.uxstate.diary.domain.model.Mood
 import com.uxstate.diary.presentation.screens.navArgs
 import com.uxstate.diary.presentation.screens.write_screen.state.UiState
@@ -31,6 +32,7 @@ class WriteViewModel @Inject constructor(handle: SavedStateHandle) : ViewModel()
     private val _uiState = MutableStateFlow(UiState())
     val uiState = _uiState.asStateFlow()
 
+    val galleryState = GalleryState()
     private val diaryId = handle.navArgs<WriteScreenNavArgs>().id
 
 
