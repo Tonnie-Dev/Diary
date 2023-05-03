@@ -1,5 +1,7 @@
 package com.uxstate.diary.util
 
+import android.net.Uri
+import com.google.firebase.storage.FirebaseStorage
 import io.realm.kotlin.types.RealmInstant
 import java.time.Instant
 import java.time.LocalDate
@@ -20,7 +22,7 @@ fun RealmInstant.toInstant(): Instant {
 }
 
 
-fun Instant.toStringTime():String  {
+fun Instant.toStringTime(): String {
 
     val localDateTime = LocalDateTime.ofInstant(this, ZoneId.systemDefault())
 
@@ -33,7 +35,7 @@ fun Instant.toStringTime():String  {
 }
 
 
-fun Instant.toStringDateTime() :String{
+fun Instant.toStringDateTime(): String {
 
     val localDateTime = LocalDateTime.ofInstant(this, ZoneId.systemDefault())
 
@@ -46,7 +48,7 @@ fun Instant.toStringDateTime() :String{
 }
 
 
-fun LocalDateTime.toStringDateTime():String {
+fun LocalDateTime.toStringDateTime(): String {
 
     val pattern = "dd MMM yyyy hh:mm a"
     val formatter = DateTimeFormatter.ofPattern(pattern)
@@ -55,36 +57,73 @@ fun LocalDateTime.toStringDateTime():String {
 
 }
 
-fun LocalDate.toStringDate():String {
+fun LocalDate.toStringDate(): String {
 
     val pattern = "dd MMM yyyy"
     val formatter = DateTimeFormatter.ofPattern(pattern)
-    return  this.format(formatter)
+    return this.format(formatter)
 }
 
 
-fun LocalTime.toStringTime():String {
+fun LocalTime.toStringTime(): String {
 
     val pattern = "hh:mm a"
 
-    val formatter = DateTimeFormatter.ofPattern(pattern )
+    val formatter = DateTimeFormatter.ofPattern(pattern)
 
     return this.format(formatter)
 }
 
-fun Instant.toRealmInstant():RealmInstant{
+fun Instant.toRealmInstant(): RealmInstant {
 
-    val sec:Long = this.epochSecond
-    val nano:Int = this.nano
+    val sec: Long = this.epochSecond
+    val nano: Int = this.nano
 
-    return if (sec>=0){
+    return if (sec >= 0) {
 
-        RealmInstant.from(sec,nano)
+        RealmInstant.from(sec, nano)
 
 
-    }else{
+    } else {
 
-        RealmInstant.from(epochSeconds =sec +1,  nanosecondAdjustment = -1_000_000 + nano )
+        RealmInstant.from(epochSeconds = sec + 1, nanosecondAdjustment = -1_000_000 + nano)
+    }
+}
+
+fun fetchImagesFromFirebase(
+    images: List<String>,
+    onImageDownload: (Uri) -> Unit,
+    onImageDownloadFailed: (Exception) -> Unit = {},
+    onReadyToDisplay: () -> Unit = {}
+) {
+
+
+    if (images.isNotEmpty()) {
+
+        images.forEachIndexed { index, imageUrlString ->
+
+
+            if (imageUrlString.trim()
+                        .isNotEmpty()
+            ) {
+
+                FirebaseStorage.getInstance()
+                        .reference.child(imageUrlString.trim())
+                        .downloadUrl
+                        .addOnSuccessListener {
+                            onImageDownload(it)
+                            if (images.lastIndexOf(images.last()) == index) {
+                                onReadyToDisplay()
+
+                            }
+
+                        }
+                        .addOnFailureListener {
+
+                            onImageDownloadFailed(Exception(it))
+                        }
+            }
+        }
     }
 }
 

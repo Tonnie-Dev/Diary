@@ -46,9 +46,9 @@ import com.uxstate.diary.R
 import com.uxstate.diary.domain.model.Diary
 import com.uxstate.diary.domain.model.GalleryState
 import com.uxstate.diary.domain.model.Mood
-import com.uxstate.diary.domain.model.rememberGalleryState
 import com.uxstate.diary.presentation.screens.write_screen.state.UiState
 import com.uxstate.diary.presentation.ui.theme.LocalSpacing
+import io.realm.kotlin.ext.toRealmList
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalPagerApi::class, ExperimentalMaterial3Api::class)
@@ -62,15 +62,13 @@ fun WriteContent(
     uiState: UiState,
     paddingValues: PaddingValues,
     pagerState: PagerState,
-    galleryState:GalleryState,
-onImageSelected:(Uri) -> Unit
-    ) {
+    galleryState: GalleryState,
+    onImageSelected: (Uri) -> Unit
+) {
 
 
     val spacing = LocalSpacing.current
     val context = LocalContext.current
-
-
 
 
     val scrollState = rememberScrollState()
@@ -197,7 +195,7 @@ onImageSelected:(Uri) -> Unit
             Spacer(modifier = Modifier.height(spacing.spaceMedium))
             GalleryUploader(
                     galleryState = galleryState,
-                    onAddClicked = {focusManager.clearFocus()},
+                    onAddClicked = { focusManager.clearFocus() },
                     onImageSelected = onImageSelected,
                     onImageClicked = {}
             )
@@ -210,6 +208,9 @@ onImageSelected:(Uri) -> Unit
                             onSaveClicked(Diary().apply {
                                 this.title = uiState.title
                                 this.description = uiState.description
+                                this.images =
+                                    galleryState.images.map { galleryImage -> galleryImage.remoteImagePath }
+                                            .toRealmList()
                             })
                         } else {
 
