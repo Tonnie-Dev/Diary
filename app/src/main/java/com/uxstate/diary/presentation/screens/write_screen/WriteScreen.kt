@@ -15,11 +15,10 @@ import com.google.accompanist.pager.rememberPagerState
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import com.uxstate.diary.R
-import com.uxstate.diary.domain.model.GalleryImage
 import com.uxstate.diary.domain.model.Mood
-import com.uxstate.diary.domain.model.rememberGalleryState
 import com.uxstate.diary.presentation.screens.write_screen.components.WriteContent
 import com.uxstate.diary.presentation.screens.write_screen.components.WriteTopBar
+import timber.log.Timber
 
 @OptIn(ExperimentalPagerApi::class)
 @Destination(navArgsDelegate = WriteScreenNavArgs::class)
@@ -80,7 +79,25 @@ fun WriteScreen(viewModel: WriteViewModel = hiltViewModel(), navigator: Destinat
                 uiState = state,
                 galleryState = galleryState,
                 onImageSelected = { uri ->
-                    galleryState.addImage(GalleryImage(image = uri, remoteImagePath = ""))
+
+//content://media/picker/0/com.android.providers.media.photopicker/media/37
+                    /*
+                    - dynamic retrieval of uri ext,
+                    - this uri is from the PhotoPicker activity contract
+                    - this comes with '/' which needs to be isolated
+
+*/
+
+
+                    val type = context.contentResolver.getType(uri)
+                            ?.split("/")
+                            ?.last() ?: "jpg"
+
+                    viewModel.addImage(image = uri, imageType = type)
+
+                    Timber.i("The Uri from picker is $uri")
+                    Timber.i("The last part is: $type")
+
                 },
                 onSaveClicked = { diary ->
                     viewModel.upsertDiary(diary = diary.apply {

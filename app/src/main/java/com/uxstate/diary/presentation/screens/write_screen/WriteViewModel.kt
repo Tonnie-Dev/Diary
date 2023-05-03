@@ -1,11 +1,15 @@
 package com.uxstate.diary.presentation.screens.write_screen
 
 
+import android.net.Uri
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import com.uxstate.diary.data.repository.MongoDB
 import com.uxstate.diary.domain.model.Diary
+import com.uxstate.diary.domain.model.GalleryImage
 import com.uxstate.diary.domain.model.GalleryState
 import com.uxstate.diary.domain.model.Mood
 import com.uxstate.diary.presentation.screens.navArgs
@@ -187,6 +191,23 @@ class WriteViewModel @Inject constructor(handle: SavedStateHandle) : ViewModel()
 
         }
 
+    }
+
+
+    fun addImage(image: Uri, imageType: String) {
+
+        val remotePath =
+            "images/" +
+                    "${Firebase.auth.currentUser?.uid}/" +
+                    "${image.lastPathSegment}-" +
+                    "${System.currentTimeMillis()}." +
+                    "imageType"
+
+
+
+        Timber.i("The remotePath is $remotePath ")
+
+        galleryState.addImage(GalleryImage(image = image, remoteImagePath = remotePath))
     }
 
     private fun <T> processResult(
