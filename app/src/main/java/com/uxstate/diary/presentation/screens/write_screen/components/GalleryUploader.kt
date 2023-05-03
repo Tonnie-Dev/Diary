@@ -53,7 +53,7 @@ fun GalleryUploader(
     - we can use a trailing lambda for onResult parameter
     - inside the lambda we have a List<Uri>
     - we loop through the uris triggering onImageSelected lambda
-    - onImageSelected will be used later to add image to the list in Gallery State
+    - onImageSelected will be used later to add imageUri to the list in Gallery State
     * */
     val multiplePhotoPicker = rememberLauncherForActivityResult(
             contract = ActivityResultContracts.PickMultipleVisualMedia(maxItems = 7),
@@ -105,7 +105,7 @@ fun GalleryUploader(
 
                         val painter = rememberAsyncImagePainter(
                                 model = ImageRequest.Builder(context)
-                                        .data(galleryImage.image)
+                                        .data(galleryImage.imageUri)
                                         .crossfade(true)
                                         .build()
                         )

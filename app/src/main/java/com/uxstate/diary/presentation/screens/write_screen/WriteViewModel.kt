@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.FirebaseStorage
 import com.uxstate.diary.data.repository.MongoDB
 import com.uxstate.diary.domain.model.Diary
 import com.uxstate.diary.domain.model.GalleryImage
@@ -207,9 +208,24 @@ class WriteViewModel @Inject constructor(handle: SavedStateHandle) : ViewModel()
 
         Timber.i("The remotePath is $remotePath ")
 
-        galleryState.addImage(GalleryImage(image = image, remoteImagePath = remotePath))
+        galleryState.addImage(GalleryImage(imageUri = image, remoteImagePath = remotePath))
     }
 
+
+    private fun uploadImagesToFirebase(){
+
+        //reference to Firebase to enable us create folder/path inside firebase
+        val storage = FirebaseStorage.getInstance().reference
+
+        //upload each imageUri on the GalleryState to FB storage
+        galleryState.images.forEach{galleryImage ->
+
+            val imagePath = storage.child(galleryImage.remoteImagePath)
+
+            imagePath.putFile(galleryImage.imageUri )
+
+        }
+    }
     private fun <T> processResult(
         result: RequestState<T>,
         onSuccess: () -> Unit,
@@ -220,6 +236,7 @@ class WriteViewModel @Inject constructor(handle: SavedStateHandle) : ViewModel()
 
             is RequestState.Success -> {
 
+                uploadImagesToFirebase()
                 onSuccess()
             }
 

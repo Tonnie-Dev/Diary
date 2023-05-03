@@ -36,4 +36,4 @@ fun rememberGalleryState(): GalleryState {
 
     return remember { GalleryState() }
 }
-data class GalleryImage(val image:Uri, val remoteImagePath:String = "")
+data class GalleryImage(val imageUri:Uri, val remoteImagePath:String = "")
