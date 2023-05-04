@@ -83,6 +83,9 @@ class WriteViewModel @Inject constructor(handle: SavedStateHandle) : ViewModel()
                                 fetchImagesFromFirebase(
                                         remoteImagesPaths = diary.data.images,
                                         onImageDownload = { uri ->
+
+                                            Timber.i("The Uri is: $uri")
+
                                             galleryState.addImage(
                                                     GalleryImage(
                                                             imageUri = uri,
