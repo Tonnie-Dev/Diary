@@ -90,29 +90,36 @@ fun Instant.toRealmInstant(): RealmInstant {
     }
 }
 
+/*
+
+- Download images from Firebase asynchronously
+ - This functions returns imageUri after each successfull download
+*/
 fun fetchImagesFromFirebase(
-    images: List<String>,
+    remoteImagesPaths: List<String>,
     onImageDownload: (Uri) -> Unit,
     onImageDownloadFailed: (Exception) -> Unit = {},
     onReadyToDisplay: () -> Unit = {}
 ) {
 
 
-    if (images.isNotEmpty()) {
+    if (remoteImagesPaths.isNotEmpty()) {
 
-        images.forEachIndexed { index, imageUrlString ->
+        remoteImagesPaths.forEachIndexed { index, remoteImagePath ->
 
 
-            if (imageUrlString.trim()
+            if (remoteImagePath.trim()
                         .isNotEmpty()
             ) {
 
                 FirebaseStorage.getInstance()
-                        .reference.child(imageUrlString.trim())
-                        .downloadUrl
+                        .reference.child(remoteImagePath.trim())
+                        .downloadUrl //extracting the download url from storage reference
                         .addOnSuccessListener {
                             onImageDownload(it)
-                            if (images.lastIndexOf(images.last()) == index) {
+
+                            //triggered on reaching the last image
+                            if (remoteImagesPaths.lastIndexOf(remoteImagesPaths.last()) == index) {
                                 onReadyToDisplay()
 
                             }

@@ -1,6 +1,8 @@
 package com.uxstate.diary.presentation.screens.home_screen.components
 
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
+import android.net.Uri
+import android.widget.Toast
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.LinearOutSlowInEasing
@@ -24,6 +26,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -31,6 +34,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.onGloballyPositioned
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextOverflow
@@ -40,6 +44,7 @@ import com.uxstate.diary.domain.model.Mood
 import com.uxstate.diary.presentation.ui.theme.DiaryTheme
 import com.uxstate.diary.presentation.ui.theme.LocalElevation
 import com.uxstate.diary.presentation.ui.theme.LocalSpacing
+import com.uxstate.diary.util.fetchImagesFromFirebase
 import com.uxstate.diary.util.toInstant
 import io.realm.kotlin.ext.realmListOf
 
@@ -48,8 +53,13 @@ fun DiaryHolder(diary: Diary, onClickDiary: (objectId: String) -> Unit) {
 
     val spacing = LocalSpacing.current
     val elevation = LocalElevation.current
+    val context = LocalContext.current
 
     var isGalleryOpen by remember {
+        mutableStateOf(false)
+    }
+
+    var isGalleryLoading by remember {
         mutableStateOf(false)
     }
     //we will calculate the height of the side line from the component height
@@ -58,6 +68,49 @@ fun DiaryHolder(diary: Diary, onClickDiary: (objectId: String) -> Unit) {
 
     // get local density from composable
     val density = LocalDensity.current
+
+    val downloadedImages = remember { mutableListOf<Uri>() }
+
+    //to be triggered each time we open/hide the diary
+    LaunchedEffect(key1 = isGalleryOpen, block = {
+
+
+        if (isGalleryOpen && downloadedImages.isEmpty()) {
+
+            isGalleryLoading = true
+
+            //from utils
+
+            fetchImagesFromFirebase(
+                    remoteImagesPaths = diary.images, //pass remote paths i.e. RealmList<String>,
+                    onImageDownload = { uri ->
+                        downloadedImages.add(uri)
+                    },
+                    onImageDownloadFailed = {
+
+                        Toast.makeText(
+                                context, """
+                            Images not uploade yet, wait a little bit or try uploading again
+                            """.trimIndent(), Toast.LENGTH_SHORT
+                        )
+                                .show()
+
+                        //reset isLoading and isOpen back to false
+                        isGalleryLoading = false
+                        isGalleryOpen = false
+                    },
+                    onReadyToDisplay = {
+
+                        /*When readay to display image
+                        - isLoading is changed to false
+                        - isOpen remains true
+                        * */
+                        isGalleryLoading = false
+                        isGalleryOpen = true
+                    })
+        }
+
+    })
 
     Row(modifier = Modifier
             .clickable(
@@ -125,7 +178,7 @@ fun DiaryHolder(diary: Diary, onClickDiary: (objectId: String) -> Unit) {
                     //column to apply padding
                     Column(modifier = Modifier.padding(spacing.spaceMedium)) {
 
-                        Gallery(images = diary.images)
+                        Gallery(images = downloadedImages)
                     }
                 }
 

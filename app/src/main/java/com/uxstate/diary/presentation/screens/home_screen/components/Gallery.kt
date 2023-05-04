@@ -1,5 +1,6 @@
 package com.uxstate.diary.presentation.screens.home_screen.components
 
+import android.net.Uri
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.BoxWithConstraints
@@ -25,7 +26,7 @@ import kotlin.math.max
 @Composable
 fun Gallery(
     modifier: Modifier = Modifier,
-    images: List<String>,
+    images: List<Uri>,
     imageSize: Dp = 40.dp,
     spaceBetween: Dp = 10.dp,
     imageShape: CornerBasedShape = Shapes().small
