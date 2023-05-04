@@ -28,6 +28,9 @@
     <string name="close_icon">Close Icon</string>
     <string name="diary_deleted_toast">Diary Deleted</string>
     <string name="add_icon_text">Add Icon</string>
+    <string name="loading_text">Loading</string>
+    <string name="hide_gallery_action">Hide Gallery</string>
+    <string name="show_gallery_action">Show Gallery</string>
 
 
 </resources>

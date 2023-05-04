@@ -16,6 +16,7 @@ import com.uxstate.diary.domain.model.Mood
 import com.uxstate.diary.presentation.screens.navArgs
 import com.uxstate.diary.presentation.screens.write_screen.state.UiState
 import com.uxstate.diary.util.RequestState
+import com.uxstate.diary.util.fetchImagesFromFirebase
 import com.uxstate.diary.util.toRealmInstant
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers.IO
@@ -76,6 +77,24 @@ class WriteViewModel @Inject constructor(handle: SavedStateHandle) : ViewModel()
 
                                 setSelectedDiary(diary = diary.data)
 
+
+                                //fetch download url for display to the user
+
+                                fetchImagesFromFirebase(
+                                        remoteImagesPaths = diary.data.images,
+                                        onImageDownload = { uri ->
+                                            galleryState.addImage(
+                                                    GalleryImage(
+                                                            imageUri = uri,
+                                                            remoteImagePath = extractRemoteImagePath(
+                                                                    fullImageUrl = uri.toString()
+                                                            )
+                                                    )
+                                            )
+                                        },
+                                        onImageDownloadFailed = {},
+                                        onReadyToDisplay = {})
+
                             }
 
                         }
@@ -84,6 +103,15 @@ class WriteViewModel @Inject constructor(handle: SavedStateHandle) : ViewModel()
             }
         }
 
+    }
+
+    private fun extractRemoteImagePath(fullImageUrl: String): String {
+
+        val chunks = fullImageUrl.split("%2F")
+        val imageName = chunks[2].split("?")
+                .first()
+
+        return "images/${Firebase.auth.currentUser?.uid}/$imageName"
     }
 
     fun setTitle(title: String) {
@@ -212,20 +240,21 @@ class WriteViewModel @Inject constructor(handle: SavedStateHandle) : ViewModel()
     }
 
 
-    private fun uploadImagesToFirebase(){
+    private fun uploadImagesToFirebase() {
 
         //reference to Firebase to enable us create folder/path inside firebase
         val storage = FirebaseStorage.getInstance().reference
 
         //upload each imageUri on the GalleryState to FB storage
-        galleryState.images.forEach{galleryImage ->
+        galleryState.images.forEach { galleryImage ->
 
             val imagePath = storage.child(galleryImage.remoteImagePath)
 
-            imagePath.putFile(galleryImage.imageUri )
+            imagePath.putFile(galleryImage.imageUri)
 
         }
     }
+
     private fun <T> processResult(
         result: RequestState<T>,
         onSuccess: () -> Unit,

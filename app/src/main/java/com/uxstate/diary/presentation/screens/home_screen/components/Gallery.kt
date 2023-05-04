@@ -14,6 +14,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.Dp
@@ -57,7 +58,7 @@ fun Gallery(
             derivedStateOf { images.size - numberOfVisibleImages }
         }
 
-        Row (horizontalArrangement = Arrangement.spacedBy(spaceBetween)){
+        Row(horizontalArrangement = Arrangement.spacedBy(spaceBetween)) {
             images.take(numberOfVisibleImages)
                     .forEach {
 
@@ -73,13 +74,14 @@ fun Gallery(
                         Image(
                                 painter = painter,
                                 contentDescription = stringResource(R.string.gallery_image_text),
-                        modifier = Modifier
-                                .clip(imageShape)
-                                .size(imageSize)
+                                modifier = Modifier
+                                        .clip(imageShape)
+                                        .size(imageSize),
+                                contentScale = ContentScale.Crop
                         )
                     }
 
-            if (remainingImages>0){
+            if (remainingImages > 0) {
 
                 LastImageOverlay(
                         imageSize = imageSize,

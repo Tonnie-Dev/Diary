@@ -3,6 +3,7 @@ package com.uxstate.diary.util
 import android.net.Uri
 import com.google.firebase.storage.FirebaseStorage
 import io.realm.kotlin.types.RealmInstant
+import timber.log.Timber
 import java.time.Instant
 import java.time.LocalDate
 import java.time.LocalDateTime
@@ -108,6 +109,7 @@ fun fetchImagesFromFirebase(
         remoteImagesPaths.forEachIndexed { index, remoteImagePath ->
 
 
+
             if (remoteImagePath.trim()
                         .isNotEmpty()
             ) {
@@ -118,6 +120,7 @@ fun fetchImagesFromFirebase(
                         .addOnSuccessListener {
                             onImageDownload(it)
 
+                            Timber.i("The download url is: $it")
                             //triggered on reaching the last image
                             if (remoteImagesPaths.lastIndexOf(remoteImagesPaths.last()) == index) {
                                 onReadyToDisplay()

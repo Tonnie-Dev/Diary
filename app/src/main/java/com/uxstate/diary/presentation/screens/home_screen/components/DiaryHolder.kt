@@ -36,9 +36,11 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
+import com.uxstate.diary.R
 import com.uxstate.diary.domain.model.Diary
 import com.uxstate.diary.domain.model.Mood
 import com.uxstate.diary.presentation.ui.theme.DiaryTheme
@@ -71,7 +73,7 @@ fun DiaryHolder(diary: Diary, onClickDiary: (objectId: String) -> Unit) {
 
     val downloadedImages = remember { mutableListOf<Uri>() }
 
-    //to be triggered each time we open/hide the diary
+    //to be triggered each time we open/hide showGallery
     LaunchedEffect(key1 = isGalleryOpen, block = {
 
 
@@ -84,6 +86,8 @@ fun DiaryHolder(diary: Diary, onClickDiary: (objectId: String) -> Unit) {
             fetchImagesFromFirebase(
                     remoteImagesPaths = diary.images, //pass remote paths i.e. RealmList<String>,
                     onImageDownload = { uri ->
+
+                        //store the url within downloadedImage list property
                         downloadedImages.add(uri)
                     },
                     onImageDownloadFailed = {
@@ -161,6 +165,7 @@ fun DiaryHolder(diary: Diary, onClickDiary: (objectId: String) -> Unit) {
 
                     ShowGalleryButton(
                             isGalleyOpen = isGalleryOpen,
+                            isGalleryLoading = isGalleryLoading,
                             onToggleGallery = { isGalleryOpen = !isGalleryOpen }
                     )
                 }
@@ -190,11 +195,19 @@ fun DiaryHolder(diary: Diary, onClickDiary: (objectId: String) -> Unit) {
 }
 
 @Composable
-fun ShowGalleryButton(isGalleyOpen: Boolean, onToggleGallery: () -> Unit) {
+fun ShowGalleryButton(
+    isGalleyOpen: Boolean, isGalleryLoading: Boolean,
+    onToggleGallery: () -> Unit
+) {
 
     TextButton(onClick = onToggleGallery) {
         Text(
-                text = if (isGalleyOpen) "Hide Gallery" else "Show Gallery",
+                text = if (isGalleyOpen)
+
+                    if (isGalleryLoading)
+                        stringResource(R.string.loading_text)
+                    else stringResource(R.string.hide_gallery_action)
+                else stringResource(R.string.show_gallery_action),
                 style = TextStyle(fontSize = MaterialTheme.typography.bodySmall.fontSize),
                 modifier = Modifier.animateContentSize(
                         animationSpec = tween(
