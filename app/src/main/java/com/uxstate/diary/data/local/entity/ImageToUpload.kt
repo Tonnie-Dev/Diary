@@ -7,7 +7,8 @@ import com.uxstate.diary.util.Constants.IMAGE_TO_UPLOAD_TABLE
 
 @Entity(tableName = IMAGE_TO_UPLOAD_TABLE)
 data class ImageToUpload(
-    @PrimaryKey(autoGenerate = true) val id: Int = 0,
+    @PrimaryKey(autoGenerate = true)
+    val id: Int = 0,
     val remoteImagePath: String,
     val imageUrl: String,
     val sessionUrl: String
