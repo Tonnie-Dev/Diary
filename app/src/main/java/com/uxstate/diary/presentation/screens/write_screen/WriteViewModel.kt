@@ -8,6 +8,8 @@ import androidx.lifecycle.viewModelScope
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
+import com.uxstate.diary.data.local.database.ImagesDatabase
+import com.uxstate.diary.data.local.entity.ImageToUpload
 import com.uxstate.diary.data.repository.MongoDB
 import com.uxstate.diary.domain.model.Diary
 import com.uxstate.diary.domain.model.GalleryImage
@@ -33,7 +35,10 @@ import java.time.ZonedDateTime
 import javax.inject.Inject
 
 @HiltViewModel
-class WriteViewModel @Inject constructor(handle: SavedStateHandle) : ViewModel() {
+class WriteViewModel @Inject constructor(
+    handle: SavedStateHandle,
+    private val database: ImagesDatabase
+) : ViewModel() {
 
     private val _uiState = MutableStateFlow(UiState())
     val uiState = _uiState.asStateFlow()
@@ -254,6 +259,33 @@ class WriteViewModel @Inject constructor(handle: SavedStateHandle) : ViewModel()
             val imagePath = storage.child(galleryImage.remoteImagePath)
 
             imagePath.putFile(galleryImage.imageUri)
+                    //add progress listener to putFile()
+                    .addOnProgressListener {
+
+                        val sessionUri = it.uploadSessionUri
+
+                        //session uri expires after 7 days and can used to an upload later
+
+                        if (sessionUri != null) {
+
+                            /*
+                            - if session uri is not null it means the progress has been interrupted
+                            - we therefore persist the session uri
+                            - database will be checked on each app launch to verify failed uploads
+                            - if that is the case then we need to re-upload again.
+                            */
+                            viewModelScope.launch(IO) {
+                                database.imageToUploadDao.addImageToUpload(
+                                        imageToUpload = ImageToUpload(
+
+                                                remoteImagePath = galleryImage.remoteImagePath,
+                                                imageUrl = galleryImage.imageUri.toString(),
+                                                sessionUrl = sessionUri.toString()
+                                        )
+                                )
+                            }
+                        }
+                    }
 
         }
     }
