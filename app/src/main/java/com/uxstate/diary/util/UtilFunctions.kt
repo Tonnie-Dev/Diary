@@ -1,7 +1,9 @@
 package com.uxstate.diary.util
 
 import android.net.Uri
+import androidx.core.net.toUri
 import com.google.firebase.storage.FirebaseStorage
+import com.uxstate.diary.data.local.entity.ImageToUpload
 import io.realm.kotlin.types.RealmInstant
 import timber.log.Timber
 import java.time.Instant
@@ -109,7 +111,6 @@ fun fetchImagesFromFirebase(
         remoteImagesPaths.forEachIndexed { index, remoteImagePath ->
 
 
-
             if (remoteImagePath.trim()
                         .isNotEmpty()
             ) {
@@ -135,6 +136,14 @@ fun fetchImagesFromFirebase(
             }
         }
     }
+}
+
+fun retryUploadingImageToFirebase(imageToUpload: ImageToUpload, onSuccess: () -> Unit) {
+
+    val storage = FirebaseStorage.getInstance().reference
+    storage.child(imageToUpload.remoteImagePath)
+            .putFile(imageToUpload.imageUrl.toUri())
+            .addOnSuccessListener { onSuccess() }
 }
 
 
