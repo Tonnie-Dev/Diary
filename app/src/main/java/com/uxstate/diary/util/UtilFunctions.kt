@@ -3,6 +3,7 @@ package com.uxstate.diary.util
 import android.net.Uri
 import androidx.core.net.toUri
 import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.ktx.storageMetadata
 import com.uxstate.diary.data.local.entity.ImageToUpload
 import io.realm.kotlin.types.RealmInstant
 import timber.log.Timber
@@ -142,7 +143,13 @@ fun retryUploadingImageToFirebase(imageToUpload: ImageToUpload, onSuccess: () ->
 
     val storage = FirebaseStorage.getInstance().reference
     storage.child(imageToUpload.remoteImagePath)
-            .putFile(imageToUpload.imageUrl.toUri())
+            .putFile(
+                    imageToUpload.imageUrl.toUri(),
+                    storageMetadata { },
+                    imageToUpload.sessionUrl.toUri()
+            )
+
+            //add onSuccess Listener instead of OnProgressListener
             .addOnSuccessListener { onSuccess() }
 }
 
