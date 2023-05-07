@@ -115,6 +115,10 @@ object MongoDB : MongoRepository {
 
     }
 
+    override fun getFilteredDiaries(): Flow<Diaries> {
+        TODO("Not yet implemented")
+    }
+
     override suspend fun insertDiary(diary: Diary): RequestState<Diary> {
 
         return authenticateAndInvokeMongoOp(user){

@@ -62,7 +62,7 @@ fun HomeScreen(
                         },
                         diaries = diaries,
 
-                        // TODO: Fix this 
+                        // TODO: Fix this
                         dateIsSelected = true,
                         onDateSelected = {},
                         onDateReset = {}
