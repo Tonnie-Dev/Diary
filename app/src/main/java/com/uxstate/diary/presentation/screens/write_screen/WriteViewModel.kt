@@ -167,6 +167,9 @@ class WriteViewModel @Inject constructor(
         } else {
             updateDiary(diary, onSuccess, onError)
         }
+
+        deleteImagesFromFirebase(images = galleryState.imagesToBeDeleted.map { it.remoteImagePath })
+        galleryState.clearImagesToBeDeleted()
     }
 
     private fun insertDiary(diary: Diary, onSuccess: () -> Unit, onError: (String) -> Unit) {
