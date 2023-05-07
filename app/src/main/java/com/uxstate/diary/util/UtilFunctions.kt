@@ -4,7 +4,7 @@ import android.net.Uri
 import androidx.core.net.toUri
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.ktx.storageMetadata
-import com.uxstate.diary.data.local.entity.ImageToUpload
+import com.uxstate.diary.data.local.entities.ImageToUpload
 import io.realm.kotlin.types.RealmInstant
 import timber.log.Timber
 import java.time.Instant

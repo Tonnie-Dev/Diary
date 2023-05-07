@@ -1,4 +1,4 @@
-package com.uxstate.diary.data.local.entity
+package com.uxstate.diary.data.local.entities
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

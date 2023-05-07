@@ -4,8 +4,7 @@ import androidx.room.Database
 import androidx.room.RoomDatabase
 import com.uxstate.diary.data.local.dao.ImageToUploadDao
 import com.uxstate.diary.data.local.database.ImagesDatabase.Companion.DATABASE_VERSION
-import com.uxstate.diary.data.local.entity.ImageToUpload
-import kotlin.math.exp
+import com.uxstate.diary.data.local.entities.ImageToUpload
 
 @Database(entities = [ImageToUpload::class], version = DATABASE_VERSION, exportSchema = false)
 abstract class ImagesDatabase:RoomDatabase(){

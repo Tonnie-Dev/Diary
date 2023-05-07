@@ -4,7 +4,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.uxstate.diary.data.local.entity.ImageToUpload
+import com.uxstate.diary.data.local.entities.ImageToUpload
 
 @Dao
 interface ImageToUploadDao {

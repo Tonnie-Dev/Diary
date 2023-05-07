@@ -9,7 +9,7 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.uxstate.diary.data.local.database.ImagesDatabase
-import com.uxstate.diary.data.local.entity.ImageToUpload
+import com.uxstate.diary.data.local.entities.ImageToUpload
 import com.uxstate.diary.data.repository.MongoDB
 import com.uxstate.diary.domain.model.Diary
 import com.uxstate.diary.domain.model.GalleryImage
