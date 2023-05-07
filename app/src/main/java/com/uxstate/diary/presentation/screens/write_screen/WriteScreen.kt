@@ -1,6 +1,7 @@
 package com.uxstate.diary.presentation.screens.write_screen
 
 import android.widget.Toast
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -9,7 +10,9 @@ import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.window.Dialog
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.rememberPagerState
@@ -20,14 +23,15 @@ import com.uxstate.diary.domain.model.GalleryImage
 import com.uxstate.diary.domain.model.Mood
 import com.uxstate.diary.presentation.screens.write_screen.components.WriteContent
 import com.uxstate.diary.presentation.screens.write_screen.components.WriteTopBar
-import timber.log.Timber
+import com.uxstate.diary.presentation.screens.write_screen.components.ZoomableImage
 
 @OptIn(ExperimentalPagerApi::class)
 @Destination(navArgsDelegate = WriteScreenNavArgs::class)
 @Composable
 fun WriteScreen(viewModel: WriteViewModel = hiltViewModel(), navigator: DestinationsNavigator) {
 
-    var selectedGalleryImage = remember { mutableStateOf<GalleryImage?>(null) }
+    //use by keyword to extract value from state holder
+    var selectedGalleryImage by remember { mutableStateOf<GalleryImage?>(null) }
     val state by viewModel.uiState.collectAsState()
 
 
@@ -71,25 +75,25 @@ fun WriteScreen(viewModel: WriteViewModel = hiltViewModel(), navigator: Destinat
                 onBackPressed = { navigator.navigateUp() },
                 onUpdateDateTime = viewModel::updateDateTime
         )
-    }, content = {
+    }, content = { paddingValues ->
 
         WriteContent(title = state.title,
                 onTitleChanged = viewModel::setTitle,
                 description = state.description,
                 onDescriptionChanged = viewModel::setDescription,
-                paddingValues = it,
+                paddingValues = paddingValues,
                 pagerState = pagerState,
                 uiState = state,
                 galleryState = galleryState,
                 onImageSelected = { uri ->
 
-//content://media/picker/0/com.android.providers.media.photopicker/media/37
+                    //content://media/picker/0/com.android.providers.media.photopicker/media/37
                     /*
                     - dynamic retrieval of uri ext,
                     - this uri is from the PhotoPicker activity contract
                     - this comes with '/' which needs to be isolated
 
-*/
+                    */
 
 
                     val type = context.contentResolver.getType(uri)
@@ -97,7 +101,6 @@ fun WriteScreen(viewModel: WriteViewModel = hiltViewModel(), navigator: Destinat
                             ?.last() ?: "jpg"
 
                     viewModel.addImage(image = uri, imageType = type)
-
 
 
                 },
@@ -111,7 +114,43 @@ fun WriteScreen(viewModel: WriteViewModel = hiltViewModel(), navigator: Destinat
                         Toast.makeText(context, message, Toast.LENGTH_SHORT)
                                 .show()
                     })
-                })
+                }, onImageClicked = { galleryImage ->
+
+            //update value for selectedGalleryImage
+            selectedGalleryImage = galleryImage
+
+        })
+
+        //show/hide zoomable images
+        AnimatedVisibility(visible = selectedGalleryImage != null) {
+            /*
+            - modal dialog to enable us draw on top of content
+             - onDismiss executes when the user tries to dismiss dialog
+              - this will switch the selectedGalleryImage state to null
+             */
+
+            Dialog(onDismissRequest = { selectedGalleryImage = null }) {
+
+
+                if (selectedGalleryImage != null) {
+
+                    ZoomableImage(
+                            selectedGalleryImage = selectedGalleryImage!!,
+                            onCloseClicked = { selectedGalleryImage = null },
+                            onDeleteClicked = {
+                                //recheck the image is not null again
+                                if (selectedGalleryImage != null) {
+
+
+
+                                    //after deleting the image switch it back to null
+                                    selectedGalleryImage = null
+                                }
+
+                            })
+                }
+            }
+        }
     })
 }
 

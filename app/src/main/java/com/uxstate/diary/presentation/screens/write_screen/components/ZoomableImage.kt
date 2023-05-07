@@ -24,10 +24,12 @@ import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.unit.dp
+import androidx.compose.ui.res.stringResource
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
+import com.uxstate.diary.R
 import com.uxstate.diary.domain.model.GalleryImage
+import com.uxstate.diary.presentation.ui.theme.LocalSpacing
 
 @Composable
 fun ZoomableImage(
@@ -35,13 +37,23 @@ fun ZoomableImage(
     onCloseClicked: () -> Unit,
     onDeleteClicked: () -> Unit
 ) {
+
+    val spacing = LocalSpacing.current
+    val space24 = spacing.spaceMedium + spacing.spaceSmall
+
+    /*scale and offset variables are used to keep track of the
+    current zoom level and position of the image.*/
     var offsetX by remember { mutableStateOf(0f) }
     var offsetY by remember { mutableStateOf(0f) }
     var scale by remember { mutableStateOf(1f) }
+
+
     Box(
             modifier = Modifier
                     .pointerInput(Unit) {
                         detectTransformGestures { _, pan, zoom, _ ->
+
+                            //max zoom level is 5f
                             scale = maxOf(1f, minOf(scale * zoom, 5f))
                             val maxX = (size.width * (scale - 1)) / 2
                             val minX = -maxX
@@ -52,6 +64,15 @@ fun ZoomableImage(
                         }
                     }
     ) {
+
+        /* - Image to Zoom - can be zoomed in and out using pinch gestures.
+         - AsyncImage fills the MaxSize of the box
+         - graphicsLayer Modifier provides a way to modify the graphical properties
+           of a composable element, such as its alpha value, rotation, and scale
+         - it creates a new GraphicsLayer object and attaches it to the element
+         - you can then use this object to apply transformations to the element's
+           drawing, such as scaling, rotating, or translating it
+        * */
         AsyncImage(
                 modifier = Modifier
                         .fillMaxSize()
@@ -66,13 +87,15 @@ fun ZoomableImage(
                         .crossfade(true)
                         .build(),
                 contentScale = ContentScale.Fit,
-                contentDescription = "Gallery Image"
+                contentDescription = stringResource(id = R.string.gallery_image_text)
         )
+
+        //the row is drawn on top of the AsyncImage filling the entire width
         Row(
                 modifier = Modifier
                         .fillMaxWidth()
-                        .padding(horizontal = 24.dp)
-                        .padding(top = 24.dp),
+                        .padding(horizontal = space24)
+                        .padding(top = space24),
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
         ) {

@@ -44,6 +44,7 @@ import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.PagerState
 import com.uxstate.diary.R
 import com.uxstate.diary.domain.model.Diary
+import com.uxstate.diary.domain.model.GalleryImage
 import com.uxstate.diary.domain.model.GalleryState
 import com.uxstate.diary.domain.model.Mood
 import com.uxstate.diary.presentation.screens.write_screen.state.UiState
@@ -63,7 +64,8 @@ fun WriteContent(
     paddingValues: PaddingValues,
     pagerState: PagerState,
     galleryState: GalleryState,
-    onImageSelected: (Uri) -> Unit
+    onImageSelected: (Uri) -> Unit,
+     onImageClicked:(GalleryImage)-> Unit
 ) {
 
     val spacing = LocalSpacing.current
@@ -195,7 +197,7 @@ fun WriteContent(
                     galleryState = galleryState,
                     onAddClicked = { focusManager.clearFocus() },
                     onImageSelected = onImageSelected,
-                    onImageClicked = {}
+                    onImageClicked = onImageClicked
             )
             Spacer(modifier = Modifier.height(spacing.spaceMedium))
             Button(
