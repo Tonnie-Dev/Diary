@@ -290,6 +290,16 @@ class WriteViewModel @Inject constructor(
         }
     }
 
+    private fun deleteImagesFromFirebase(images:List<String>){
+        val storage = FirebaseStorage.getInstance().reference
+
+        images.forEach {
+             remotePath ->
+
+            storage.child(remotePath).delete()
+        }
+    }
+
     private fun <T> processResult(
         result: RequestState<T>,
         onSuccess: () -> Unit,
