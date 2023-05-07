@@ -6,6 +6,7 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -37,7 +38,7 @@ fun HomeScreen(
     navigator: DestinationsNavigator
 ) {
 
-    val diaries by viewModel.diaries
+    val diaries by viewModel.diaries.collectAsState()
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
     var isSignOutDialogOpen by remember { mutableStateOf(false) }
     var isDeleteAllDialogOpen by remember { mutableStateOf(false) }

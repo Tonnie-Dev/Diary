@@ -3,6 +3,7 @@ package com.uxstate.diary.connectivity
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.Network
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
@@ -10,7 +11,7 @@ import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class ConnectivityObserverImpl @Inject constructor(context: Context) : ConnectivityObserver {
+class ConnectivityObserverImpl @Inject constructor(@ApplicationContext context: Context) : ConnectivityObserver {
     private val connectivityManager =
         context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
 
