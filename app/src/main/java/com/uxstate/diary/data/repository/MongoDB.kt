@@ -188,7 +188,18 @@ object MongoDB : MongoRepository {
             realm.write {
 
                 //retrieve diaries to delete
-                val diaries = this query<Diary>("")
+                val diaries = this .query<Diary>("ownerId == $0", user!!.id).find()
+
+                 try {
+                     //call delete
+                     delete(diaries)
+                     RequestState.Success(data = true)
+
+                         }
+                         catch (e:Exception){
+
+                             RequestState.Error(e)
+                         }
             }
 
         }
