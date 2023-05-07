@@ -3,8 +3,6 @@ package com.uxstate.diary.connectivity
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.Network
-import android.os.Build
-import androidx.annotation.RequiresApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.channels.awaitClose
