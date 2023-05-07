@@ -44,10 +44,11 @@ class NetworkConnectivityObserver(context: Context) : ConnectivityObserver {
 
         connectivityManager.registerDefaultNetworkCallback(callback)
 
+            //unregister callback - triggered when flow is cancelled
         awaitClose {
             connectivityManager.unregisterNetworkCallback(callback)
         }
-
+//return distinct flow enum values - ignores consecutive save enum values
     }.distinctUntilChanged()
     }
 }
