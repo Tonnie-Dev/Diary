@@ -59,7 +59,13 @@ fun HomeScreen(
                                 drawerState.open()
                             }
 
-                        }, diaries = diaries
+                        },
+                        diaries = diaries,
+
+                        // TODO: Fix this 
+                        dateIsSelected = true,
+                        onDateSelected = {},
+                        onDateReset = {}
                 )
             },
             onSignOutClicked = { isSignOutDialogOpen = true },
@@ -135,12 +141,12 @@ fun HomeScreen(
                 },
                         onError = {
 
-                            val message =  if (it.message =="No Internet Connection")
+                            val message = if (it.message == "No Internet Connection")
                                 "We need an internet connection for this operation" else it.message
 
                             Toast.makeText(
                                     context,
-                                   message,
+                                    message,
                                     Toast.LENGTH_SHORT
                             )
                                     .show()

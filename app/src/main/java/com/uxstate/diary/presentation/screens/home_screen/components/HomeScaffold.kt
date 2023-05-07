@@ -29,10 +29,15 @@ import com.uxstate.diary.domain.repository.Diaries
 import com.uxstate.diary.presentation.screens.destinations.WriteScreenDestination
 import com.uxstate.diary.util.RequestState
 import timber.log.Timber
+import java.time.ZonedDateTime
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HomeScaffold(diaries: Diaries, onMenuClicked: () -> Unit, navigator: DestinationsNavigator) {
+fun HomeScaffold(diaries: Diaries, onMenuClicked: () -> Unit,
+                 dateIsSelected: Boolean,
+                 onDateSelected: (ZonedDateTime) -> Unit,
+                 onDateReset: () -> Unit,
+                 navigator: DestinationsNavigator) {
 
     var padding by remember {
         mutableStateOf(PaddingValues())
@@ -44,7 +49,12 @@ fun HomeScaffold(diaries: Diaries, onMenuClicked: () -> Unit, navigator: Destina
 
     Scaffold(modifier = Modifier.nestedScroll(connection = scrollBehavior.nestedScrollConnection),
             topBar = {
-                HomeTopBar(onMenuClicked = onMenuClicked, scrollBehavior = scrollBehavior)
+                HomeTopBar(
+                        onMenuClicked = onMenuClicked,
+                        scrollBehavior = scrollBehavior,
+                        dateIsSelected = dateIsSelected,
+                        onDateSelected = onDateSelected,
+                        onDateReset = onDateReset)
             },
             floatingActionButton = {
                 FloatingActionButton(
