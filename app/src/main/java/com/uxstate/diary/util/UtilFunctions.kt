@@ -4,6 +4,7 @@ import android.net.Uri
 import androidx.core.net.toUri
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.ktx.storageMetadata
+import com.uxstate.diary.data.local.entities.ImageToDelete
 import com.uxstate.diary.data.local.entities.ImageToUpload
 import io.realm.kotlin.types.RealmInstant
 import timber.log.Timber
@@ -149,6 +150,16 @@ fun retryUploadingImageToFirebase(imageToUpload: ImageToUpload, onSuccess: () ->
                     imageToUpload.sessionUrl.toUri()
             )
 
+            //add onSuccess Listener instead of OnProgressListener
+            .addOnSuccessListener { onSuccess() }
+}
+
+fun retryDeletingImageToFirebase(imageToDelete: ImageToDelete, onSuccess: () -> Unit) {
+
+    val storage = FirebaseStorage.getInstance().reference
+
+    storage.child(imageToDelete.remotePath)
+            .delete()
             //add onSuccess Listener instead of OnProgressListener
             .addOnSuccessListener { onSuccess() }
 }

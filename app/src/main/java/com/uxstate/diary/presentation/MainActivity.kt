@@ -87,6 +87,15 @@ class MainActivity : ComponentActivity() {
                             }
                         })
             }
+
+            val unDeletedItems = database.imageToDeleteDao.getAllImages().forEach {
+
+                 imageToDelete ->
+
+                //call retry delete util function
+
+
+            }
         }
     }
 }
