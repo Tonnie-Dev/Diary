@@ -61,7 +61,10 @@ fun HomeScreen(
                         }, diaries = diaries)
             },
             onSignOutClicked = { isSignOutDialogOpen = true },
-            onDeleteAllDiaries = {}
+            onDeleteAllDiaries = {
+
+                isDeleteAllDialogOpen = true
+            }
     )
 
 
@@ -107,5 +110,14 @@ fun HomeScreen(
                 navigator.popBackStack()
                 navigator.navigate(AuthenticationScreenDestination)
             })
+
+
+    DisplayAlertDialog(
+            title = stringResource(R.string.delete_diaries_dialog_title),
+            message = stringResource(R.string.delete_all_diaries_confirmation),
+            isDialogOpen =isDeleteAllDialogOpen,
+            onCloseDialog = { isDeleteAllDialogOpen = false },
+            onDialogConfirmed = {}
+    )
 
 }

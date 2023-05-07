@@ -32,6 +32,8 @@
     <string name="hide_gallery_action">Hide Gallery</string>
     <string name="show_gallery_action">Show Gallery</string>
     <string name="delete_all_icon">Delete All Icon</string>
+    <string name="delete_diaries_dialog_title">Delete All Diaries</string>
+    <string name="delete_all_diaries_confirmation">Are you sure you want to permanently delete all Diaries?</string>
 
 
 </resources>

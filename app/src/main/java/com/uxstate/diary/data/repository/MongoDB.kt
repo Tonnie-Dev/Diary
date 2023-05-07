@@ -182,6 +182,18 @@ object MongoDB : MongoRepository {
         }
     }
 
+    override suspend fun deleteAllDiaries(): RequestState<Boolean> {
+        return authenticateAndInvokeMongoOp(user = user){
+
+            realm.write {
+
+                //retrieve diaries to delete
+                val diaries = this query<Diary>("")
+            }
+
+        }
+    }
+
 }
 
 private fun <T> authenticateAndInvokeMongoFlowOp(
