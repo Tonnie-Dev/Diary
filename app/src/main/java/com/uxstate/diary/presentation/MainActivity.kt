@@ -15,6 +15,7 @@ import com.uxstate.diary.presentation.screens.destinations.AuthenticationScreenD
 import com.uxstate.diary.presentation.screens.destinations.HomeScreenDestination
 import com.uxstate.diary.presentation.ui.theme.DiaryTheme
 import com.uxstate.diary.util.Constants.APP_ID
+import com.uxstate.diary.util.retryDeletingImageToFirebase
 import com.uxstate.diary.util.retryUploadingImageToFirebase
 import dagger.hilt.android.AndroidEntryPoint
 import io.realm.kotlin.mongodb.App
@@ -88,14 +89,21 @@ class MainActivity : ComponentActivity() {
                         })
             }
 
-            val unDeletedItems = database.imageToDeleteDao.getAllImages().forEach {
+            val unDeletedItems = database.imageToDeleteDao.getAllImages()
+                    .forEach {
 
-                 imageToDelete ->
+                        imageToDelete ->
 
-                //call retry delete util function
+                        //call retry delete util function
 
+                        retryDeletingImageToFirebase(imageToDelete = imageToDelete, onSuccess = {
+                            scope.launch (IO){
+                                //when we successfully remove images from FB, we cleanup database
+                                database.imageToDeleteDao.cleanUpImage(imageToDelete.id)
+                            }
 
-            }
+                        })
+                    }
         }
     }
 }

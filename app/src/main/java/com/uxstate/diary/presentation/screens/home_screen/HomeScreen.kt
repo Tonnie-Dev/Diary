@@ -40,6 +40,7 @@ fun HomeScreen(
     val diaries by viewModel.diaries
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
     var isSignOutDialogOpen by remember { mutableStateOf(false) }
+    var isDeleteAllDialogOpen by remember { mutableStateOf(false) }
 
 
 
@@ -59,7 +60,8 @@ fun HomeScreen(
 
                         }, diaries = diaries)
             },
-            onSignOutClicked = { isSignOutDialogOpen = true }
+            onSignOutClicked = { isSignOutDialogOpen = true },
+            onDeleteAllDiaries = {}
     )
 
 

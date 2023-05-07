@@ -1,8 +1,21 @@
 package com.uxstate.diary.presentation.screens.home_screen.components
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.*
-import androidx.compose.material3.*
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material3.DrawerState
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.ModalDrawerSheet
+import androidx.compose.material3.ModalNavigationDrawer
+import androidx.compose.material3.NavigationDrawerItem
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -16,6 +29,7 @@ import com.uxstate.diary.presentation.ui.theme.LocalSpacing
 fun DiaryNavigationDrawer(
     drawerState: DrawerState,
     onSignOutClicked: () -> Unit,
+    onDeleteAllDiaries: () -> Unit,
     content: @Composable () -> Unit
 ) {
     ModalNavigationDrawer(
@@ -27,7 +41,10 @@ fun DiaryNavigationDrawer(
             //content defined belo
             drawerContent = {
                 ModalDrawerSheet() {
-                    NavDrawerContent(onSignOutClicked = onSignOutClicked)
+                    NavDrawerContent(
+                            onSignOutClicked = onSignOutClicked,
+                            onDeleteAllDiaries = onDeleteAllDiaries
+                    )
                 }
 
             }
@@ -36,7 +53,7 @@ fun DiaryNavigationDrawer(
 
 
 @Composable
-fun NavDrawerContent(onSignOutClicked: () -> Unit) {
+fun NavDrawerContent(onSignOutClicked: () -> Unit, onDeleteAllDiaries: () -> Unit) {
     val spacing = LocalSpacing.current
 
     //use box to center logo
@@ -53,7 +70,7 @@ fun NavDrawerContent(onSignOutClicked: () -> Unit) {
 
     }
 
-    //Drawer Menu Item
+    //Drawer Menu Item -
     NavigationDrawerItem(
             label = {
                 Row(
@@ -78,6 +95,31 @@ fun NavDrawerContent(onSignOutClicked: () -> Unit) {
             },
             selected = false,
             onClick = onSignOutClicked
+    )
+
+    NavigationDrawerItem(
+            label = {
+
+                Row {
+                    Icon(
+                            imageVector = Icons.Default.Delete,
+                            contentDescription = stringResource(R.string.delete_all_icon),
+                            tint = MaterialTheme.colorScheme.onSurface
+                    )
+                    Spacer(modifier = Modifier.width(spacing.spaceSmall))
+
+                    Text(
+                            text = "Delete All Diaries",
+                            style = TextStyle(
+                                    color = MaterialTheme.colorScheme.onSurface,
+                                    fontSize = MaterialTheme.typography.bodyLarge.fontSize
+                            )
+                    )
+                }
+
+            },
+            selected = false,
+            onClick = onDeleteAllDiaries
     )
 
 }
