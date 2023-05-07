@@ -21,14 +21,15 @@ import io.realm.kotlin.mongodb.App
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 var keepSplashScreen = true
 
 @AndroidEntryPoint
 //xCVZ62a1SUMhANpf Tonnie
 class MainActivity : ComponentActivity() {
-
-    lateinit var 
+    @Inject
+    lateinit var database: ImagesDatabase
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,8 +52,8 @@ class MainActivity : ComponentActivity() {
             }
         }
 
-
-        cleanUpCheck(scope = lifecycleScope, database = )
+        //from activity Lifecycle Owner
+        cleanUpCheck(scope = lifecycleScope, database = database)
     }
 
 
@@ -78,9 +79,11 @@ class MainActivity : ComponentActivity() {
 
                 retryUploadingImageToFirebase(
                         imageToUpload = image,
+
+                        //onSuccess to trigger removal of images from database
                         onSuccess = {
                             scope.launch(IO) {
-                                database.imageToUploadDao.cleanupImage(imageId =image.id)
+                                database.imageToUploadDao.cleanupImage(imageId = image.id)
                             }
                         })
             }

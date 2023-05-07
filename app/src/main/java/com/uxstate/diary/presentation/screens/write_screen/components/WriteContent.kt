@@ -66,10 +66,8 @@ fun WriteContent(
     onImageSelected: (Uri) -> Unit
 ) {
 
-
     val spacing = LocalSpacing.current
     val context = LocalContext.current
-
 
     val scrollState = rememberScrollState()
     val scope = rememberCoroutineScope()
@@ -213,7 +211,6 @@ fun WriteContent(
                                             .toRealmList()
                             })
                         } else {
-
 
                             Toast.makeText(context, R.string.empty_field_text, Toast.LENGTH_SHORT)
                                     .show()

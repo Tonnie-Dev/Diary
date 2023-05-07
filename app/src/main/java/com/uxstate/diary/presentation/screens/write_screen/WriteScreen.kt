@@ -7,6 +7,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -15,6 +16,7 @@ import com.google.accompanist.pager.rememberPagerState
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import com.uxstate.diary.R
+import com.uxstate.diary.domain.model.GalleryImage
 import com.uxstate.diary.domain.model.Mood
 import com.uxstate.diary.presentation.screens.write_screen.components.WriteContent
 import com.uxstate.diary.presentation.screens.write_screen.components.WriteTopBar
@@ -25,6 +27,7 @@ import timber.log.Timber
 @Composable
 fun WriteScreen(viewModel: WriteViewModel = hiltViewModel(), navigator: DestinationsNavigator) {
 
+    var selectedGalleryImage = remember { mutableStateOf<GalleryImage?>(null) }
     val state by viewModel.uiState.collectAsState()
 
 
@@ -95,8 +98,7 @@ fun WriteScreen(viewModel: WriteViewModel = hiltViewModel(), navigator: Destinat
 
                     viewModel.addImage(image = uri, imageType = type)
 
-                    Timber.i("The Uri from picker is $uri")
-                    Timber.i("The last part is: $type")
+
 
                 },
                 onSaveClicked = { diary ->
