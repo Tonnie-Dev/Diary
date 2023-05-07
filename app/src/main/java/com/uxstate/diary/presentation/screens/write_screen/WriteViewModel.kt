@@ -229,7 +229,7 @@ class WriteViewModel @Inject constructor(
                         withContext(Main) {
 
                             _uiState.value.selectedDiary?.let {
-
+//if a diary is deleted we also need to clear its files on firebase
                                 deleteImagesFromFirebase(it.images)
                             }
                             onSuccess()

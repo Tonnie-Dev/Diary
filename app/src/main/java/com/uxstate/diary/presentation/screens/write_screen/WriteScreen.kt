@@ -141,7 +141,7 @@ fun WriteScreen(viewModel: WriteViewModel = hiltViewModel(), navigator: Destinat
                                 //recheck the image is not null again
                                 if (selectedGalleryImage != null) {
 
-
+                                    galleryState.removeImage(selectedGalleryImage!!)
 
                                     //after deleting the image switch it back to null
                                     selectedGalleryImage = null
