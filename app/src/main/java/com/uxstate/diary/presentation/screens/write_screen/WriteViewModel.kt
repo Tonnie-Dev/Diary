@@ -9,6 +9,7 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.uxstate.diary.data.local.database.ImagesDatabase
+import com.uxstate.diary.data.local.entities.ImageToDelete
 import com.uxstate.diary.data.local.entities.ImageToUpload
 import com.uxstate.diary.data.repository.MongoDB
 import com.uxstate.diary.domain.model.Diary
@@ -36,8 +37,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class WriteViewModel @Inject constructor(
-    handle: SavedStateHandle,
-    private val database: ImagesDatabase
+    handle: SavedStateHandle, private val database: ImagesDatabase
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(UiState())
@@ -85,8 +85,7 @@ class WriteViewModel @Inject constructor(
 
                                 //fetch download url for display to the user
 
-                                fetchImagesFromFirebase(
-                                        remoteImagesPaths = diary.data.images,
+                                fetchImagesFromFirebase(remoteImagesPaths = diary.data.images,
                                         onImageDownload = { uri ->
 
                                             Timber.i("The Uri is: $uri")
@@ -222,8 +221,7 @@ class WriteViewModel @Inject constructor(
         viewModelScope.launch(IO) {
             if (diaryId != null) {
 
-                val result =
-                    MongoDB.deleteDiary(id = ObjectId.invoke(diaryId))
+                val result = MongoDB.deleteDiary(id = ObjectId.invoke(diaryId))
 
                 when (result) {
 
@@ -231,8 +229,7 @@ class WriteViewModel @Inject constructor(
 
                         withContext(Main) {
 
-                            _uiState.value.selectedDiary?.let {
-//if a diary is deleted we also need to clear its files on firebase
+                            _uiState.value.selectedDiary?.let { //if a diary is deleted we also need to clear its files on firebase
                                 deleteImagesFromFirebase(it.images)
                             }
                             onSuccess()
@@ -241,11 +238,12 @@ class WriteViewModel @Inject constructor(
 
                     is RequestState.Error -> {
 
-                        withContext(Main){
+                        withContext(Main) {
 
                             onError(result.error.message ?: "Unknown Error")
                         }
                     }
+
                     else -> Unit
                 }
 
@@ -259,11 +257,7 @@ class WriteViewModel @Inject constructor(
     fun addImage(image: Uri, imageType: String) {
 
         val remotePath =
-            "images/" +
-                    "${Firebase.auth.currentUser?.uid}/" +
-                    "${image.lastPathSegment}-" +
-                    "${System.currentTimeMillis()}." +
-                    "imageType"
+            "images/" + "${Firebase.auth.currentUser?.uid}/" + "${image.lastPathSegment}-" + "${System.currentTimeMillis()}." + "imageType"
 
 
 
@@ -283,8 +277,7 @@ class WriteViewModel @Inject constructor(
 
             val imagePath = storage.child(galleryImage.remoteImagePath)
 
-            imagePath.putFile(galleryImage.imageUri)
-                    //add progress listener to putFile()
+            imagePath.putFile(galleryImage.imageUri) //add progress listener to putFile()
                     .addOnProgressListener {
 
                         val sessionUri = it.uploadSessionUri
@@ -324,29 +317,41 @@ class WriteViewModel @Inject constructor(
 
                 storage.child(remotePath)
                         .delete()
+                        .addOnFailureListener {
+
+                            viewModelScope.launch(IO) {
+
+                                database.imageToDeleteDao.addImageToDelete(ImageToDelete(remotePath = remotePath))
+                            }
+                        }
             }
-        }else {
+        } else {
 
             galleryState.imagesToBeDeleted.forEach { imageTobeDeleted ->
 
-                storage.child(imageTobeDeleted.remoteImagePath).delete()
+                storage.child(imageTobeDeleted.remoteImagePath)
+                        .delete()
+                        .addOnFailureListener {
+
+                            viewModelScope.launch(IO) {
+
+                                database.imageToDeleteDao.addImageToDelete(ImageToDelete(remotePath = imageTobeDeleted.remoteImagePath))
+                            }
+                        }
             }
         }
 
     }
 
     private fun <T> processResult(
-        result: RequestState<T>,
-        onSuccess: () -> Unit,
-        onError: (String) -> Unit
+        result: RequestState<T>, onSuccess: () -> Unit, onError: (String) -> Unit
     ) {
 
         when (result) {
 
             is RequestState.Success -> {
 
-                uploadImagesToFirebase()
-                //check if there are any images marked for deletion
+                uploadImagesToFirebase() //check if there are any images marked for deletion
                 deleteImagesFromFirebase()
 
                 //navigate back destroying the ViewModel
