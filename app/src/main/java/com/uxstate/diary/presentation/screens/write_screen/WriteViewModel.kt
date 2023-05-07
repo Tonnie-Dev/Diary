@@ -168,7 +168,6 @@ class WriteViewModel @Inject constructor(
             updateDiary(diary, onSuccess, onError)
         }
 
-        deleteImagesFromFirebase(images = galleryState.imagesToBeDeleted.map { it.remoteImagePath })
 
     }
 
@@ -207,6 +206,7 @@ class WriteViewModel @Inject constructor(
                     date = _uiState.value.selectedDiary!!.date
                 }
             })
+
 
             withContext(Main) {
                 processResult(result, onSuccess, onError)
@@ -315,14 +315,24 @@ class WriteViewModel @Inject constructor(
         }
     }
 
-    private fun deleteImagesFromFirebase(images: List<String>) {
+    private fun deleteImagesFromFirebase(images: List<String>? = null) {
         val storage = FirebaseStorage.getInstance().reference
 
-        images.forEach { remotePath ->
 
-            storage.child(remotePath)
-                    .delete()
+        if (images != null) {
+            images.forEach { remotePath ->
+
+                storage.child(remotePath)
+                        .delete()
+            }
+        }else {
+
+            galleryState.imagesToBeDeleted.forEach { imageTobeDeleted ->
+
+                storage.child(imageTobeDeleted.remoteImagePath).delete()
+            }
         }
+
     }
 
     private fun <T> processResult(
@@ -336,6 +346,10 @@ class WriteViewModel @Inject constructor(
             is RequestState.Success -> {
 
                 uploadImagesToFirebase()
+                //check if there are any images marked for deletion
+                deleteImagesFromFirebase()
+
+                //navigate back destroying the ViewModel
                 onSuccess()
             }
 
