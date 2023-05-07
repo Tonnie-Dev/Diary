@@ -1,10 +1,12 @@
 package com.uxstate.diary.connectivity
 
+import kotlinx.coroutines.flow.Flow
+
 interface ConnectivityObserver {
 
-    fun onbserve():Flow<Status>
+    fun observe(): Flow<Status>
 
-    enum class Staus(){
+    enum class Status(){
 
         AVAILABLE,
         UNAVAILABLE,
