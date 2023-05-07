@@ -70,7 +70,7 @@ fun NavDrawerContent(onSignOutClicked: () -> Unit, onDeleteAllDiaries: () -> Uni
 
     }
 
-    //Drawer Menu Item -
+    //Drawer Menu Item 1
     NavigationDrawerItem(
             label = {
                 Row(
@@ -97,6 +97,7 @@ fun NavDrawerContent(onSignOutClicked: () -> Unit, onDeleteAllDiaries: () -> Uni
             onClick = onSignOutClicked
     )
 
+    //Drawer Menu Item 1
     NavigationDrawerItem(
             label = {
 
