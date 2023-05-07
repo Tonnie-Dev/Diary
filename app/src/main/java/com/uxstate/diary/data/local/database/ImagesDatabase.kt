@@ -2,6 +2,7 @@ package com.uxstate.diary.data.local.database
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
+import com.uxstate.diary.data.local.dao.ImageToDeleteDao
 import com.uxstate.diary.data.local.dao.ImageToUploadDao
 import com.uxstate.diary.data.local.database.ImagesDatabase.Companion.DATABASE_VERSION
 import com.uxstate.diary.data.local.entities.ImageToUpload
@@ -10,6 +11,7 @@ import com.uxstate.diary.data.local.entities.ImageToUpload
 abstract class ImagesDatabase:RoomDatabase(){
 
     abstract val imageToUploadDao:ImageToUploadDao
+    abstract val imageToDeleteDao:ImageToDeleteDao
 
     companion object {
         const val DATABASE_NAME = "images_db"
