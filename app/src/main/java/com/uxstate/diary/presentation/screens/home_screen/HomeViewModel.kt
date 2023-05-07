@@ -34,7 +34,6 @@ class HomeViewModel @Inject constructor(
     //to be changed whenever network status changes
     private var networkStatus by mutableStateOf(ConnectivityObserver.Status.UNAVAILABLE)
 
-
     init {
 
         observeAllDiaries()
@@ -47,7 +46,6 @@ class HomeViewModel @Inject constructor(
                     }
         }
     }
-
     private fun observeAllDiaries() {
         viewModelScope.launch {
 
@@ -139,6 +137,10 @@ class HomeViewModel @Inject constructor(
                         onError(it)
                     }
 
+        } else {
+
+            //Specify a custom Exception
+            onError(Exception("No Internet Connection"))
         }
 
     }

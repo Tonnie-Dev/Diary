@@ -100,7 +100,10 @@ fun NavDrawerContent(onSignOutClicked: () -> Unit, onDeleteAllDiaries: () -> Uni
     NavigationDrawerItem(
             label = {
 
-                Row {
+                Row(
+                        modifier = Modifier.padding(horizontal = spacing.spaceMedium),
+                        verticalAlignment = Alignment.CenterVertically
+                ) {
                     Icon(
                             imageVector = Icons.Default.Delete,
                             contentDescription = stringResource(R.string.delete_all_icon),
