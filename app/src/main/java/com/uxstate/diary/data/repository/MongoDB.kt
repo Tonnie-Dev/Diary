@@ -13,12 +13,15 @@ import io.realm.kotlin.mongodb.App
 import io.realm.kotlin.mongodb.User
 import io.realm.kotlin.mongodb.sync.SyncConfiguration
 import io.realm.kotlin.query.Sort
+import io.realm.kotlin.types.RealmInstant
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 import org.mongodb.kbson.ObjectId
-import timber.log.Timber
+import java.time.LocalDateTime
+import java.time.LocalTime
 import java.time.ZoneId
+import java.time.ZonedDateTime
 
 object MongoDB : MongoRepository {
     private val app = App.create(APP_ID)
@@ -115,13 +118,48 @@ object MongoDB : MongoRepository {
 
     }
 
-    override fun getFilteredDiaries(): Flow<Diaries> {
+    override fun getFilteredDiaries(zonedDateTime: ZonedDateTime): Flow<Diaries> {
+
+        authenticateAndInvokeMongoFlowOp(user) {
+
+            try {
+
+                //range for diaries created on the same day
+                val tomorrowMidNight = LocalDateTime.of(
+                        zonedDateTime.toLocalDate()
+                                .plusDays(1), LocalTime.MIDNIGHT
+                )
+                        .toEpochSecond(zonedDateTime.offset)
+
+                val yesterdayMidNight = LocalDateTime.of(
+                        zonedDateTime.toLocalDate()
+                                .minusDays(1), LocalTime.MIDNIGHT
+                )
+                        .toEpochSecond(zonedDateTime.offset)
+
+                realm.query<Diary>(
+                        "ownerId == $0 AND date < $1 AND date > $2",
+                        RealmInstant.from(tomorrowMidNight,0),
+                        RealmInstant.from(yesterdayMidNight,0)
+                ).asFlow().map { result ->
+
+                    RequestState.Success(data = result.list.groupBy {
+                    it.date.toInstant()
+                            .atZone(ZoneId.systemDefault())
+                            .toLocalDate()
+                } ) }
+
+            } catch (e: Exception) {
+
+                flow { emit(RequestState.Error(e)) }
+            }
+        }
         TODO("Not yet implemented")
     }
 
     override suspend fun insertDiary(diary: Diary): RequestState<Diary> {
 
-        return authenticateAndInvokeMongoOp(user){
+        return authenticateAndInvokeMongoOp(user) {
 
             realm.write {
 
@@ -138,6 +176,7 @@ object MongoDB : MongoRepository {
         }
 
     }
+
     override suspend fun updateDiary(diary: Diary): RequestState<Diary> {
         return authenticateAndInvokeMongoOp(user) {
             realm.write {
@@ -187,23 +226,23 @@ object MongoDB : MongoRepository {
     }
 
     override suspend fun deleteAllDiaries(): RequestState<Boolean> {
-        return authenticateAndInvokeMongoOp(user = user){
+        return authenticateAndInvokeMongoOp(user = user) {
 
             realm.write {
 
                 //retrieve diaries to delete
-                val diaries = this .query<Diary>("ownerId == $0", user!!.id).find()
+                val diaries = this.query<Diary>("ownerId == $0", user!!.id)
+                        .find()
 
-                 try {
-                     //call delete
-                     delete(diaries)
-                     RequestState.Success(data = true)
+                try {
+                    //call delete
+                    delete(diaries)
+                    RequestState.Success(data = true)
 
-                         }
-                         catch (e:Exception){
+                } catch (e: Exception) {
 
-                             RequestState.Error(e)
-                         }
+                    RequestState.Error(e)
+                }
             }
 
         }
@@ -244,7 +283,6 @@ private suspend fun <T> authenticateAndInvokeMongoOp(
         RequestState.Error(UserNotAuthenticatedException())
     }
 }
-
 
 
 private class UserNotAuthenticatedException : Exception("User is not Logged In")

@@ -51,6 +51,21 @@ fun Instant.toStringDateTime(): String {
     return localDateTime.format(dateTimeFormatter)
 
 }
+fun Instant.toRealmInstant(): RealmInstant {
+
+    val sec: Long = this.epochSecond
+    val nano: Int = this.nano
+
+    return if (sec >= 0) {
+
+        RealmInstant.from(sec, nano)
+
+
+    } else {
+
+        RealmInstant.from(epochSeconds = sec + 1, nanosecondAdjustment = -1_000_000 + nano)
+    }
+}
 
 
 fun LocalDateTime.toStringDateTime(): String {
@@ -79,21 +94,6 @@ fun LocalTime.toStringTime(): String {
     return this.format(formatter)
 }
 
-fun Instant.toRealmInstant(): RealmInstant {
-
-    val sec: Long = this.epochSecond
-    val nano: Int = this.nano
-
-    return if (sec >= 0) {
-
-        RealmInstant.from(sec, nano)
-
-
-    } else {
-
-        RealmInstant.from(epochSeconds = sec + 1, nanosecondAdjustment = -1_000_000 + nano)
-    }
-}
 
 /*
 
