@@ -62,9 +62,12 @@ fun HomeScreen(
                         },
                         diaries = diaries,
 
-                        // TODO: Fix this
-                        dateIsSelected = true,
-                        onDateSelected = {},
+
+                        dateIsSelected = viewModel.dateSelected,
+                        onDateSelected = {
+
+                                         viewModel.
+                        },
                         onDateReset = {}
                 )
             },

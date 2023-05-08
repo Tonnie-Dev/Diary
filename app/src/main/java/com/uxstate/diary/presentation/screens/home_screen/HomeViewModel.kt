@@ -32,7 +32,7 @@ class HomeViewModel @Inject constructor(
     private val _diaries = MutableStateFlow<Diaries>(RequestState.Idle)
     val diaries = _diaries.asStateFlow()
 
-    var dataSelected by mutableStateOf(false)
+    var dateSelected by mutableStateOf(false)
         private set
 
     //to be changed whenever network status changes
@@ -40,7 +40,7 @@ class HomeViewModel @Inject constructor(
 
     init {
 
-        observeAllDiaries()
+ getDiaries()
 
         //observe network status and change status whenever there is a change
         viewModelScope.launch {
@@ -52,8 +52,23 @@ class HomeViewModel @Inject constructor(
     }
 
     //This functions determines if to pull all diaries or for a particular day
-    fun getDiariesByDate(zoneDateTime: ZonedDateTime) {
+    private fun getDiaries(zoneDateTime: ZonedDateTime? = null) {
 
+        /* the data will only be passed if we select a date from home screen*/
+        dateSelected = zoneDateTime != null
+
+        /*in the meantime set the diaries status to loading*/
+
+        _diaries.value = RequestState.Loading
+
+        if (dateSelected && zoneDateTime!= null){
+
+            observeFilteredDiaries(zoneDateTime)
+
+        }else {
+
+            observeAllDiaries()
+        }
     }
     private fun observeAllDiaries() {
         viewModelScope.launch {
