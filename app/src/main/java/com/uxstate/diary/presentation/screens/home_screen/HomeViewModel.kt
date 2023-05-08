@@ -20,6 +20,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.time.ZonedDateTime
 import javax.inject.Inject
 
 @HiltViewModel
@@ -30,6 +31,9 @@ class HomeViewModel @Inject constructor(
 
     private val _diaries = MutableStateFlow<Diaries>(RequestState.Idle)
     val diaries = _diaries.asStateFlow()
+
+    var dataSelected by mutableStateOf(false)
+        private set
 
     //to be changed whenever network status changes
     private var networkStatus by mutableStateOf(ConnectivityObserver.Status.UNAVAILABLE)
@@ -46,6 +50,11 @@ class HomeViewModel @Inject constructor(
                     }
         }
     }
+
+    //This functions determines if to pull all diaries or for a particular day
+    fun getDiariesByDate(zoneDateTime: ZonedDateTime) {
+
+    }
     private fun observeAllDiaries() {
         viewModelScope.launch {
 
@@ -58,6 +67,17 @@ class HomeViewModel @Inject constructor(
                         _diaries.value = result
 
                     }
+        }
+    }
+
+    private fun observeFilteredDiaries(zoneDateTime: ZonedDateTime){
+
+        viewModelScope.launch(IO) {
+
+            MongoDB.getFilteredDiaries(zoneDateTime).collect{ result ->
+
+                _diaries.value = result
+            }
         }
     }
 
