@@ -18,6 +18,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 import org.mongodb.kbson.ObjectId
+import timber.log.Timber
 import java.time.LocalDateTime
 import java.time.LocalTime
 import java.time.ZoneId
@@ -120,7 +121,7 @@ object MongoDB : MongoRepository {
 
     override fun getFilteredDiaries(zonedDateTime: ZonedDateTime): Flow<Diaries> {
 
-        authenticateAndInvokeMongoFlowOp(user) {
+        return authenticateAndInvokeMongoFlowOp(user) {
 
             try {
 
@@ -139,22 +140,26 @@ object MongoDB : MongoRepository {
 
                 realm.query<Diary>(
                         "ownerId == $0 AND date < $1 AND date > $2",
+                        user!!.id,
                         RealmInstant.from(tomorrowMidNight,0),
                         RealmInstant.from(yesterdayMidNight,0)
                 ).asFlow().map { result ->
-
-                    RequestState.Success(data = result.list.groupBy {
-                    it.date.toInstant()
-                            .atZone(ZoneId.systemDefault())
-                            .toLocalDate()
-                } ) }
+                    RequestState.Success(
+                            data = result.list.groupBy {
+                                it.date.toInstant()
+                                        .atZone(ZoneId.systemDefault())
+                                        .toLocalDate()
+                            }
+                    )
+                }
 
             } catch (e: Exception) {
 
+             
                 flow { emit(RequestState.Error(e)) }
             }
         }
-        TODO("Not yet implemented")
+
     }
 
     override suspend fun insertDiary(diary: Diary): RequestState<Diary> {

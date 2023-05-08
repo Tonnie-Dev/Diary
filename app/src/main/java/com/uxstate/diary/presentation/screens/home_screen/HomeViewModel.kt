@@ -16,6 +16,8 @@ import com.uxstate.diary.util.RequestState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.Dispatchers.Main
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.cancelAndJoin
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
@@ -38,6 +40,11 @@ class HomeViewModel @Inject constructor(
     //to be changed whenever network status changes
     private var networkStatus by mutableStateOf(ConnectivityObserver.Status.UNAVAILABLE)
 
+    /*This is to help us cancel jobs when we switch from allDiaries
+    to filteredDiaries and vice-versa*/
+    private lateinit var allDiariesJob:Job
+    private lateinit var filteredDiariesJob: Job
+
     init {
 
  getDiaries()
@@ -52,7 +59,7 @@ class HomeViewModel @Inject constructor(
     }
 
     //This functions determines if to pull all diaries or for a particular day
-    private fun getDiaries(zoneDateTime: ZonedDateTime? = null) {
+ fun getDiaries(zoneDateTime: ZonedDateTime? = null) {
 
         /* the data will only be passed if we select a date from home screen*/
         dateSelected = zoneDateTime != null
@@ -71,8 +78,17 @@ class HomeViewModel @Inject constructor(
         }
     }
     private fun observeAllDiaries() {
-        viewModelScope.launch {
 
+
+
+        //initialize allDiaries job
+      allDiariesJob =  viewModelScope.launch {
+
+          //cancel preview coroutines that was observing filtered diaries
+          if (::filteredDiariesJob.isInitialized){
+
+              filteredDiariesJob.cancelAndJoin()
+          }
 
             MongoDB.getAllDiaries()
                     .collect {
@@ -87,7 +103,14 @@ class HomeViewModel @Inject constructor(
 
     private fun observeFilteredDiaries(zoneDateTime: ZonedDateTime){
 
-        viewModelScope.launch(IO) {
+        //initialize filteredDiariesJob
+       filteredDiariesJob = viewModelScope.launch(IO) {
+
+           //cancel preview coroutines that was observing all diaries
+           if (::allDiariesJob.isInitialized){
+
+               allDiariesJob.cancelAndJoin()
+           }
 
             MongoDB.getFilteredDiaries(zoneDateTime).collect{ result ->
 

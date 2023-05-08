@@ -38,6 +38,8 @@ fun HomeScreen(
     navigator: DestinationsNavigator
 ) {
 
+
+
     val diaries by viewModel.diaries.collectAsState()
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
     var isSignOutDialogOpen by remember { mutableStateOf(false) }
@@ -64,11 +66,10 @@ fun HomeScreen(
 
 
                         dateIsSelected = viewModel.dateSelected,
-                        onDateSelected = {
+                        onDateSelected =viewModel::getDiaries,
 
-                                         viewModel.
-                        },
-                        onDateReset = {}
+                        //pass empty date to getDiaries ViewModel function
+                        onDateReset = viewModel::getDiaries
                 )
             },
             onSignOutClicked = { isSignOutDialogOpen = true },
