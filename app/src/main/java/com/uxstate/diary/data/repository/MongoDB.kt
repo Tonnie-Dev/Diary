@@ -143,10 +143,15 @@ object MongoDB : MongoRepository {
                         user!!.id,
                         RealmInstant.from(tomorrowMidNight,0),
                         RealmInstant.from(yesterdayMidNight,0)
-                ).asFlow().map { result ->
+                ).asFlow().map {result ->
                     RequestState.Success(
-                            data = result.list.groupBy {
-                                it.date.toInstant()
+                            //it is ResultsChange<Diary>
+                            //list() is from realm
+                            data = result .list.groupBy {
+
+                                //it is diary
+                                diary ->
+                                diary.date.toInstant()
                                         .atZone(ZoneId.systemDefault())
                                         .toLocalDate()
                             }
@@ -155,7 +160,7 @@ object MongoDB : MongoRepository {
 
             } catch (e: Exception) {
 
-             
+
                 flow { emit(RequestState.Error(e)) }
             }
         }

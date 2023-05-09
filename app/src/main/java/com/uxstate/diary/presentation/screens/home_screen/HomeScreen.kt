@@ -66,6 +66,8 @@ fun HomeScreen(
 
 
                         dateIsSelected = viewModel.dateSelected,
+
+                        //pass the selected date
                         onDateSelected =viewModel::getDiaries,
 
                         //pass empty date to getDiaries ViewModel function

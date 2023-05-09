@@ -42,12 +42,12 @@ class HomeViewModel @Inject constructor(
 
     /*This is to help us cancel jobs when we switch from allDiaries
     to filteredDiaries and vice-versa*/
-    private lateinit var allDiariesJob:Job
+    private lateinit var allDiariesJob: Job
     private lateinit var filteredDiariesJob: Job
 
     init {
 
- getDiaries()
+        getDiaries()
 
         //observe network status and change status whenever there is a change
         viewModelScope.launch {
@@ -59,7 +59,7 @@ class HomeViewModel @Inject constructor(
     }
 
     //This functions determines if to pull all diaries or for a particular day
- fun getDiaries(zoneDateTime: ZonedDateTime? = null) {
+    fun getDiaries(zoneDateTime: ZonedDateTime? = null) {
 
         /* the data will only be passed if we select a date from home screen*/
         dateSelected = zoneDateTime != null
@@ -68,27 +68,27 @@ class HomeViewModel @Inject constructor(
 
         _diaries.value = RequestState.Loading
 
-        if (dateSelected && zoneDateTime!= null){
+        if (dateSelected && zoneDateTime != null) {
 
             observeFilteredDiaries(zoneDateTime)
 
-        }else {
+        } else {
 
             observeAllDiaries()
         }
     }
+
     private fun observeAllDiaries() {
 
 
-
         //initialize allDiaries job
-      allDiariesJob =  viewModelScope.launch {
+        allDiariesJob = viewModelScope.launch {
 
-          //cancel preview coroutines that was observing filtered diaries
-          if (::filteredDiariesJob.isInitialized){
+            //cancel preview coroutines that was observing filtered diaries
+            if (::filteredDiariesJob.isInitialized) {
 
-              filteredDiariesJob.cancelAndJoin()
-          }
+                filteredDiariesJob.cancelAndJoin()
+            }
 
             MongoDB.getAllDiaries()
                     .collect {
@@ -101,21 +101,22 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    private fun observeFilteredDiaries(zoneDateTime: ZonedDateTime){
+    private fun observeFilteredDiaries(zoneDateTime: ZonedDateTime) {
 
         //initialize filteredDiariesJob
-       filteredDiariesJob = viewModelScope.launch(IO) {
+        filteredDiariesJob = viewModelScope.launch(IO) {
 
-           //cancel preview coroutines that was observing all diaries
-           if (::allDiariesJob.isInitialized){
+            //cancel preview coroutines that was observing all diaries
+            if (::allDiariesJob.isInitialized) {
 
-               allDiariesJob.cancelAndJoin()
-           }
-
-            MongoDB.getFilteredDiaries(zoneDateTime).collect{ result ->
-
-                _diaries.value = result
+                allDiariesJob.cancelAndJoin()
             }
+
+            MongoDB.getFilteredDiaries(zoneDateTime)
+                    .collect { result ->
+
+                        _diaries.value = result
+                    }
         }
     }
 
