@@ -98,8 +98,8 @@ dependencies {
 
 
     // Firebase
-    implementation 'com.google.firebase:firebase-auth-ktx:21.3.0'
-    implementation 'com.google.firebase:firebase-storage-ktx:20.1.0'
+    implementation 'com.google.firebase:firebase-auth-ktx:22.0.0'
+    implementation 'com.google.firebase:firebase-storage-ktx:20.2.0'
 
     // Room components
     implementation "androidx.room:room-runtime:2.5.1"
@@ -122,7 +122,7 @@ dependencies {
     // Accompanist - Pager
     implementation "com.google.accompanist:accompanist-pager:0.28.0"
 
-    //Accompanist = System UI Controller
+    //Accompanist - System UI Controller
     implementation "com.google.accompanist:accompanist-systemuicontroller:0.31.0-alpha"
 
 
