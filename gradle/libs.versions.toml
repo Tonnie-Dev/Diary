@@ -55,7 +55,7 @@ hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "dagge
 hilt-compiler = { module = "com.google.dagger:hilt-compiler", version.ref = "dagger-hilt"}
 hilt-navigation-compose = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "hilt-navigation-compose"}
 coil = { module = "io.coil-kt:coil-compose", version.ref = "coil"}
-accompanist-pager = { module = "com.google.accompanist:accompanist-pager", version.ref = "accompanist"}
+accompanist-pager = { module = "com.google.accompanist:accompanist-pager", version.ref = "accompanist-pager"}
 date-time-picker = { module = "com.maxkeppeler.sheets-compose-dialogs:core", version.ref = "date-time-picker"}
 date-dialog = { module = "com.maxkeppeler.sheets-compose-dialogs:calendar", version.ref = "date-time-picker"}
 time-dialog = { module = "com.maxkeppeler.sheets-compose-dialogs:clock", version.ref = "date-time-picker"}
