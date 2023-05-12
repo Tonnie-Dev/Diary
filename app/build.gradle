@@ -28,7 +28,7 @@ kotlin {
 //Android Block
 android {
     namespace 'com.uxstate.diary'
-    compileSdk 33
+    compileSdk ProjectConfig.compileSdk
 
     defaultConfig {
         applicationId "com.uxstate.diary"
