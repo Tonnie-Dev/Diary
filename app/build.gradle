@@ -32,8 +32,8 @@ android {
 
     defaultConfig {
         applicationId "com.uxstate.diary"
-        minSdk 24
-        targetSdk 33
+        minSdk ProjectConfig.minSdk
+        targetSdk ProjectConfig.targetSdk
         versionCode 1
         versionName "1.0"
 
@@ -63,7 +63,7 @@ android {
         compose true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion '1.4.3'
+        kotlinCompilerExtensionVersion ProjectConfig.kotlinCompilerExtensionVersion
     }
     packagingOptions {
         resources {
