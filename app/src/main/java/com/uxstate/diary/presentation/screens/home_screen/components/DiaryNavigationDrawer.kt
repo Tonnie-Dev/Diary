@@ -23,7 +23,8 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import com.uxstate.diary.R
-import com.uxstate.diary.presentation.ui.theme.LocalSpacing
+import com.uxstate.ui.theme.LocalSpacing
+
 
 @Composable
 fun DiaryNavigationDrawer(
@@ -32,8 +33,7 @@ fun DiaryNavigationDrawer(
     onDeleteAllDiaries: () -> Unit,
     content: @Composable () -> Unit
 ) {
-    ModalNavigationDrawer(
-            drawerState = drawerState,
+    ModalNavigationDrawer(drawerState = drawerState,
 
             //this is the scaffold passed as a composable fun
             content = content,
@@ -47,8 +47,7 @@ fun DiaryNavigationDrawer(
                     )
                 }
 
-            }
-    )
+            })
 }
 
 
@@ -58,9 +57,7 @@ fun NavDrawerContent(onSignOutClicked: () -> Unit, onDeleteAllDiaries: () -> Uni
 
     //use box to center logo
     Box(
-            modifier = Modifier
-                    .fillMaxWidth(),
-            contentAlignment = Alignment.Center
+            modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.Center
     ) {
 
         Image(
@@ -85,16 +82,13 @@ fun NavDrawerContent(onSignOutClicked: () -> Unit, onDeleteAllDiaries: () -> Uni
                     )
                     Spacer(modifier = Modifier.width(spacing.spaceMedium))
                     Text(
-                            text = stringResource(R.string.sign_out),
-                            style = TextStyle(
-                                    color = MaterialTheme.colorScheme.onSurface,
-                                    fontSize = MaterialTheme.typography.bodyLarge.fontSize
-                            )
+                            text = stringResource(R.string.sign_out), style = TextStyle(
+                            color = MaterialTheme.colorScheme.onSurface,
+                            fontSize = MaterialTheme.typography.bodyLarge.fontSize
+                    )
                     )
                 }
-            },
-            selected = false,
-            onClick = onSignOutClicked
+            }, selected = false, onClick = onSignOutClicked
     )
 
     //Drawer Menu Item 1
@@ -113,17 +107,14 @@ fun NavDrawerContent(onSignOutClicked: () -> Unit, onDeleteAllDiaries: () -> Uni
                     Spacer(modifier = Modifier.width(spacing.spaceSmall))
 
                     Text(
-                            text = "Delete All Diaries",
-                            style = TextStyle(
-                                    color = MaterialTheme.colorScheme.onSurface,
-                                    fontSize = MaterialTheme.typography.bodyLarge.fontSize
-                            )
+                            text = "Delete All Diaries", style = TextStyle(
+                            color = MaterialTheme.colorScheme.onSurface,
+                            fontSize = MaterialTheme.typography.bodyLarge.fontSize
+                    )
                     )
                 }
 
-            },
-            selected = false,
-            onClick = onDeleteAllDiaries
+            }, selected = false, onClick = onDeleteAllDiaries
     )
 
 }

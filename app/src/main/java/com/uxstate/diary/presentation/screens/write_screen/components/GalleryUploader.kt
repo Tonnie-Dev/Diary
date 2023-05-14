@@ -29,7 +29,8 @@ import coil.request.ImageRequest
 import com.uxstate.diary.R
 import com.uxstate.diary.domain.model.GalleryImage
 import com.uxstate.diary.domain.model.GalleryState
-import com.uxstate.diary.presentation.ui.theme.LocalSpacing
+import com.uxstate.ui.theme.LocalSpacing
+
 import kotlin.math.max
 
 

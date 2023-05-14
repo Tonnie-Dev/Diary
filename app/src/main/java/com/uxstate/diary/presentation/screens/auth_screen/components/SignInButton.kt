@@ -20,8 +20,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.uxstate.diary.R
-import com.uxstate.diary.presentation.ui.theme.DiaryTheme
-import com.uxstate.diary.presentation.ui.theme.LocalSpacing
+import com.uxstate.ui.theme.DiaryTheme
+import com.uxstate.ui.theme.LocalSpacing
 
 @Composable
 fun GoogleButton(

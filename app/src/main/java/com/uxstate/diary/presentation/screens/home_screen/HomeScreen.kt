@@ -22,7 +22,7 @@ import com.uxstate.diary.data.repository.MongoDB
 import com.uxstate.diary.presentation.keepSplashScreen
 import com.uxstate.diary.presentation.screens.destinations.AuthenticationScreenDestination
 import com.uxstate.diary.presentation.screens.home_screen.components.DiaryNavigationDrawer
-import com.uxstate.diary.presentation.screens.home_screen.components.DisplayAlertDialog
+import com.uxstate.diary.presentation.ui_utils.DisplayAlertDialog
 import com.uxstate.diary.presentation.screens.home_screen.components.HomeScaffold
 import com.uxstate.diary.util.Constants.APP_ID
 import com.uxstate.diary.util.RequestState
@@ -109,7 +109,7 @@ fun HomeScreen(
             isDialogOpen = isSignOutDialogOpen,
             onCloseDialog = { isSignOutDialogOpen = false },
             onDialogConfirmed = {
-                val user = App.Companion.create(APP_ID).currentUser
+                val user = App.create(APP_ID).currentUser
                 if (user != null) {
                     scope.launch(IO) {
 

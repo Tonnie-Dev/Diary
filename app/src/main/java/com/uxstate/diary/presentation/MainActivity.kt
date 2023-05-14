@@ -13,10 +13,10 @@ import com.uxstate.diary.data.local.database.ImagesDatabase
 import com.uxstate.diary.presentation.screens.NavGraphs
 import com.uxstate.diary.presentation.screens.destinations.AuthenticationScreenDestination
 import com.uxstate.diary.presentation.screens.destinations.HomeScreenDestination
-import com.uxstate.diary.presentation.ui.theme.DiaryTheme
 import com.uxstate.diary.util.Constants.APP_ID
 import com.uxstate.diary.util.retryDeletingImageToFirebase
 import com.uxstate.diary.util.retryUploadingImageToFirebase
+import com.uxstate.ui.theme.DiaryTheme
 import dagger.hilt.android.AndroidEntryPoint
 import io.realm.kotlin.mongodb.App
 import kotlinx.coroutines.CoroutineScope

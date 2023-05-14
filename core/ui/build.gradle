@@ -32,7 +32,7 @@ android {
     //needs compose blocks as this module needs compose
     buildFeatures {
         compose true
-    }
+    } 
     composeOptions {
         kotlinCompilerExtensionVersion ProjectConfig.kotlinCompilerExtensionVersion
     }
@@ -40,5 +40,7 @@ android {
 
 dependencies {
 
-   
+    implementation libs.material3.compose
+    implementation libs.core.ktx
+    implementation libs.accompanist.system.ui
 }

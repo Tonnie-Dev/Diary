@@ -15,7 +15,8 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.Dp
 import com.uxstate.diary.R
-import com.uxstate.diary.presentation.ui.theme.LocalElevation
+import com.uxstate.ui.theme.LocalElevation
+
 
 @Composable
 fun AddImageButton(imageSize: Dp, imageShape: CornerBasedShape, onClick: () -> Unit) {

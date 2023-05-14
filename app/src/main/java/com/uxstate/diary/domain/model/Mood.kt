@@ -3,7 +3,7 @@ package com.uxstate.diary.domain.model
 import androidx.annotation.DrawableRes
 import androidx.compose.ui.graphics.Color
 import com.uxstate.diary.R
-import com.uxstate.diary.presentation.ui.theme.*
+import com.uxstate.ui.theme.*
 
 enum class Mood(
     @DrawableRes val icon: Int,

@@ -71,4 +71,6 @@ compose-destinations = { module = "io.github.raamcosta.compose-destinations:core
 destinations-ksp = { module = "io.github.raamcosta.compose-destinations:ksp", version.ref = "destinations-ksp"}
 
 symbol-processing-api = { module = "com.google.devtools.ksp:symbol-processing-api", version.ref = "symbol-processing-api"}
+
+accompanist-system-ui = {module = "com.google.accompanist:accompanist-systemuicontroller", version.ref = "accompanist-system-ui"}
 timber= { module = "com.jakewharton.timber:timber", version.ref = "timber"}

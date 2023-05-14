@@ -13,8 +13,9 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import com.uxstate.diary.R
-import com.uxstate.diary.presentation.ui.theme.DiaryTheme
-import com.uxstate.diary.presentation.ui.theme.LocalSpacing
+import com.uxstate.ui.theme.DiaryTheme
+import com.uxstate.ui.theme.LocalSpacing
+
 
 @Composable
 fun AuthenticationContent(loadingState: Boolean,  onButtonClicked: () -> Unit) {

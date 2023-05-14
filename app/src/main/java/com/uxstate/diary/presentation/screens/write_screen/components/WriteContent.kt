@@ -48,7 +48,7 @@ import com.uxstate.diary.domain.model.GalleryImage
 import com.uxstate.diary.domain.model.GalleryState
 import com.uxstate.diary.domain.model.Mood
 import com.uxstate.diary.presentation.screens.write_screen.state.UiState
-import com.uxstate.diary.presentation.ui.theme.LocalSpacing
+import com.uxstate.ui.theme.LocalSpacing
 import io.realm.kotlin.ext.toRealmList
 import kotlinx.coroutines.launch
 

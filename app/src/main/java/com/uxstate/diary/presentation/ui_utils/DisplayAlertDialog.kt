@@ -1,17 +1,16 @@
-package com.uxstate.diary.presentation.screens.home_screen.components
+package com.uxstate.diary.presentation.ui_utils
 
-import androidx.compose.foundation.layout.padding
+
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import com.uxstate.diary.R
-import com.uxstate.diary.presentation.ui.theme.LocalSpacing
+import com.uxstate.ui.theme.LocalSpacing
 
 
 @Composable
