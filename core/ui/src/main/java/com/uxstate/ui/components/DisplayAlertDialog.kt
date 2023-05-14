@@ -1,4 +1,4 @@
-package com.uxstate.diary.presentation.ui_utils
+package com.uxstate.diary.presentation.components
 
 
 import androidx.compose.material3.AlertDialog
