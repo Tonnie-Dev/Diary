@@ -151,4 +151,9 @@ dependencies {
     //Timber
     implementation 'com.jakewharton.timber:timber:5.0.1'
 
+    /*Specifying that the :app module (this) depends on the :core:ui module
+     and requires it during compilation. This allows the :app module to access
+    classes,resources, or other components defined in the :core:ui module.*/
+    implementation (project(":core:ui"))
+
 }
