@@ -32,7 +32,7 @@ android {
     //needs compose blocks as this module needs compose
     buildFeatures {
         compose true
-    } 
+    }
     composeOptions {
         kotlinCompilerExtensionVersion ProjectConfig.kotlinCompilerExtensionVersion
     }
