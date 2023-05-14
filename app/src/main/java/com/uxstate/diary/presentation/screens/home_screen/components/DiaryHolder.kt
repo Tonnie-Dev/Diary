@@ -41,8 +41,8 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import com.uxstate.diary.R
-import com.uxstate.diary.domain.model.Diary
-import com.uxstate.diary.domain.model.Mood
+import com.uxstate.model.Diary
+import com.uxstate.model.Mood
 import com.uxstate.diary.util.fetchImagesFromFirebase
 import com.uxstate.diary.util.toInstant
 import com.uxstate.ui.theme.DiaryTheme

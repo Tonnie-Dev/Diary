@@ -21,7 +21,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import com.uxstate.diary.R
-import com.uxstate.diary.domain.model.Mood
+import com.uxstate.model.Mood
 import com.uxstate.diary.util.toStringTime
 import com.uxstate.ui.theme.LocalSpacing
 import java.time.Instant

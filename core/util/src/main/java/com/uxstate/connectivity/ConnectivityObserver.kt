@@ -1,4 +1,4 @@
-package com.uxstate.diary.connectivity
+package com.uxstate.connectivity
 
 import kotlinx.coroutines.flow.Flow
 

@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.storage.FirebaseStorage
-import com.uxstate.diary.connectivity.ConnectivityObserver
+import com.uxstate.connectivity.ConnectivityObserver
 import com.uxstate.diary.data.local.database.ImagesDatabase
 import com.uxstate.diary.data.local.entities.ImageToDelete
 import com.uxstate.diary.data.repository.MongoDB

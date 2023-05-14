@@ -1,7 +1,7 @@
 package com.uxstate.diary.presentation.screens.write_screen.state
 
-import com.uxstate.diary.domain.model.Diary
-import com.uxstate.diary.domain.model.Mood
+import com.uxstate.model.Diary
+import com.uxstate.model.Mood
 import io.realm.kotlin.types.RealmInstant
 
 data class UiState(

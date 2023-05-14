@@ -43,10 +43,10 @@ import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.PagerState
 import com.uxstate.diary.R
-import com.uxstate.diary.domain.model.Diary
-import com.uxstate.diary.domain.model.GalleryImage
-import com.uxstate.diary.domain.model.GalleryState
-import com.uxstate.diary.domain.model.Mood
+import com.uxstate.model.Diary
+import com.uxstate.model.GalleryImage
+import com.uxstate.model.GalleryState
+import com.uxstate.model.Mood
 import com.uxstate.diary.presentation.screens.write_screen.state.UiState
 import com.uxstate.ui.theme.LocalSpacing
 import io.realm.kotlin.ext.toRealmList
@@ -65,7 +65,7 @@ fun WriteContent(
     pagerState: PagerState,
     galleryState: GalleryState,
     onImageSelected: (Uri) -> Unit,
-     onImageClicked:(GalleryImage)-> Unit
+    onImageClicked:(GalleryImage)-> Unit
 ) {
 
     val spacing = LocalSpacing.current

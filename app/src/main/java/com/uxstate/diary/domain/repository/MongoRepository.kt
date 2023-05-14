@@ -1,6 +1,6 @@
 package com.uxstate.diary.domain.repository
 
-import com.uxstate.diary.domain.model.Diary
+import com.uxstate.model.Diary
 import com.uxstate.diary.util.RequestState
 import kotlinx.coroutines.flow.Flow
 import org.mongodb.kbson.ObjectId

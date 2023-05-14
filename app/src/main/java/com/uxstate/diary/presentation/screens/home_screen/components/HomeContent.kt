@@ -18,7 +18,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import com.uxstate.diary.R
-import com.uxstate.diary.domain.model.Diary
+import com.uxstate.model.Diary
 import com.uxstate.ui.theme.LocalSpacing
 import java.time.LocalDate
 

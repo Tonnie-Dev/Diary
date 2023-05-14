@@ -29,6 +29,14 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+
+    //needs compose blocks as this module needs compose
+    buildFeatures {
+        compose true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion ProjectConfig.kotlinCompilerExtensionVersion
+    }
 }
 
 dependencies {
@@ -37,5 +45,9 @@ dependencies {
     implementation libs.firebase.auth
     implementation libs.firebase.storage
     implementation libs.desugar.jdk
+
+    implementation libs.material3.compose
+    //implementation libs.core.ktx
+    implementation (project(":core:ui"))
 
 }

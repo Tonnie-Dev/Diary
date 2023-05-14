@@ -33,7 +33,7 @@ import com.maxkeppeler.sheets.calendar.models.CalendarSelection
 import com.maxkeppeler.sheets.clock.ClockDialog
 import com.maxkeppeler.sheets.clock.models.ClockSelection
 import com.uxstate.diary.R
-import com.uxstate.diary.domain.model.Diary
+import com.uxstate.model.Diary
 import com.uxstate.ui.components.DisplayAlertDialog
 import com.uxstate.diary.util.toInstant
 import com.uxstate.diary.util.toStringDate

@@ -1,8 +1,8 @@
-package com.uxstate.diary.domain.model
+package com.uxstate.model
 
 import androidx.annotation.DrawableRes
 import androidx.compose.ui.graphics.Color
-import com.uxstate.diary.R
+import com.uxstate.util.R
 import com.uxstate.ui.theme.*
 
 enum class Mood(

@@ -1,6 +1,6 @@
 package com.uxstate.diary.data.repository
 
-import com.uxstate.diary.domain.model.Diary
+import com.uxstate.model.Diary
 import com.uxstate.diary.domain.repository.Diaries
 import com.uxstate.diary.domain.repository.MongoRepository
 import com.uxstate.diary.util.Constants.APP_ID
@@ -18,7 +18,6 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 import org.mongodb.kbson.ObjectId
-import timber.log.Timber
 import java.time.LocalDateTime
 import java.time.LocalTime
 import java.time.ZoneId

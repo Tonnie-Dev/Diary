@@ -1,7 +1,7 @@
 package com.uxstate.diary.di
 
-import com.uxstate.diary.connectivity.ConnectivityObserver
-import com.uxstate.diary.connectivity.ConnectivityObserverImpl
+import com.uxstate.connectivity.ConnectivityObserver
+import com.uxstate.connectivity.ConnectivityObserverImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

@@ -27,8 +27,8 @@ import androidx.compose.ui.unit.dp
 import coil.compose.rememberAsyncImagePainter
 import coil.request.ImageRequest
 import com.uxstate.diary.R
-import com.uxstate.diary.domain.model.GalleryImage
-import com.uxstate.diary.domain.model.GalleryState
+import com.uxstate.model.GalleryImage
+import com.uxstate.model.GalleryState
 import com.uxstate.ui.theme.LocalSpacing
 
 import kotlin.math.max
