@@ -22,7 +22,7 @@ import com.uxstate.diary.data.repository.MongoDB
 import com.uxstate.diary.presentation.keepSplashScreen
 import com.uxstate.diary.presentation.screens.destinations.AuthenticationScreenDestination
 import com.uxstate.diary.presentation.screens.home_screen.components.DiaryNavigationDrawer
-import com.uxstate.diary.presentation.components.DisplayAlertDialog
+import com.uxstate.ui.components.DisplayAlertDialog
 import com.uxstate.diary.presentation.screens.home_screen.components.HomeScaffold
 import com.uxstate.diary.util.Constants.APP_ID
 import com.uxstate.diary.util.RequestState
