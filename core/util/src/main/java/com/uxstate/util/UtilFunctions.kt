@@ -123,7 +123,7 @@ fun fetchImagesFromFirebase(
                         .addOnSuccessListener {
                             onImageDownload(it)
 
-                            Timber.i("The download url is: $it")
+
                             //triggered on reaching the last image
                             if (remoteImagesPaths.lastIndexOf(remoteImagesPaths.last()) == index) {
                                 onReadyToDisplay()
