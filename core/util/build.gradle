@@ -31,6 +31,9 @@ android {
 }
 
 dependencies {
+    implementation libs.realm.sync
+    implementation libs.coroutines.core
+    implementation libs.firebase.auth
+    implementation libs.firebase.storage
 
-   
 }
