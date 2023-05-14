@@ -1,13 +1,9 @@
 package com.uxstate.util
 
 import android.net.Uri
-import androidx.core.net.toUri
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.ktx.storageMetadata
-import com.uxstate.diary.data.local.entities.ImageToDelete
-import com.uxstate.diary.data.local.entities.ImageToUpload
 import io.realm.kotlin.types.RealmInstant
-import timber.log.Timber
 import java.time.Instant
 import java.time.LocalDate
 import java.time.LocalDateTime
@@ -51,6 +47,7 @@ fun Instant.toStringDateTime(): String {
     return localDateTime.format(dateTimeFormatter)
 
 }
+
 fun Instant.toRealmInstant(): RealmInstant {
 
     val sec: Long = this.epochSecond
