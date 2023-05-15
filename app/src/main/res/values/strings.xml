@@ -9,8 +9,7 @@
     <string name="edit_text">Edit</string>
     <string name="app_logo">Logo Image</string>
     <string name="sign_out">Sign Out</string>
-    <string name="no_text">No</string>
-    <string name="yes_text">Yes</string>
+
     <string name="sign_out_confirmation_text">Are you sure you want to Sign Out from your Google Account?</string>
     <string name="mood_icon">Mood Icon</string>
     <string name="gallery_image_text">Gallery Image</string>

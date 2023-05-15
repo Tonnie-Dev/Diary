@@ -150,7 +150,7 @@ fun retryUploadingImageToFirebase(imageToUpload: ImageToUpload, onSuccess: () ->
                     imageToUpload.sessionUrl.toUri()
             )
 
-            //add onSuccess Listener instead of OnProgressListener
+            //add onSuccess Listener instead o OnProgressListener
             .addOnSuccessListener { onSuccess() }
 }
 
