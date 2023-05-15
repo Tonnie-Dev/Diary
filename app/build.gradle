@@ -158,5 +158,6 @@ dependencies {
 
     //because of Constants
     implementation (project(":core:util"))
+    implementation(project(":data:mongo"))
 
 }

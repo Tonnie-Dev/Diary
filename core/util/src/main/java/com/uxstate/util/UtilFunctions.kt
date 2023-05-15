@@ -1,8 +1,11 @@
 package com.uxstate.util
 
 import android.net.Uri
+import androidx.core.net.toUri
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.ktx.storageMetadata
+import com.uxstate.mongo.local.entities.ImageToDelete
+import com.uxstate.mongo.local.entities.ImageToUpload
 import io.realm.kotlin.types.RealmInstant
 import java.time.Instant
 import java.time.LocalDate

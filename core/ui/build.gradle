@@ -43,5 +43,5 @@ dependencies {
     implementation libs.material3.compose
     implementation libs.core.ktx
     implementation libs.accompanist.system.ui
-    implementation(project(":core:util"))
+
 }
