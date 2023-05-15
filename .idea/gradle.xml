@@ -16,6 +16,8 @@
             <option value="$PROJECT_DIR$/core" />
             <option value="$PROJECT_DIR$/core/ui" />
             <option value="$PROJECT_DIR$/core/util" />
+            <option value="$PROJECT_DIR$/data" />
+            <option value="$PROJECT_DIR$/data/mongo" />
           </set>
         </option>
       </GradleProjectSettings>
