@@ -3,20 +3,23 @@ package com.uxstate.diary.presentation
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.core.net.toUri
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.WindowCompat
 import androidx.lifecycle.lifecycleScope
 import com.google.firebase.FirebaseApp
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.ktx.storageMetadata
 import com.ramcosta.composedestinations.DestinationsNavHost
 import com.ramcosta.composedestinations.spec.Route
 import com.uxstate.diary.data.local.database.ImagesDatabase
+import com.uxstate.diary.data.local.entities.ImageToDelete
+import com.uxstate.diary.data.local.entities.ImageToUpload
 import com.uxstate.diary.presentation.screens.NavGraphs
 import com.uxstate.diary.presentation.screens.destinations.AuthenticationScreenDestination
 import com.uxstate.diary.presentation.screens.destinations.HomeScreenDestination
-import com.uxstate.diary.util.Constants.APP_ID
-import com.uxstate.diary.util.retryDeletingImageToFirebase
-import com.uxstate.diary.util.retryUploadingImageToFirebase
 import com.uxstate.ui.theme.DiaryTheme
+import com.uxstate.util.Constants.APP_ID
 import dagger.hilt.android.AndroidEntryPoint
 import io.realm.kotlin.mongodb.App
 import kotlinx.coroutines.CoroutineScope
@@ -106,4 +109,28 @@ class MainActivity : ComponentActivity() {
                     }
         }
     }
+}
+
+fun retryUploadingImageToFirebase(imageToUpload: ImageToUpload, onSuccess: () -> Unit) {
+
+    val storage = FirebaseStorage.getInstance().reference
+    storage.child(imageToUpload.remoteImagePath)
+            .putFile(
+                    imageToUpload.imageUrl.toUri(),
+                    storageMetadata { },
+                    imageToUpload.sessionUrl.toUri()
+            )
+
+            //add onSuccess Listener instead of OnProgressListener
+            .addOnSuccessListener { onSuccess() }
+}
+
+fun retryDeletingImageToFirebase(imageToDelete: ImageToDelete, onSuccess: () -> Unit) {
+
+    val storage = FirebaseStorage.getInstance().reference
+
+    storage.child(imageToDelete.remotePath)
+            .delete()
+            //add onSuccess Listener instead of OnProgressListener
+            .addOnSuccessListener { onSuccess() }
 }

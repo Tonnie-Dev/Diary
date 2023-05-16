@@ -50,6 +50,8 @@ dependencies {
 
     implementation libs.material3.compose
     //implementation libs.core.ktx
+
+    //Modules
     implementation (project(":core:ui"))
 
 

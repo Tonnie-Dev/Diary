@@ -137,29 +137,7 @@ fun fetchImagesFromFirebase(
     }
 }
 
-fun retryUploadingImageToFirebase(imageToUpload: ImageToUpload, onSuccess: () -> Unit) {
 
-    val storage = FirebaseStorage.getInstance().reference
-    storage.child(imageToUpload.remoteImagePath)
-            .putFile(
-                    imageToUpload.imageUrl.toUri(),
-                    storageMetadata { },
-                    imageToUpload.sessionUrl.toUri()
-            )
-
-            //add onSuccess Listener instead of OnProgressListener
-            .addOnSuccessListener { onSuccess() }
-}
-
-fun retryDeletingImageToFirebase(imageToDelete: ImageToDelete, onSuccess: () -> Unit) {
-
-    val storage = FirebaseStorage.getInstance().reference
-
-    storage.child(imageToDelete.remotePath)
-            .delete()
-            //add onSuccess Listener instead of OnProgressListener
-            .addOnSuccessListener { onSuccess() }
-}
 
 
 
