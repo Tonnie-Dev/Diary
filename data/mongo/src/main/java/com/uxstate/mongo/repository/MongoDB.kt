@@ -1,11 +1,9 @@
-package com.uxstate.diary.data.repository
+package com.uxstate.mongo.repository
 
 import com.uxstate.model.Diary
-import com.uxstate.diary.domain.repository.Diaries
-import com.uxstate.diary.domain.repository.MongoRepository
-import com.uxstate.diary.util.Constants.APP_ID
-import com.uxstate.diary.util.RequestState
-import com.uxstate.diary.util.toInstant
+import com.uxstate.util.Constants.APP_ID
+import com.uxstate.util.RequestState
+import com.uxstate.util.toInstant
 import io.realm.kotlin.Realm
 import io.realm.kotlin.ext.query
 import io.realm.kotlin.log.LogLevel
