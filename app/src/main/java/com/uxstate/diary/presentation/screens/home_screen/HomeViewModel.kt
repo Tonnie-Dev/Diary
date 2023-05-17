@@ -8,11 +8,11 @@ import androidx.lifecycle.viewModelScope
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.storage.FirebaseStorage
 import com.uxstate.connectivity.ConnectivityObserver
-import com.uxstate.diary.data.local.database.ImagesDatabase
-import com.uxstate.diary.data.local.entities.ImageToDelete
-import com.uxstate.diary.data.repository.MongoDB
-import com.uxstate.diary.domain.repository.Diaries
-import com.uxstate.diary.util.RequestState
+import com.uxstate.mongo.local.database.ImagesDatabase
+import com.uxstate.mongo.local.entities.ImageToDelete
+import com.uxstate.mongo.repository.Diaries
+import com.uxstate.mongo.repository.MongoDB
+import com.uxstate.util.RequestState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.Dispatchers.Main

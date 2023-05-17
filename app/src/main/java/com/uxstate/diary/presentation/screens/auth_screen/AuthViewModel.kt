@@ -3,7 +3,8 @@ package com.uxstate.diary.presentation.screens.auth_screen
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.uxstate.diary.util.Constants.APP_ID
+import com.uxstate.util.Constants.APP_ID
+
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.realm.kotlin.mongodb.App
 import io.realm.kotlin.mongodb.Credentials

@@ -25,7 +25,8 @@ import com.stevdzasan.onetap.rememberOneTapSignInState
 import com.uxstate.diary.presentation.keepSplashScreen
 import com.uxstate.diary.presentation.screens.auth_screen.components.AuthenticationContent
 import com.uxstate.diary.presentation.screens.destinations.HomeScreenDestination
-import com.uxstate.diary.util.Constants.CLIENT_ID
+import com.uxstate.util.Constants.CLIENT_ID
+
 
 @Destination
 @RootNavGraph(start = true)

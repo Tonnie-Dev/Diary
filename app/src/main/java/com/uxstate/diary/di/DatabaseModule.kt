@@ -2,8 +2,8 @@ package com.uxstate.diary.di
 
 import android.content.Context
 import androidx.room.Room
-import com.uxstate.diary.data.local.database.ImagesDatabase
-import com.uxstate.diary.data.local.database.ImagesDatabase.Companion.DATABASE_NAME
+import com.uxstate.mongo.local.database.ImagesDatabase
+import com.uxstate.mongo.local.database.ImagesDatabase.Companion.DATABASE_NAME
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

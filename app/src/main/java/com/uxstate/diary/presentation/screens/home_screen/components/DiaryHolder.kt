@@ -43,11 +43,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.uxstate.diary.R
 import com.uxstate.model.Diary
 import com.uxstate.model.Mood
-import com.uxstate.diary.util.fetchImagesFromFirebase
-import com.uxstate.diary.util.toInstant
 import com.uxstate.ui.theme.DiaryTheme
 import com.uxstate.ui.theme.LocalElevation
 import com.uxstate.ui.theme.LocalSpacing
+import com.uxstate.util.fetchImagesFromFirebase
+import com.uxstate.util.toInstant
 import io.realm.kotlin.ext.realmListOf
 
 @Composable

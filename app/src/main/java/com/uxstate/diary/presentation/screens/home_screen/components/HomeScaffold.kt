@@ -25,9 +25,9 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.LayoutDirection
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import com.uxstate.diary.R
-import com.uxstate.diary.domain.repository.Diaries
 import com.uxstate.diary.presentation.screens.destinations.WriteScreenDestination
-import com.uxstate.diary.util.RequestState
+import com.uxstate.mongo.repository.Diaries
+import com.uxstate.util.RequestState
 import timber.log.Timber
 import java.time.ZonedDateTime
 

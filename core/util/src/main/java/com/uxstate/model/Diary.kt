@@ -2,6 +2,8 @@ package com.uxstate.model
 
 
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import com.uxstate.util.toRealmInstant
 import io.realm.kotlin.ext.realmListOf
 import io.realm.kotlin.types.RealmInstant
@@ -34,6 +36,7 @@ open class Diary : RealmObject {
     var title: String = ""
     var description: String = ""
     var images :RealmList<String> = realmListOf()
+    @RequiresApi(Build.VERSION_CODES.O)
     var date:RealmInstant = Instant.now().toRealmInstant()
 
 }

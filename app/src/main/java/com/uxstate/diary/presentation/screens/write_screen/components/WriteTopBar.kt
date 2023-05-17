@@ -35,10 +35,10 @@ import com.maxkeppeler.sheets.clock.models.ClockSelection
 import com.uxstate.diary.R
 import com.uxstate.model.Diary
 import com.uxstate.ui.components.DisplayAlertDialog
-import com.uxstate.diary.util.toInstant
-import com.uxstate.diary.util.toStringDate
-import com.uxstate.diary.util.toStringDateTime
-import com.uxstate.diary.util.toStringTime
+import com.uxstate.util.toInstant
+import com.uxstate.util.toStringDate
+import com.uxstate.util.toStringDateTime
+import com.uxstate.util.toStringTime
 import java.time.LocalDate
 import java.time.LocalTime
 import java.time.ZoneId

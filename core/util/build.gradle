@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.library'
     id 'org.jetbrains.kotlin.android'
+    id 'io.realm.kotlin'
 }
 
 android {
@@ -22,12 +23,12 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-        coreLibraryDesugaringEnabled true
+        sourceCompatibility JavaVersion.VERSION_18
+        targetCompatibility JavaVersion.VERSION_18
+
     }
     kotlinOptions {
-        jvmTarget = '1.8'
+        jvmTarget = '18'
     }
 
     //needs compose blocks as this module needs compose
@@ -37,16 +38,24 @@ android {
     composeOptions {
         kotlinCompilerExtensionVersion ProjectConfig.kotlinCompilerExtensionVersion
     }
-}
 
+    packagingOptions {
+        resources {
+            excludes += '/META-INF/{AL2.0,LGPL2.1}'
+            exclude 'META-INF/gradle/incremental.annotation.processors'
+        }
+    }
+}
+/*> Task :app:mergeExtDexDebug
+AGPBI: {"kind":"error","text":"Attempt at compiling intermediate artifact without its context","sources":[{"file":"C:\\Users\\Legion\\.gradle\\caches\\transforms-3\\b58b104d5f4f2eb2b6730f7492892ec5\\transformed\\desugar_jdk_libs-2.0.3\\desugar_jdk_libs-2.0.3_dex\\classes.dex"}],"tool":"D8"}*/
 dependencies {
     implementation libs.realm.sync
     implementation libs.coroutines.core
     implementation libs.firebase.auth
     implementation libs.firebase.storage
-    implementation libs.desugar.jdk
+
     implementation libs.hilt.android
-    implementation libs.hilt.compiler
+    //implementation libs.hilt.compiler
 
     implementation libs.material3.compose
     //implementation libs.core.ktx
