@@ -1,4 +1,4 @@
-package com.uxstate.diary.presentation.screens.auth_screen
+package com.uxstate.auth
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.background

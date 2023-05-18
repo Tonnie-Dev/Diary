@@ -1,4 +1,4 @@
-package com.uxstate.diary.presentation.screens.auth_screen
+package com.uxstate.auth
 
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel

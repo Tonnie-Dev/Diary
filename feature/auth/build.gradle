@@ -44,6 +44,9 @@ android {
 }
 
 dependencies {
-
+    implementation libs.material3.compose
+    implementation libs.compose.tooling.preview
+    implementation (project(":core:util" ))
+    implementation (project(":core:ui"))
 
 }
