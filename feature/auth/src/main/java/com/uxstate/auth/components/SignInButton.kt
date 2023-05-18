@@ -19,7 +19,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.uxstate.diary.R
+import com.uxstate.auth.R
 import com.uxstate.ui.theme.DiaryTheme
 import com.uxstate.ui.theme.LocalSpacing
 
