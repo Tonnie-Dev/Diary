@@ -22,6 +22,7 @@ import com.stevdzasan.messagebar.ContentWithMessageBar
 import com.stevdzasan.messagebar.rememberMessageBarState
 import com.stevdzasan.onetap.OneTapSignInWithGoogle
 import com.stevdzasan.onetap.rememberOneTapSignInState
+import com.uxstate.auth.components.AuthenticationContent
 import com.uxstate.diary.presentation.keepSplashScreen
 import com.uxstate.diary.presentation.screens.auth_screen.components.AuthenticationContent
 import com.uxstate.diary.presentation.screens.destinations.HomeScreenDestination
@@ -101,9 +102,6 @@ fun AuthenticationScreen(
                         viewModel.setLoading(false)
                     }
                 }
-
-
-
             },
             onDialogDismissed = { message ->
                 messageBarState.addError(Exception(message))

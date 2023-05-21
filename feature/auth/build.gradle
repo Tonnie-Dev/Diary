@@ -3,6 +3,9 @@ import org.gradle.api.internal.tasks.ImplementationAwareTaskAction
 plugins {
     id 'com.android.library'
     id 'org.jetbrains.kotlin.android'
+    id 'dagger.hilt.android.plugin'
+    id 'io.realm.kotlin'
+    id 'com.google.gms.google-services'
 }
 
 android {
@@ -53,7 +56,10 @@ dependencies {
     implementation libs.hilt.android
     implementation libs.hilt.compiler
     implementation libs.hilt.navigation.compose
-
+    implementation libs.message.bar.compose
+    implementation libs.one.tap.compose
+    implementation libs.firebase.auth
+    implementation libs.realm.sync
     //Modules
     implementation (project(":core:util" ))
     implementation (project(":core:ui"))
