@@ -1,0 +1,27 @@
+<resources>
+    <string name="app_name">Diary</string>
+    <string name="auth_signin_button_text">Sign in with Google</string>
+    <string name="app_logo">Logo Image</string>
+<<<<<<< HEAD
+    <string name="no_text">No</string>
+    <string name="yes_text">Yes</string>
+=======
+    <string name="sign_out">Sign Out</string>
+
+    <string name="sign_out_confirmation_text">Are you sure you want to Sign Out from your Google Account?</string>
+>>>>>>> 5c09b533b4884f661f95da15d0e07a83527774bc
+    <string name="mood_icon">Mood Icon</string>
+    <string name="back_arrow_text">Back Arrow Icon</string>
+    <string name="date_icon">Date Icon</string>
+    <string name="delete_action_text">Delete</string>
+    <string name="overflow_menu_icon">Overflow menu icon</string>
+    <string name="title_text">Title</string>
+    <string name="desc_placeholder_text">Tell me about it …</string>
+    <string name="save_action">Save</string>
+    <string name="empty_field_text">Fields Cannot be empty</string>
+    <string name="diary_deleted_toast">Diary Deleted</string>
+    <string name="add_icon_text">Add Icon</string>
+    <string name="loading_text">Loading</string>
+    <string name="internet_needed_text">We need an Internet Connection for this Operation</string>
+
+</resources>

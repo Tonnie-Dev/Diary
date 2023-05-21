@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+<<<<<<< HEAD
+    <string name="no_text">No</string>
+    <string name="yes_text">Yes</string>
+    <string name="auth_title">Welcome Back</string>
+    <string name="auth_subtitle">Please sign in to continue</string>
+    <string name="google_logo">Google Logo</string>
+    <string name="mood_icon">Mood Icon</string>
+    <string name="loading_text">Loading</string>
+    <string name="hide_gallery_action">Hide Gallery</string>
+    <string name="show_gallery_action">Show Gallery</string>
+    <string name="app_logo">Logo Image</string>
+    <string name="sign_out">Sign Out</string>
+    <string name="delete_all_icon">Delete All Icon</string>
+    <string name="gallery_image_text">Gallery Image</string>
+    <string name="empty_diary_text">Empty Diary</string>
+    <string name="write_something_text">Write Something</string>
+    <string name="edit_text">Edit</string>
+    <string name="error_text">Error</string>
+    <string name="home_menu_icon">Menu Icon</string>
+    <string name="app_name">Diary</string>
+    <string name="close_icon">Close Icon</string>
+    <string name="home_date_icon">Home Date Icon</string>
+    <string name="delete_diaries_dialog_title">Delete All Diaries</string>
+    <string name="delete_all_diaries_confirmation">Are you sure you want to permanently delete all Diaries?</string>
+    <string name="all_diaries_deleted_text">All Diaries Deleted</string>
+    <string name="sign_out_confirmation_text">Are you sure you want to Sign Out from your Google Account?</string>
+=======
+
+    <string name="no_text">No</string>
+    <string name="yes_text">Yes</string>
+>>>>>>> 5c09b533b4884f661f95da15d0e07a83527774bc
+</resources>

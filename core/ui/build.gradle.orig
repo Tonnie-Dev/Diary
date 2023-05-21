@@ -1,11 +1,10 @@
 plugins {
     id 'com.android.library'
     id 'org.jetbrains.kotlin.android'
-    id 'io.realm.kotlin'
 }
 
 android {
-    namespace 'com.uxstate.util'
+    namespace 'com.uxstate.ui'
     compileSdk ProjectConfig.compileSdk
 
     defaultConfig {
@@ -38,7 +37,6 @@ android {
     composeOptions {
         kotlinCompilerExtensionVersion ProjectConfig.kotlinCompilerExtensionVersion
     }
-
     packagingOptions {
         resources {
             excludes += '/META-INF/{AL2.0,LGPL2.1}'
@@ -46,23 +44,15 @@ android {
         }
     }
 }
-/*> Task :app:mergeExtDexDebug
-AGPBI: {"kind":"error","text":"Attempt at compiling intermediate artifact without its context","sources":[{"file":"C:\\Users\\Legion\\.gradle\\caches\\transforms-3\\b58b104d5f4f2eb2b6730f7492892ec5\\transformed\\desugar_jdk_libs-2.0.3\\desugar_jdk_libs-2.0.3_dex\\classes.dex"}],"tool":"D8"}*/
-dependencies {
-    implementation libs.realm.sync
-    implementation libs.coroutines.core
-    implementation libs.firebase.auth
-    implementation libs.firebase.storage
 
-    implementation libs.hilt.android
-    //implementation libs.hilt.compiler
+dependencies {
 
     implementation libs.material3.compose
-    //implementation libs.core.ktx
+    implementation libs.core.ktx
+    implementation libs.accompanist.system.ui
 
-    //Modules
-    implementation (project(":core:ui"))
+<<<<<<< HEAD
 
-
-
+=======
+>>>>>>> 5c09b533b4884f661f95da15d0e07a83527774bc
 }

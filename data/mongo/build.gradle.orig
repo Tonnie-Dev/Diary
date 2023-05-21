@@ -1,11 +1,13 @@
 plugins {
     id 'com.android.library'
     id 'org.jetbrains.kotlin.android'
+    id 'dagger.hilt.android.plugin'
     id 'io.realm.kotlin'
+    id 'kotlin-kapt'
 }
 
 android {
-    namespace 'com.uxstate.util'
+    namespace 'com.uxstate.mongo'
     compileSdk ProjectConfig.compileSdk
 
     defaultConfig {
@@ -23,20 +25,18 @@ android {
         }
     }
     compileOptions {
+<<<<<<< HEAD
         sourceCompatibility JavaVersion.VERSION_18
         targetCompatibility JavaVersion.VERSION_18
 
+=======
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+        coreLibraryDesugaringEnabled true
+>>>>>>> 5c09b533b4884f661f95da15d0e07a83527774bc
     }
     kotlinOptions {
         jvmTarget = '18'
-    }
-
-    //needs compose blocks as this module needs compose
-    buildFeatures {
-        compose true
-    }
-    composeOptions {
-        kotlinCompilerExtensionVersion ProjectConfig.kotlinCompilerExtensionVersion
     }
 
     packagingOptions {
@@ -46,23 +46,26 @@ android {
         }
     }
 }
-/*> Task :app:mergeExtDexDebug
-AGPBI: {"kind":"error","text":"Attempt at compiling intermediate artifact without its context","sources":[{"file":"C:\\Users\\Legion\\.gradle\\caches\\transforms-3\\b58b104d5f4f2eb2b6730f7492892ec5\\transformed\\desugar_jdk_libs-2.0.3\\desugar_jdk_libs-2.0.3_dex\\classes.dex"}],"tool":"D8"}*/
+
 dependencies {
-    implementation libs.realm.sync
-    implementation libs.coroutines.core
-    implementation libs.firebase.auth
-    implementation libs.firebase.storage
-
     implementation libs.hilt.android
-    //implementation libs.hilt.compiler
+    implementation libs.hilt.compiler
 
-    implementation libs.material3.compose
-    //implementation libs.core.ktx
+    //Room
+    implementation libs.room.ktx
+    kapt libs.room.compiler
 
-    //Modules
-    implementation (project(":core:ui"))
+    //Realm
+    implementation libs.realm.sync
 
+<<<<<<< HEAD
+=======
+    //Desugaring
+    implementation libs.desugar.jdk
+>>>>>>> 5c09b533b4884f661f95da15d0e07a83527774bc
+
+    //util
+    implementation(project(":core:util"))
 
 
 }
