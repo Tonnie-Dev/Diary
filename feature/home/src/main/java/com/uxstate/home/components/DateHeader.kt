@@ -1,6 +1,8 @@
 package com.uxstate.home.components
 
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -21,6 +23,7 @@ import com.uxstate.ui.theme.LocalSpacing
 import java.time.LocalDate
 
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun DateHeader(localDate: LocalDate) {
     val spacing = LocalSpacing.current
@@ -80,6 +83,7 @@ fun DateHeader(localDate: LocalDate) {
     }
 }
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Preview(showBackground = true)
 @Composable
 fun DateHeaderPrev() {
@@ -88,6 +92,7 @@ fun DateHeaderPrev() {
     }
 }
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Preview(uiMode = UI_MODE_NIGHT_YES, showBackground = true)
 @Composable
 fun DateHeaderPrevDark() {

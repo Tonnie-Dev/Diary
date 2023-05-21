@@ -1,6 +1,8 @@
 package com.uxstate.home
 
+import android.os.Build
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.compose.material3.DrawerValue
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.rememberDrawerState
@@ -16,27 +18,32 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.ramcosta.composedestinations.annotation.Destination
-import com.ramcosta.composedestinations.navigation.DestinationsNavigator
-
-import com.uxstate.diary.presentation.keepSplashScreen
-import com.uxstate.diary.presentation.screens.destinations.AuthenticationScreenDestination
 import com.uxstate.home.components.DiaryNavigationDrawer
 import com.uxstate.ui.components.DisplayAlertDialog
 import com.uxstate.home.components.HomeScaffold
 import com.uxstate.mongo.repository.MongoDB
 import com.uxstate.util.Constants.APP_ID
 import com.uxstate.util.RequestState
-
 import io.realm.kotlin.mongodb.App
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.launch
+import com.uxstate.ui.R
 
+
+interface HomeNavigator {
+
+    fun navigateToWrite(id:String?)
+    fun navigateBackToAuthScreen()
+
+    fun popBackStack()
+}
+@RequiresApi(Build.VERSION_CODES.O)
 @OptIn(ExperimentalMaterial3Api::class)
 @Destination
 @Composable
 fun HomeScreen(
     viewModel: HomeViewModel = hiltViewModel(),
-    navigator: DestinationsNavigator
+    navigator: HomeNavigator
 ) {
 
 
@@ -86,12 +93,13 @@ fun HomeScreen(
     //Launched Effect to control splash screen
     LaunchedEffect(key1 = diaries, block = {
 
-        //when diaries are not loading
+        // TODO: fix keepSplashScreen
+       /* //when diaries are not loading
         if (diaries !is RequestState.Loading) {
 
             keepSplashScreen = false
 
-        }
+        }*/
 
     })
 
@@ -122,7 +130,7 @@ fun HomeScreen(
 
                 //pop out our home screen for security
                 navigator.popBackStack()
-                navigator.navigate(AuthenticationScreenDestination)
+                navigator.navigateBackToAuthScreen()
             })
 
 

@@ -12,7 +12,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
-import com.uxstate.auth.R
+import com.uxstate.ui.R
 import com.uxstate.ui.theme.DiaryTheme
 import com.uxstate.ui.theme.LocalSpacing
 

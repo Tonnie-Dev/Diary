@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.library'
     id 'org.jetbrains.kotlin.android'
+    id 'io.realm.kotlin'
 }
 
 android {
@@ -24,7 +25,7 @@ android {
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_18
         targetCompatibility JavaVersion.VERSION_18
-        
+
     }
     kotlinOptions {
         jvmTarget = '18'
@@ -39,5 +40,19 @@ android {
 
 dependencies {
 
+    implementation libs.compose.destinations
+    implementation libs.compose.tooling.preview
+    implementation libs.compose.ui
+    implementation libs.material3.compose
+    implementation libs.realm.sync
+    implementation libs.coil
+    implementation libs.date.dialog
+    implementation libs.hilt.navigation.compose
+
+
+    //Modules
+    implementation(project(":core:ui"))
+    implementation(project(":core:util"))
+    implementation(project(":data:mongo"))
 
 }

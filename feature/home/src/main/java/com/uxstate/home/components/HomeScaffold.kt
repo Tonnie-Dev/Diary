@@ -1,5 +1,7 @@
 package com.uxstate.home.components
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.calculateEndPadding
@@ -23,21 +25,21 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.LayoutDirection
-import com.ramcosta.composedestinations.navigation.DestinationsNavigator
-import com.uxstate.diary.R
-import com.uxstate.diary.presentation.screens.destinations.WriteScreenDestination
+import com.uxstate.home.HomeNavigator
 import com.uxstate.mongo.repository.Diaries
+import com.uxstate.ui.R
 import com.uxstate.util.RequestState
-import timber.log.Timber
 import java.time.ZonedDateTime
 
+@RequiresApi(Build.VERSION_CODES.O)
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScaffold(diaries: Diaries, onMenuClicked: () -> Unit,
                  dateIsSelected: Boolean,
                  onDateSelected: (ZonedDateTime) -> Unit,
                  onDateReset: () -> Unit,
-                 navigator: DestinationsNavigator) {
+                 navigator: HomeNavigator
+) {
 
     var padding by remember {
         mutableStateOf(PaddingValues())
@@ -58,7 +60,7 @@ fun HomeScaffold(diaries: Diaries, onMenuClicked: () -> Unit,
             },
             floatingActionButton = {
                 FloatingActionButton(
-                        onClick = { navigator.navigate(WriteScreenDestination(id = null)) },
+                        onClick = { navigator.navigateToWrite(null) },
                         modifier = Modifier.padding(
                                 end = padding.calculateEndPadding(LayoutDirection.Ltr)
                         )
@@ -82,7 +84,7 @@ fun HomeScaffold(diaries: Diaries, onMenuClicked: () -> Unit,
                 HomeContent(
                         diaryNotes = diaries.data,
                         onClickDiary = {
-                            navigator.navigate(WriteScreenDestination(it))
+                            navigator.navigateToWrite(it)
 
                         },
                         paddingValues = paddingValues
@@ -90,7 +92,7 @@ fun HomeScaffold(diaries: Diaries, onMenuClicked: () -> Unit,
             }
 
             is RequestState.Loading -> {
-                Timber.i("Loading")
+
                 Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
                     CircularProgressIndicator()
                 }

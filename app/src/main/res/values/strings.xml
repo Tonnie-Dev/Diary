@@ -1,38 +1,21 @@
 <resources>
     <string name="app_name">Diary</string>
     <string name="auth_signin_button_text">Sign in with Google</string>
-    <string name="home_menu_icon">Menu Icon</string>
-    <string name="home_date_icon">Home Date Icon</string>
-    <string name="edit_text">Edit</string>
     <string name="app_logo">Logo Image</string>
-    <string name="sign_out">Sign Out</string>
     <string name="no_text">No</string>
     <string name="yes_text">Yes</string>
-    <string name="sign_out_confirmation_text">Are you sure you want to Sign Out from your Google Account?</string>
     <string name="mood_icon">Mood Icon</string>
-    <string name="gallery_image_text">Gallery Image</string>
-    <string name="write_something_text">Write Something</string>
-    <string name="empty_diary_text">Empty Diary</string>
-    <string name="error_text">Error</string>
     <string name="back_arrow_text">Back Arrow Icon</string>
     <string name="date_icon">Date Icon</string>
     <string name="delete_action_text">Delete</string>
     <string name="overflow_menu_icon">Overflow menu icon</string>
     <string name="title_text">Title</string>
-    <string name="desc_placeholder_text">Tell me about it ...</string>
+    <string name="desc_placeholder_text">Tell me about it …</string>
     <string name="save_action">Save</string>
     <string name="empty_field_text">Fields Cannot be empty</string>
-    <string name="close_icon">Close Icon</string>
     <string name="diary_deleted_toast">Diary Deleted</string>
     <string name="add_icon_text">Add Icon</string>
     <string name="loading_text">Loading</string>
-    <string name="hide_gallery_action">Hide Gallery</string>
-    <string name="show_gallery_action">Show Gallery</string>
-    <string name="delete_all_icon">Delete All Icon</string>
-    <string name="delete_diaries_dialog_title">Delete All Diaries</string>
-    <string name="delete_all_diaries_confirmation">Are you sure you want to permanently delete all Diaries?</string>
-    <string name="all_diaries_deleted_text">All Diaries Deleted</string>
     <string name="internet_needed_text">We need an Internet Connection for this Operation</string>
-
 
 </resources>

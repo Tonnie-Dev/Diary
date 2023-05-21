@@ -60,8 +60,10 @@ dependencies {
     implementation libs.one.tap.compose
     implementation libs.firebase.auth
     implementation libs.realm.sync
+    
     //Modules
-    implementation (project(":core:util" ))
     implementation (project(":core:ui"))
+    implementation (project(":core:util" ))
+
 
 }

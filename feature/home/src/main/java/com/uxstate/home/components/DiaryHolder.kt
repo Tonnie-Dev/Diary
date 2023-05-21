@@ -2,7 +2,9 @@ package com.uxstate.home.components
 
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import android.net.Uri
+import android.os.Build
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.LinearOutSlowInEasing
@@ -40,7 +42,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
-import com.uxstate.diary.R
+import com.uxstate.ui.R
 import com.uxstate.model.Diary
 import com.uxstate.model.Mood
 import com.uxstate.ui.theme.DiaryTheme
@@ -50,6 +52,7 @@ import com.uxstate.util.fetchImagesFromFirebase
 import com.uxstate.util.toInstant
 import io.realm.kotlin.ext.realmListOf
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun DiaryHolder(diary: Diary, onClickDiary: (objectId: String) -> Unit) {
 
@@ -220,6 +223,7 @@ fun ShowGalleryButton(
 }
 
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Preview(showBackground = true)
 @Composable
 fun DiaryHolderPreview() {
@@ -238,6 +242,7 @@ fun DiaryHolderPreview() {
 }
 
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Preview(showBackground = true, uiMode = UI_MODE_NIGHT_YES)
 @Composable
 fun DiaryHolderPreviewDark() {

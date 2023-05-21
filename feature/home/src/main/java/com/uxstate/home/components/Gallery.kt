@@ -21,7 +21,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import coil.compose.rememberAsyncImagePainter
 import coil.request.ImageRequest
-import com.uxstate.diary.R
+import com.uxstate.ui.R
 import kotlin.math.max
 
 @Composable

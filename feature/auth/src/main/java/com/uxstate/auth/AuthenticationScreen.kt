@@ -120,7 +120,7 @@ fun AuthenticationScreen(
         }
     })
 
-
+    // TODO: fix keepSplashScreen
     //Launched Effect to control splash screen
 
    /* LaunchedEffect(key1 = Unit, block = {

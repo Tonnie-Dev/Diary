@@ -1,5 +1,7 @@
 package com.uxstate.home.components
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -17,13 +19,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
-import com.uxstate.diary.R
+import com.uxstate.ui.R
 import com.uxstate.model.Diary
 import com.uxstate.ui.theme.LocalSpacing
 import java.time.LocalDate
 
 typealias DiariesMap = Map<LocalDate, List<Diary>>
 
+@RequiresApi(Build.VERSION_CODES.O)
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun HomeContent(

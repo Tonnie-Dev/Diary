@@ -22,7 +22,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
-import com.uxstate.diary.R
+import com.uxstate.ui.R
 import com.uxstate.ui.theme.LocalSpacing
 
 
