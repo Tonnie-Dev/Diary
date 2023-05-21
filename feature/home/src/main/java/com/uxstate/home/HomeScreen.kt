@@ -29,6 +29,7 @@ import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.launch
 import com.uxstate.ui.R
 
+// TODO: Remove drawables from app modules except ic_launcher logos
 
 interface HomeNavigator {
 
@@ -37,6 +38,8 @@ interface HomeNavigator {
 
     fun popBackStack()
 }
+
+// TODO: Revisit de-sugaring error API 26
 @RequiresApi(Build.VERSION_CODES.O)
 @OptIn(ExperimentalMaterial3Api::class)
 @Destination
@@ -45,8 +48,6 @@ fun HomeScreen(
     viewModel: HomeViewModel = hiltViewModel(),
     navigator: HomeNavigator
 ) {
-
-
 
     val diaries by viewModel.diaries.collectAsState()
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
