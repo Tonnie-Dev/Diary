@@ -8,7 +8,7 @@ import com.uxstate.diary.presentation.screens.destinations.AuthenticationScreenD
 import com.uxstate.diary.presentation.screens.destinations.HomeScreenDestination
 
 
-/*gather all destinations / nav graphs from other modules into a single "top-level"
+/*gather all nav graphs from other modules into a single "top-level"
 navigation graph to pass to DestinationsNavHost call. We recommend having a globally
 accessible object containing the nav graphs*/
 object NavGraphs {
@@ -17,10 +17,20 @@ object NavGraphs {
 
         override val route = "auth"
         override val startRoute = AuthenticationScreenDestination routedIn this
-        override val destinationsByRoute: Map<String, DestinationSpec<*>>(Auth)
+        override val destinationsByRoute=
+            listOf<DestinationSpec<*>>(AuthenticationScreenDestination)
+                .routedIn(this).associateBy{ it.route }
 
 
+    }
 
+    //Home Nav Graph
 
+    val home = object : NavGraphSpec {
+        override val destinationsByRoute = listOf<DestinationSpec<*>>(HomeScreenDestination)
+                .routedIn(this).associateBy { it.route }
+
+        override val route = "home"
+        override val startRoute  =HomeScreenDestination
     }
 }
