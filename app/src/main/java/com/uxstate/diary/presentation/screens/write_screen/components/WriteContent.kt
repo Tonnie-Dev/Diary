@@ -43,11 +43,11 @@ import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.PagerState
 import com.uxstate.diary.R
+import com.uxstate.diary.presentation.screens.write_screen.state.UiState
 import com.uxstate.model.Diary
 import com.uxstate.model.GalleryImage
 import com.uxstate.model.GalleryState
 import com.uxstate.model.Mood
-import com.uxstate.diary.presentation.screens.write_screen.state.UiState
 import com.uxstate.ui.theme.LocalSpacing
 import io.realm.kotlin.ext.toRealmList
 import kotlinx.coroutines.launch

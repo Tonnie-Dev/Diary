@@ -3,7 +3,6 @@ package com.uxstate.diary.navigation
 import com.ramcosta.composedestinations.dynamic.routedIn
 import com.ramcosta.composedestinations.spec.DestinationSpec
 import com.ramcosta.composedestinations.spec.NavGraphSpec
-import com.ramcosta.composedestinations.spec.Route
 import com.uxstate.diary.presentation.screens.destinations.AuthenticationScreenDestination
 import com.uxstate.diary.presentation.screens.destinations.HomeScreenDestination
 import com.uxstate.diary.presentation.screens.destinations.WriteScreenDestination

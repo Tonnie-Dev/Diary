@@ -8,12 +8,12 @@ import androidx.lifecycle.viewModelScope
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
+import com.uxstate.diary.presentation.screens.navArgs
+import com.uxstate.diary.presentation.screens.write_screen.state.UiState
 import com.uxstate.model.Diary
 import com.uxstate.model.GalleryImage
 import com.uxstate.model.GalleryState
 import com.uxstate.model.Mood
-import com.uxstate.diary.presentation.screens.navArgs
-import com.uxstate.diary.presentation.screens.write_screen.state.UiState
 import com.uxstate.mongo.local.database.ImagesDatabase
 import com.uxstate.mongo.local.entities.ImageToDelete
 import com.uxstate.mongo.local.entities.ImageToUpload
