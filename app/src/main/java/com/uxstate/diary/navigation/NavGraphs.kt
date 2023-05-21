@@ -6,6 +6,7 @@ import com.ramcosta.composedestinations.spec.NavGraphSpec
 import com.ramcosta.composedestinations.spec.Route
 import com.uxstate.diary.presentation.screens.destinations.AuthenticationScreenDestination
 import com.uxstate.diary.presentation.screens.destinations.HomeScreenDestination
+import com.uxstate.diary.presentation.screens.destinations.WriteScreenDestination
 
 
 /*gather all nav graphs from other modules into a single "top-level"
@@ -24,7 +25,7 @@ object NavGraphs {
 
     }
 
-    //Home Nav Graph
+    //Home NavGraph
 
     val home = object : NavGraphSpec {
         override val destinationsByRoute = listOf<DestinationSpec<*>>(HomeScreenDestination)
@@ -32,5 +33,15 @@ object NavGraphs {
 
         override val route = "home"
         override val startRoute  =HomeScreenDestination
+    }
+
+    //Write NavGraph
+
+    val write = object : NavGraphSpec {
+        override val destinationsByRoute = listOf<DestinationSpec<*>>(WriteScreenDestination)
+                .routedIn(this).associateBy { it.route }
+        override val route = "write"
+        override val startRoute = WriteScreenDestination
+
     }
 }
