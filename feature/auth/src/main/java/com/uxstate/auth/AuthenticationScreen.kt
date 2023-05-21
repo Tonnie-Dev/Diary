@@ -23,9 +23,10 @@ import com.stevdzasan.messagebar.rememberMessageBarState
 import com.stevdzasan.onetap.OneTapSignInWithGoogle
 import com.stevdzasan.onetap.rememberOneTapSignInState
 import com.uxstate.auth.components.AuthenticationContent
-import com.uxstate.diary.presentation.keepSplashScreen
+
 import com.uxstate.util.Constants.CLIENT_ID
 
+//import com.uxstate.diary.presentation.keepSplashScreen
 
 /*@Destination
 @RootNavGraph(start = true)*/
