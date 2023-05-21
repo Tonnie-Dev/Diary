@@ -1,4 +1,4 @@
-package com.uxstate.diary.presentation.screens.write_screen
+package com.uxstate.write
 
 
 import android.net.Uri

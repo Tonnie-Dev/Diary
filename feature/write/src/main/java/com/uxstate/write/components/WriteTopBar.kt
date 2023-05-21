@@ -1,4 +1,4 @@
-package com.uxstate.diary.presentation.screens.write_screen.components
+package com.uxstate.write.components
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth

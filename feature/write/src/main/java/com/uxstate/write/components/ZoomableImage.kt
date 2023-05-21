@@ -1,4 +1,4 @@
-package com.uxstate.diary.presentation.screens.write_screen.components
+package com.uxstate.write.components
 
 import androidx.compose.foundation.gestures.detectTransformGestures
 import androidx.compose.foundation.layout.Arrangement

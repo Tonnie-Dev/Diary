@@ -1,4 +1,4 @@
-package com.uxstate.diary.presentation.screens.write_screen
+package com.uxstate.write
 
 import android.widget.Toast
 import androidx.compose.animation.AnimatedVisibility

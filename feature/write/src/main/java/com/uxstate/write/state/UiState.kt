@@ -1,4 +1,4 @@
-package com.uxstate.diary.presentation.screens.write_screen.state
+package com.uxstate.write.state
 
 import com.uxstate.model.Diary
 import com.uxstate.model.Mood
