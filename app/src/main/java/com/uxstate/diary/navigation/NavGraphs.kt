@@ -44,4 +44,10 @@ object NavGraphs {
         override val startRoute = WriteScreenDestination
 
     }
+
+    val root = object : NavGraphSpec {
+        override val destinationsByRoute = emptyMap<String,DestinationSpec<*>>()
+        override val route = "root"
+        override val startRoute = home
+    }
 }

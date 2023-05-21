@@ -29,9 +29,10 @@ import com.uxstate.diary.presentation.screens.destinations.HomeScreenDestination
 import com.uxstate.util.Constants.CLIENT_ID
 
 
-@Destination
-@RootNavGraph(start = true)
+/*@Destination
+@RootNavGraph(start = true)*/
 
+interface 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun AuthenticationScreen(
