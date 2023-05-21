@@ -161,5 +161,6 @@ dependencies {
     implementation (project(":core:util"))
 
     implementation (project(":data:mongo"))
+    implementation(project(":feature:auth"))
 
 }

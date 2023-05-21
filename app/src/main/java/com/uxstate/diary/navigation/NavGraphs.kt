@@ -12,6 +12,10 @@ import com.uxstate.diary.presentation.screens.destinations.WriteScreenDestinatio
 /*gather all nav graphs from other modules into a single "top-level"
 navigation graph to pass to DestinationsNavHost call. We recommend having a globally
 accessible object containing the nav graphs*/
+
+//Create a Navigator Interface for each module/feature screen
+
+//
 object NavGraphs {
     //Auth Module NavGraph - defines navigation graph by instantiating NavGraphSpecs
     val auth = object : NavGraphSpec {

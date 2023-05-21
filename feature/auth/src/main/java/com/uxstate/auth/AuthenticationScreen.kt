@@ -24,8 +24,6 @@ import com.stevdzasan.onetap.OneTapSignInWithGoogle
 import com.stevdzasan.onetap.rememberOneTapSignInState
 import com.uxstate.auth.components.AuthenticationContent
 import com.uxstate.diary.presentation.keepSplashScreen
-import com.uxstate.diary.presentation.screens.auth_screen.components.AuthenticationContent
-import com.uxstate.diary.presentation.screens.destinations.HomeScreenDestination
 import com.uxstate.util.Constants.CLIENT_ID
 
 
@@ -124,11 +122,11 @@ fun AuthenticationScreen(
 
     //Launched Effect to control splash screen
 
-    LaunchedEffect(key1 = Unit, block = {
+   /* LaunchedEffect(key1 = Unit, block = {
 
         keepSplashScreen = false
     }
-    )
+    )*/
 }
 
 
