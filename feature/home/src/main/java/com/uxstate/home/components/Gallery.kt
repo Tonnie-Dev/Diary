@@ -1,4 +1,4 @@
-package com.uxstate.diary.presentation.screens.home_screen.components
+package com.uxstate.home.components
 
 import android.net.Uri
 import androidx.compose.foundation.Image

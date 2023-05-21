@@ -1,4 +1,4 @@
-package com.uxstate.diary.presentation.screens.home_screen.components
+package com.uxstate.home.components
 
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import androidx.compose.foundation.background

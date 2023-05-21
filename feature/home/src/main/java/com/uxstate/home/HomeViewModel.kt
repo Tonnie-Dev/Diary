@@ -1,4 +1,4 @@
-package com.uxstate.diary.presentation.screens.home_screen
+package com.uxstate.home
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf

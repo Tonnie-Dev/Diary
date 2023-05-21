@@ -1,4 +1,4 @@
-package com.uxstate.diary.presentation.screens.home_screen.components
+package com.uxstate.home.components
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Arrangement

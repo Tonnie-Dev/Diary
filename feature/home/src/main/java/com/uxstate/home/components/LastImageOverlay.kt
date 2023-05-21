@@ -1,4 +1,4 @@
-package com.uxstate.diary.presentation.screens.home_screen.components
+package com.uxstate.home.components
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.size

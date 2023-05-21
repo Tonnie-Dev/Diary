@@ -1,4 +1,4 @@
-package com.uxstate.diary.presentation.screens.home_screen
+package com.uxstate.home
 
 import android.widget.Toast
 import androidx.compose.material3.DrawerValue
@@ -17,13 +17,12 @@ import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
-import com.uxstate.diary.R
 
 import com.uxstate.diary.presentation.keepSplashScreen
 import com.uxstate.diary.presentation.screens.destinations.AuthenticationScreenDestination
-import com.uxstate.diary.presentation.screens.home_screen.components.DiaryNavigationDrawer
+import com.uxstate.home.components.DiaryNavigationDrawer
 import com.uxstate.ui.components.DisplayAlertDialog
-import com.uxstate.diary.presentation.screens.home_screen.components.HomeScaffold
+import com.uxstate.home.components.HomeScaffold
 import com.uxstate.mongo.repository.MongoDB
 import com.uxstate.util.Constants.APP_ID
 import com.uxstate.util.RequestState

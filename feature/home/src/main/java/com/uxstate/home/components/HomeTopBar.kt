@@ -1,4 +1,4 @@
-package com.uxstate.diary.presentation.screens.home_screen.components
+package com.uxstate.home.components
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
