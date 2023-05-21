@@ -32,11 +32,14 @@ import com.uxstate.util.Constants.CLIENT_ID
 /*@Destination
 @RootNavGraph(start = true)*/
 
-interface 
+interface AuthNavigator{
+
+    fun navigateToHome()
+}
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun AuthenticationScreen(
-    viewModel: AuthViewModel = hiltViewModel(), navigator: DestinationsNavigator
+    viewModel: AuthViewModel = hiltViewModel(), navigator: AuthNavigator
 ) {
 
 
@@ -114,7 +117,7 @@ fun AuthenticationScreen(
 
         if (isAuthenticated) {
 
-            navigator.navigate(HomeScreenDestination)
+            navigator.navigateToHome()
         }
     })
 
