@@ -3,9 +3,7 @@ package com.uxstate.diary.navigation
 import com.ramcosta.composedestinations.dynamic.routedIn
 import com.ramcosta.composedestinations.spec.DestinationSpec
 import com.ramcosta.composedestinations.spec.NavGraphSpec
-import com.uxstate.diary.presentation.screens.destinations.AuthenticationScreenDestination
-import com.uxstate.diary.presentation.screens.destinations.HomeScreenDestination
-import com.uxstate.diary.presentation.screens.destinations.WriteScreenDestination
+
 
 
 /*gather all nav graphs from other modules into a single "top-level"

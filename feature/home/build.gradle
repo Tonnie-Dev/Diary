@@ -1,7 +1,9 @@
 plugins {
+    id 'com.google.devtools.ksp' version '1.8.10-1.0.9'
     id 'com.android.library'
     id 'org.jetbrains.kotlin.android'
     id 'io.realm.kotlin'
+    id 'kotlin-kapt'
 }
 
 android {
@@ -36,6 +38,11 @@ android {
     composeOptions {
         kotlinCompilerExtensionVersion ProjectConfig.kotlinCompilerExtensionVersion
     }
+
+    ksp {
+        arg("compose-destinations.moduleName", "home")
+        arg("compose-destinations.mode", "destinations")
+    }
 }
 
 dependencies {
@@ -48,8 +55,10 @@ dependencies {
     implementation libs.coil
     implementation libs.date.dialog
     implementation libs.hilt.navigation.compose
-
-
+    implementation libs.firebase.auth
+    implementation libs.firebase.storage
+    implementation libs.room.ktx
+    kapt libs.room.compiler
     //Modules
     implementation(project(":core:ui"))
     implementation(project(":core:util"))

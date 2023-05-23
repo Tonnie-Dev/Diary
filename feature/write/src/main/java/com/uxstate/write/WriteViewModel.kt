@@ -2,14 +2,14 @@ package com.uxstate.write
 
 
 import android.net.Uri
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
-import com.uxstate.diary.presentation.screens.navArgs
-import com.uxstate.diary.presentation.screens.write_screen.state.UiState
 import com.uxstate.model.Diary
 import com.uxstate.model.GalleryImage
 import com.uxstate.model.GalleryState
@@ -21,6 +21,7 @@ import com.uxstate.mongo.repository.MongoDB
 import com.uxstate.util.RequestState
 import com.uxstate.util.fetchImagesFromFirebase
 import com.uxstate.util.toRealmInstant
+import com.uxstate.write.state.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.Dispatchers.Main
@@ -31,7 +32,6 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.mongodb.kbson.ObjectId
-import timber.log.Timber
 import java.time.ZonedDateTime
 import javax.inject.Inject
 
@@ -44,7 +44,10 @@ class WriteViewModel @Inject constructor(
     val uiState = _uiState.asStateFlow()
 
     val galleryState = GalleryState()
-    private val diaryId = handle.navArgs<WriteScreenNavArgs>().id
+
+    // TODO: Fix navArgs() ext fxn
+   // private val diaryId = handle.navArgs<WriteScreenNavArgs>().id
+    private val diaryId = "13"
 
 
     init {
@@ -88,7 +91,6 @@ class WriteViewModel @Inject constructor(
                                 fetchImagesFromFirebase(remoteImagesPaths = diary.data.images,
                                         onImageDownload = { uri ->
 
-                                            Timber.i("The Uri is: $uri")
 
                                             galleryState.addImage(
                                                     GalleryImage(
@@ -159,6 +161,8 @@ class WriteViewModel @Inject constructor(
         }
     }
 
+    // TODO: Fix Require Api26
+    @RequiresApi(Build.VERSION_CODES.O)
     fun upsertDiary(diary: Diary, onSuccess: () -> Unit, onError: (String) -> Unit) {
 
         if (_uiState.value.selectedDiary == null) {
@@ -170,6 +174,8 @@ class WriteViewModel @Inject constructor(
 
     }
 
+    // TODO: Fix RequireApi 26
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun insertDiary(diary: Diary, onSuccess: () -> Unit, onError: (String) -> Unit) {
         viewModelScope.launch(IO) {
             val result = MongoDB.insertDiary(diary.apply {
@@ -189,6 +195,8 @@ class WriteViewModel @Inject constructor(
         }
     }
 
+    // TODO: Fix requireApi 26
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun updateDiary(diary: Diary, onSuccess: () -> Unit, onError: (String) -> Unit) {
         viewModelScope.launch {
             val result = MongoDB.updateDiary(diary = diary.apply {
@@ -258,10 +266,6 @@ class WriteViewModel @Inject constructor(
 
         val remotePath =
             "images/" + "${Firebase.auth.currentUser?.uid}/" + "${image.lastPathSegment}-" + "${System.currentTimeMillis()}." + "imageType"
-
-
-
-        Timber.i("The remotePath is $remotePath ")
 
         galleryState.addImage(GalleryImage(imageUri = image, remoteImagePath = remotePath))
     }

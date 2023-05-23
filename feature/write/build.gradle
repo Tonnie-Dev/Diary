@@ -1,6 +1,10 @@
 plugins {
+    id 'com.google.devtools.ksp' version '1.8.10-1.0.9'
     id 'com.android.library'
     id 'org.jetbrains.kotlin.android'
+    id 'io.realm.kotlin'
+    id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
 }
 
 android {
@@ -35,9 +39,30 @@ android {
     composeOptions {
         kotlinCompilerExtensionVersion ProjectConfig.kotlinCompilerExtensionVersion
     }
+    ksp {
+        arg("compose-destinations.moduleName", "write")
+        arg("compose-destinations.mode", "destinations")
+    }
 }
 
 dependencies {
 
+    implementation libs.compose.destinations
+    implementation libs.compose.ui
+    implementation libs.material3.compose
+    implementation libs.coil
+    implementation libs.accompanist.pager
+    implementation libs.room.ktx
+    kapt libs.room.compiler
+    implementation libs.realm.sync
+    implementation libs.hilt.android
+    implementation libs.hilt.compiler
+    implementation libs.hilt.navigation.compose
+    implementation libs.firebase.auth
+    implementation libs.firebase.storage
 
+    //Modules
+    implementation(project(":core:ui"))
+    implementation(project(":core:util"))
+    implementation(project(":data:mongo"))
 }

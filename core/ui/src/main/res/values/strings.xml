@@ -19,7 +19,13 @@
     <string name="error_text">Error</string>
     <string name="home_menu_icon">Menu Icon</string>
     <string name="app_name">Diary</string>
+    <string name="add_icon_text">Add Icon</string>
+    <string name="title_text">Title</string>
+    <string name="desc_placeholder_text">Tell me about it …</string>
+    <string name="save_action">Save</string>
+    <string name="empty_field_text">Fields Cannot be empty</string>
     <string name="close_icon">Close Icon</string>
+    <string name="diary_deleted_toast">Diary Deleted</string>
     <string name="home_date_icon">Home Date Icon</string>
     <string name="delete_diaries_dialog_title">Delete All Diaries</string>
     <string name="delete_all_diaries_confirmation">Are you sure you want to permanently delete all Diaries?</string>

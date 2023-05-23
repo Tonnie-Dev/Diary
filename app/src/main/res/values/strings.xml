@@ -9,12 +9,9 @@
     <string name="date_icon">Date Icon</string>
     <string name="delete_action_text">Delete</string>
     <string name="overflow_menu_icon">Overflow menu icon</string>
-    <string name="title_text">Title</string>
-    <string name="desc_placeholder_text">Tell me about it …</string>
-    <string name="save_action">Save</string>
-    <string name="empty_field_text">Fields Cannot be empty</string>
-    <string name="diary_deleted_toast">Diary Deleted</string>
-    <string name="add_icon_text">Add Icon</string>
+
+
+
     <string name="loading_text">Loading</string>
     <string name="internet_needed_text">We need an Internet Connection for this Operation</string>
 

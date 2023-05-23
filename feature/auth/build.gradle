@@ -1,11 +1,12 @@
 import org.gradle.api.internal.tasks.ImplementationAwareTaskAction
 
 plugins {
+    id 'com.google.devtools.ksp' version '1.8.10-1.0.9'
     id 'com.android.library'
     id 'org.jetbrains.kotlin.android'
     id 'dagger.hilt.android.plugin'
     id 'io.realm.kotlin'
-    id 'com.google.gms.google-services'
+
 }
 
 android {
@@ -40,12 +41,17 @@ android {
     composeOptions {
         kotlinCompilerExtensionVersion ProjectConfig.kotlinCompilerExtensionVersion
     }
-    packagingOptions {
+
+    ksp {
+        arg("compose-destinations.moduleName", "write")
+        arg("compose-destinations.mode", "destinations")
+    }
+    /*packagingOptions {
         resources {
             excludes += '/META-INF/{AL2.0,LGPL2.1}'
 
         }
-    }
+    }*/
 }
 
 dependencies {

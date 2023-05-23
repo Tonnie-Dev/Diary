@@ -1,6 +1,8 @@
 package com.uxstate.write
 
+import android.os.Build
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
@@ -18,13 +20,15 @@ import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.rememberPagerState
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
-import com.uxstate.diary.R
-import com.uxstate.diary.presentation.screens.write_screen.components.WriteContent
-import com.uxstate.diary.presentation.screens.write_screen.components.WriteTopBar
-import com.uxstate.diary.presentation.screens.write_screen.components.ZoomableImage
 import com.uxstate.model.GalleryImage
 import com.uxstate.model.Mood
+import com.uxstate.write.components.WriteContent
+import com.uxstate.write.components.WriteTopBar
+import com.uxstate.write.components.ZoomableImage
+import com.uxstate.ui.R
 
+// TODO: Fix Require Api 26
+@RequiresApi(Build.VERSION_CODES.O)
 @OptIn(ExperimentalPagerApi::class)
 @Destination(navArgsDelegate = WriteScreenNavArgs::class)
 @Composable

@@ -14,7 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.Dp
-import com.uxstate.diary.R
+import com.uxstate.ui.R
 import com.uxstate.ui.theme.LocalElevation
 
 
