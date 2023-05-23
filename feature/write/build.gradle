@@ -28,7 +28,7 @@ android {
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_18
         targetCompatibility JavaVersion.VERSION_18
-        coreLibraryDesugaringEnabled true
+
     }
     kotlinOptions {
         jvmTarget = '18'
@@ -48,6 +48,7 @@ android {
 dependencies {
 
     implementation libs.compose.destinations
+    ksp libs.destinations.ksp
     implementation libs.compose.ui
     implementation libs.material3.compose
     implementation libs.coil
@@ -60,6 +61,8 @@ dependencies {
     implementation libs.hilt.navigation.compose
     implementation libs.firebase.auth
     implementation libs.firebase.storage
+    implementation libs.date.dialog
+    implementation libs.time.dialog
 
     //Modules
     implementation(project(":core:ui"))

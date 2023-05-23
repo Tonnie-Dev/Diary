@@ -27,7 +27,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
-import com.uxstate.diary.R
+import com.uxstate.ui.R
 import com.uxstate.model.GalleryImage
 import com.uxstate.ui.theme.LocalSpacing
 

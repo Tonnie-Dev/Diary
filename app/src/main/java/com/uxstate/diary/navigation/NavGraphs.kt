@@ -3,6 +3,9 @@ package com.uxstate.diary.navigation
 import com.ramcosta.composedestinations.dynamic.routedIn
 import com.ramcosta.composedestinations.spec.DestinationSpec
 import com.ramcosta.composedestinations.spec.NavGraphSpec
+import com.uxstate.auth.destinations.AuthenticationScreenDestination
+import com.uxstate.home.destinations.HomeScreenDestination
+import com.uxstate.write.destinations.WriteScreenDestination
 
 
 
@@ -29,19 +32,22 @@ object NavGraphs {
     //Home NavGraph
 
     val home = object : NavGraphSpec {
+
+        override val route = "home"
         override val destinationsByRoute = listOf<DestinationSpec<*>>(HomeScreenDestination)
                 .routedIn(this).associateBy { it.route }
 
-        override val route = "home"
+
         override val startRoute  =HomeScreenDestination
     }
 
     //Write NavGraph
 
     val write = object : NavGraphSpec {
+        override val route = "write"
         override val destinationsByRoute = listOf<DestinationSpec<*>>(WriteScreenDestination)
                 .routedIn(this).associateBy { it.route }
-        override val route = "write"
+
         override val startRoute = WriteScreenDestination
 
     }

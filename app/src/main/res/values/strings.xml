@@ -5,12 +5,6 @@
     <string name="no_text">No</string>
     <string name="yes_text">Yes</string>
     <string name="mood_icon">Mood Icon</string>
-    <string name="back_arrow_text">Back Arrow Icon</string>
-    <string name="date_icon">Date Icon</string>
-    <string name="delete_action_text">Delete</string>
-    <string name="overflow_menu_icon">Overflow menu icon</string>
-
-
 
     <string name="loading_text">Loading</string>
     <string name="internet_needed_text">We need an Internet Connection for this Operation</string>

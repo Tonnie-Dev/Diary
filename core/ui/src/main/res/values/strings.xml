@@ -31,4 +31,8 @@
     <string name="delete_all_diaries_confirmation">Are you sure you want to permanently delete all Diaries?</string>
     <string name="all_diaries_deleted_text">All Diaries Deleted</string>
     <string name="sign_out_confirmation_text">Are you sure you want to Sign Out from your Google Account?</string>
+    <string name="back_arrow_text">Back Arrow Icon</string>
+    <string name="date_icon">Date Icon</string>
+    <string name="delete_action_text">Delete</string>
+    <string name="overflow_menu_icon">Overflow menu icon</string>
 </resources>

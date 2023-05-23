@@ -41,7 +41,6 @@ interface HomeNavigator {
 
 // TODO: Revisit de-sugaring error API 26
 @RequiresApi(Build.VERSION_CODES.O)
-@OptIn(ExperimentalMaterial3Api::class)
 @Destination
 @Composable
 fun HomeScreen(

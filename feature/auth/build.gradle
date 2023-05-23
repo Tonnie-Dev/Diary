@@ -1,4 +1,4 @@
-import org.gradle.api.internal.tasks.ImplementationAwareTaskAction
+
 
 plugins {
     id 'com.google.devtools.ksp' version '1.8.10-1.0.9'
@@ -30,7 +30,7 @@ android {
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_18
         targetCompatibility JavaVersion.VERSION_18
-        coreLibraryDesugaringEnabled true
+
     }
     kotlinOptions {
         jvmTarget = '18'
@@ -43,22 +43,16 @@ android {
     }
 
     ksp {
-        arg("compose-destinations.moduleName", "write")
+        arg("compose-destinations.moduleName", "auth")
         arg("compose-destinations.mode", "destinations")
     }
-    /*packagingOptions {
-        resources {
-            excludes += '/META-INF/{AL2.0,LGPL2.1}'
 
-        }
-    }*/
 }
 
 dependencies {
-    implementation libs.material3.compose
-    implementation libs.compose.tooling.preview
     implementation libs.compose.destinations
-    implementation libs.destinations.ksp
+    ksp libs.destinations.ksp
+    implementation libs.compose.tooling.preview
     implementation libs.hilt.android
     implementation libs.hilt.compiler
     implementation libs.hilt.navigation.compose
@@ -66,10 +60,12 @@ dependencies {
     implementation libs.one.tap.compose
     implementation libs.firebase.auth
     implementation libs.realm.sync
-    
+    implementation libs.material3.compose
+
     //Modules
     implementation (project(":core:ui"))
     implementation (project(":core:util" ))
 
 
 }
+

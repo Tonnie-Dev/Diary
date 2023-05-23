@@ -84,6 +84,7 @@ dependencies {
     implementation "androidx.compose.ui:ui:$compose_version"
     implementation "androidx.compose.ui:ui-tooling-preview:$compose_version"
     implementation 'androidx.compose.material3:material3:1.1.0-rc01'
+    implementation project(path: ':feature:write')
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
@@ -146,8 +147,9 @@ dependencies {
     coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.0.3'
 
     // Compose Destinations
-    ksp 'io.github.raamcosta.compose-destinations:ksp:1.8.38-beta'
     implementation 'io.github.raamcosta.compose-destinations:core:1.8.38-beta'
+    ksp 'io.github.raamcosta.compose-destinations:ksp:1.8.38-beta'
+
 
     //Timber
     implementation 'com.jakewharton.timber:timber:5.0.1'
@@ -160,8 +162,9 @@ dependencies {
     //because of Constants
     implementation (project(":core:util"))
     implementation(project(":data:mongo"))
-
-    implementation (project(":data:mongo"))
+    implementation(project(":feature:write"))
     implementation(project(":feature:auth"))
+    implementation(project(":feature:home"))
+
 
 }

@@ -13,17 +13,12 @@ import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
 import com.ramcosta.composedestinations.annotation.Destination
-import com.ramcosta.composedestinations.annotation.RootNavGraph
-import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import com.stevdzasan.messagebar.ContentWithMessageBar
 import com.stevdzasan.messagebar.rememberMessageBarState
 import com.stevdzasan.onetap.OneTapSignInWithGoogle
 import com.stevdzasan.onetap.rememberOneTapSignInState
 import com.uxstate.auth.components.AuthenticationContent
-
 import com.uxstate.util.Constants.CLIENT_ID
 
 //import com.uxstate.diary.presentation.keepSplashScreen
@@ -31,12 +26,15 @@ import com.uxstate.util.Constants.CLIENT_ID
 /*@Destination
 @RootNavGraph(start = true)*/
 
-interface AuthNavigator{
+interface AuthNavigator {
 
     fun navigateToHome()
 }
-@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
+
+
+@Destination
 @Composable
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 fun AuthenticationScreen(
     viewModel: AuthViewModel = hiltViewModel(), navigator: AuthNavigator
 ) {
@@ -59,16 +57,16 @@ fun AuthenticationScreen(
             .navigationBarsPadding(),
             content = {
 
-        ContentWithMessageBar(messageBarState = messageBarState) {
-            AuthenticationContent(loadingState = loadingState,
+                ContentWithMessageBar(messageBarState = messageBarState) {
+                    AuthenticationContent(loadingState = loadingState,
 
-                    onButtonClicked = {
-                        oneTapState.open()
-                        viewModel.setLoading(true)
-                    })
+                            onButtonClicked = {
+                                oneTapState.open()
+                                viewModel.setLoading(true)
+                            })
 
-        }
-    }
+                }
+            }
 
 
     )
@@ -83,28 +81,28 @@ fun AuthenticationScreen(
 
 
                 val credentials = GoogleAuthProvider.getCredential(tokenId, null)
-                FirebaseAuth.getInstance().signInWithCredential(credentials).addOnCompleteListener { task ->
+                FirebaseAuth.getInstance()
+                        .signInWithCredential(credentials)
+                        .addOnCompleteListener { task ->
 
-                    if (task.isSuccessful){
+                            if (task.isSuccessful) {
 
-                        viewModel.signInWithMongoAtlas(tokenId = tokenId, onSuccess = {
+                                viewModel.signInWithMongoAtlas(tokenId = tokenId, onSuccess = {
 
-                            messageBarState.addSuccess("Successfully Authenticated")
-                            viewModel.setLoading(false)
+                                    messageBarState.addSuccess("Successfully Authenticated")
+                                    viewModel.setLoading(false)
 
-                        }, onError = {
+                                }, onError = {
 
-                            messageBarState.addError(it)
-                            viewModel.setLoading(false)
-                        })
-                    }
+                                    messageBarState.addError(it)
+                                    viewModel.setLoading(false)
+                                })
+                            } else {
 
-                    else{
-
-                        task.exception?.let { messageBarState.addError(it) }
-                        viewModel.setLoading(false)
-                    }
-                }
+                                task.exception?.let { messageBarState.addError(it) }
+                                viewModel.setLoading(false)
+                            }
+                        }
             },
             onDialogDismissed = { message ->
                 messageBarState.addError(Exception(message))
@@ -123,11 +121,11 @@ fun AuthenticationScreen(
     // TODO: fix keepSplashScreen
     //Launched Effect to control splash screen
 
-   /* LaunchedEffect(key1 = Unit, block = {
+    /* LaunchedEffect(key1 = Unit, block = {
 
-        keepSplashScreen = false
-    }
-    )*/
+         keepSplashScreen = false
+     }
+     )*/
 }
 
 

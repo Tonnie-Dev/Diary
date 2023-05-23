@@ -1,5 +1,7 @@
 package com.uxstate.write.components
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.icons.Icons
@@ -32,7 +34,7 @@ import com.maxkeppeler.sheets.calendar.models.CalendarConfig
 import com.maxkeppeler.sheets.calendar.models.CalendarSelection
 import com.maxkeppeler.sheets.clock.ClockDialog
 import com.maxkeppeler.sheets.clock.models.ClockSelection
-import com.uxstate.diary.R
+import com.uxstate.ui.R
 import com.uxstate.model.Diary
 import com.uxstate.ui.components.DisplayAlertDialog
 import com.uxstate.util.toInstant
@@ -44,6 +46,8 @@ import java.time.LocalTime
 import java.time.ZoneId
 import java.time.ZonedDateTime
 
+// TODO: Fix date Require APi 26
+@RequiresApi(Build.VERSION_CODES.O)
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun WriteTopBar(

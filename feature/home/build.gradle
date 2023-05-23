@@ -48,6 +48,7 @@ android {
 dependencies {
 
     implementation libs.compose.destinations
+    ksp libs.destinations.ksp
     implementation libs.compose.tooling.preview
     implementation libs.compose.ui
     implementation libs.material3.compose
