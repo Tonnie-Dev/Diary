@@ -18,6 +18,8 @@ accessible object containing the nav graphs*/
 //Create a Navigator Interface for each module/feature screen
 
 //Create CoreFeatureNavigator to Override Screens Navigator Interfaces
+
+//Override CoreFeatureNavigator functions
 object NavGraphs {
     //Auth Module NavGraph - defines navigation graph by instantiating NavGraphSpecs
     val auth = object : NavGraphSpec {

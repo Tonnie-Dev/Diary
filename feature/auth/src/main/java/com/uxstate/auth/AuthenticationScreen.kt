@@ -28,7 +28,7 @@ import com.uxstate.util.Constants.CLIENT_ID
 
 interface AuthScreenNavigator {
 
-    fun navigateToHome()
+    fun navigateToHomeScreen()
 }
 
 
