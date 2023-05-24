@@ -12,9 +12,9 @@ import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.ktx.storageMetadata
 import com.ramcosta.composedestinations.DestinationsNavHost
 import com.ramcosta.composedestinations.spec.Route
-import com.uxstate.diary.presentation.screens.NavGraphs
-import com.uxstate.diary.presentation.screens.destinations.AuthenticationScreenDestination
-import com.uxstate.diary.presentation.screens.destinations.HomeScreenDestination
+import com.uxstate.auth.destinations.AuthenticationScreenDestination
+import com.uxstate.diary.navigation.NavGraphs
+import com.uxstate.home.destinations.HomeScreenDestination
 import com.uxstate.mongo.local.database.ImagesDatabase
 import com.uxstate.mongo.local.entities.ImageToDelete
 import com.uxstate.mongo.local.entities.ImageToUpload
