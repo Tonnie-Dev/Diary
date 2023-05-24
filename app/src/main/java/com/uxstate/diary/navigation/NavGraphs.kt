@@ -1,6 +1,8 @@
 package com.uxstate.diary.navigation
 
+import androidx.navigation.NavBackStackEntry
 import com.ramcosta.composedestinations.dynamic.routedIn
+import com.ramcosta.composedestinations.scope.DestinationScope
 import com.ramcosta.composedestinations.spec.DestinationSpec
 import com.ramcosta.composedestinations.spec.NavGraphSpec
 import com.uxstate.auth.destinations.AuthenticationScreenDestination
@@ -25,8 +27,6 @@ object NavGraphs {
         override val destinationsByRoute=
             listOf<DestinationSpec<*>>(AuthenticationScreenDestination)
                 .associateBy{ it.route }
-
-
     }
 
     //Home NavGraph
@@ -37,8 +37,6 @@ object NavGraphs {
         override val startRoute  =HomeScreenDestination
         override val destinationsByRoute = listOf<DestinationSpec<*>>(HomeScreenDestination)
                .associateBy { it.route }
-
-
 
     }
 
@@ -51,7 +49,6 @@ object NavGraphs {
                 .associateBy { it.route }
 
 
-
     }
 
     val root = object : NavGraphSpec {
@@ -60,4 +57,89 @@ object NavGraphs {
         override val startRoute = auth
         override val nestedNavGraphs = listOf(auth, home, write)
     }
+}
+
+
+fun ArrayDeque<NavBackStackEntry>.print(prefix: String = "stack") {
+    val stack = toMutableList()
+            .map { it.destination.route }
+            .toTypedArray().contentToString()
+    println("$prefix = $stack")
+}
+
+fun DestinationScope<*>.currentNavigator(openSettings: () -> Unit): CoreFeatureNavigator{
+    return CoreFeatureNavigator(
+            navBackStackEntry.destination.navGraph(),
+            navController,
+            openSettings
+    )
+}
+
+@OptIn(ExperimentalMaterialNavigationApi::class)
+@ExperimentalAnimationApi
+@Composable
+internal fun AppNavigation(
+    navController: NavHostController,
+    onOpenSettings: () -> Unit,
+    modifier: Modifier = Modifier,
+) {
+    DestinationsNavHost(
+            engine = rememberAnimatedNavHostEngine(
+                    rootDefaultAnimations = RootNavGraphDefaultAnimations(
+                            enterTransition = { defaultTiviEnterTransition(initialState, targetState) },
+                            exitTransition = { defaultTiviExitTransition(initialState, targetState) },
+                            popEnterTransition = { defaultTiviPopEnterTransition() },
+                            popExitTransition = { defaultTiviPopExitTransition() },
+                    )
+            ),
+            navController = navController,
+            navGraph = NavGraphs.root,
+            modifier = modifier,
+            dependenciesContainerBuilder = {
+                dependency(currentNavigator(onOpenSettings))
+            }
+    )
+}
+
+@ExperimentalAnimationApi
+private fun AnimatedContentScope<*>.defaultTiviEnterTransition(
+    initial: NavBackStackEntry,
+    target: NavBackStackEntry,
+): EnterTransition {
+    val initialNavGraph = initial.destination.hostNavGraph
+    val targetNavGraph = target.destination.hostNavGraph
+    // If we're crossing nav graphs (bottom navigation graphs), we crossfade
+    if (initialNavGraph.id != targetNavGraph.id) {
+        return fadeIn()
+    }
+    // Otherwise we're in the same nav graph, we can imply a direction
+    return fadeIn() + slideIntoContainer(AnimatedContentScope.SlideDirection.Start)
+}
+
+@ExperimentalAnimationApi
+private fun AnimatedContentScope<*>.defaultTiviExitTransition(
+    initial: NavBackStackEntry,
+    target: NavBackStackEntry,
+): ExitTransition {
+    val initialNavGraph = initial.destination.hostNavGraph
+    val targetNavGraph = target.destination.hostNavGraph
+    // If we're crossing nav graphs (bottom navigation graphs), we crossfade
+    if (initialNavGraph.id != targetNavGraph.id) {
+        return fadeOut()
+    }
+    // Otherwise we're in the same nav graph, we can imply a direction
+    return fadeOut() + slideOutOfContainer(AnimatedContentScope.SlideDirection.Start)
+}
+
+private val NavDestination.hostNavGraph: NavGraph
+    get() = hierarchy.first { it is NavGraph } as NavGraph
+
+@ExperimentalAnimationApi
+private fun AnimatedContentScope<*>.defaultTiviPopEnterTransition(): EnterTransition {
+    return fadeIn() + slideIntoContainer(AnimatedContentScope.SlideDirection.End)
+}
+
+@ExperimentalAnimationApi
+private fun AnimatedContentScope<*>.defaultTiviPopExitTransition(): ExitTransition {
+    return fadeOut() + slideOutOfContainer(AnimatedContentScope.SlideDirection.End)
 }

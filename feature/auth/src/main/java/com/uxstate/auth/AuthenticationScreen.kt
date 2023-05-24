@@ -26,7 +26,7 @@ import com.uxstate.util.Constants.CLIENT_ID
 /*@Destination
 @RootNavGraph(start = true)*/
 
-interface AuthNavigator {
+interface AuthScreenNavigator {
 
     fun navigateToHome()
 }

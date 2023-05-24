@@ -31,9 +31,9 @@ import com.uxstate.ui.R
 
 // TODO: Remove drawables from app modules except ic_launcher logos
 
-interface HomeNavigator {
+interface HomeScreenNavigator {
 
-    fun navigateToWrite(id:String?)
+    fun navigateToWriteScreen(id:String?)
     fun navigateBackToAuthScreen()
 
     fun popBackStack()

@@ -27,6 +27,11 @@ import com.uxstate.write.components.WriteTopBar
 import com.uxstate.write.components.ZoomableImage
 import com.uxstate.ui.R
 
+
+interface WriteScreenNavigator{
+
+    fun navigateBackToHomeScreen()
+}
 // TODO: Fix Require Api 26
 @RequiresApi(Build.VERSION_CODES.O)
 @OptIn(ExperimentalPagerApi::class)
