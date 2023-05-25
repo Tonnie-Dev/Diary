@@ -36,7 +36,7 @@ interface AuthScreenNavigator {
 @Composable
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 fun AuthenticationScreen(
-    viewModel: AuthViewModel = hiltViewModel(), navigator: AuthNavigator
+    viewModel: AuthViewModel = hiltViewModel(), navigator: AuthScreenNavigator
 ) {
 
 

@@ -45,7 +45,7 @@ interface HomeScreenNavigator {
 @Composable
 fun HomeScreen(
     viewModel: HomeViewModel = hiltViewModel(),
-    navigator: HomeNavigator
+    navigator: HomeScreenNavigator
 ) {
 
     val diaries by viewModel.diaries.collectAsState()
