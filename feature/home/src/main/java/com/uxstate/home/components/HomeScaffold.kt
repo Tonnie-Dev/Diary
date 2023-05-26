@@ -25,7 +25,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.LayoutDirection
-import com.uxstate.home.HomeNavigator
+import com.uxstate.home.HomeScreenNavigator
 import com.uxstate.mongo.repository.Diaries
 import com.uxstate.ui.R
 import com.uxstate.util.RequestState
@@ -38,7 +38,7 @@ fun HomeScaffold(diaries: Diaries, onMenuClicked: () -> Unit,
                  dateIsSelected: Boolean,
                  onDateSelected: (ZonedDateTime) -> Unit,
                  onDateReset: () -> Unit,
-                 navigator: HomeNavigator
+                 navigator: HomeScreenNavigator
 ) {
 
     var padding by remember {
@@ -60,7 +60,7 @@ fun HomeScaffold(diaries: Diaries, onMenuClicked: () -> Unit,
             },
             floatingActionButton = {
                 FloatingActionButton(
-                        onClick = { navigator.navigateToWrite(null) },
+                        onClick = { navigator.navigateToWriteScreen(null) },
                         modifier = Modifier.padding(
                                 end = padding.calculateEndPadding(LayoutDirection.Ltr)
                         )
@@ -84,7 +84,7 @@ fun HomeScaffold(diaries: Diaries, onMenuClicked: () -> Unit,
                 HomeContent(
                         diaryNotes = diaries.data,
                         onClickDiary = {
-                            navigator.navigateToWrite(it)
+                            navigator.navigateToWriteScreen(it)
 
                         },
                         paddingValues = paddingValues

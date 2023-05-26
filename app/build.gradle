@@ -49,7 +49,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
 
-}
+    }
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_18
@@ -67,7 +67,7 @@ android {
     }
     packagingOptions {
         resources {
-           excludes += '/META-INF/{AL2.0,LGPL2.1}'
+            excludes += '/META-INF/{AL2.0,LGPL2.1}'
             exclude 'META-INF/gradle/incremental.annotation.processors'
         }
     }
@@ -135,7 +135,7 @@ dependencies {
     implementation "com.maxkeppeler.sheets-compose-dialogs:clock:1.1.1"
 
     //Message Bar Compose
-   implementation 'com.github.stevdza-san:MessageBarCompose:1.0.5'
+    implementation 'com.github.stevdza-san:MessageBarCompose:1.0.5'
 
     //One-Tap Compose
     implementation 'com.github.stevdza-san:OneTapCompose:1.0.0'
@@ -143,29 +143,30 @@ dependencies {
     // Desugar JDK - for backward compatibility for APIs > 26
     coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.0.3'
 
-    // Compose Destinations
-   // implementation 'io.github.raamcosta.compose-destinations:core:1.8.38-beta'
+    //Compose Destination
     implementation 'io.github.raamcosta.compose-destinations:animations-core:1.9.42-beta'
     ksp 'io.github.raamcosta.compose-destinations:ksp:1.9.42-beta'
-    // Compose Navigation
-    //implementation "androidx.navigation:navigation-compose:2.5.3"
+
     implementation "androidx.compose.animation:animation:1.4.3"
     //Timber
     implementation 'com.jakewharton.timber:timber:5.0.1'
 
+    //Accompanist Animation
     implementation "com.google.accompanist:accompanist-navigation-animation:0.31.2-alpha"
+
 
     /*Specifying that the :app module (this) depends on the :core:ui module
      and requires it during compilation. This allows the :app module to access
     classes,resources, or other components defined in the :core:ui module.*/
-    implementation (project(":core:ui"))
+    implementation(project(":core:ui"))
 
     //because of Constants
-    implementation (project(":core:util"))
+    implementation(project(":core:util"))
     implementation(project(":data:mongo"))
     implementation(project(":feature:write"))
     implementation(project(":feature:auth"))
     implementation(project(":feature:home"))
-
+// Compose Navigation
+    //implementation "androidx.navigation:navigation-compose:2.5.3"
 
 }

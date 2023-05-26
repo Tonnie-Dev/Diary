@@ -1,4 +1,4 @@
-package com.uxstate.diary.presentation
+package com.uxstate.diary
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity

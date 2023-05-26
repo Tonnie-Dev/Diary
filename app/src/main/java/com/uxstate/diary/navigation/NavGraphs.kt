@@ -18,6 +18,7 @@ import com.google.accompanist.navigation.material.ExperimentalMaterialNavigation
 import com.ramcosta.composedestinations.DestinationsNavHost
 import com.ramcosta.composedestinations.animations.defaults.RootNavGraphDefaultAnimations
 import com.ramcosta.composedestinations.animations.rememberAnimatedNavHostEngine
+import com.ramcosta.composedestinations.navigation.DependenciesContainerBuilder
 import com.ramcosta.composedestinations.navigation.dependency
 import com.ramcosta.composedestinations.scope.DestinationScope
 import com.ramcosta.composedestinations.spec.DestinationSpec
@@ -38,13 +39,7 @@ accessible object containing the nav graphs*/
 //Override CoreFeatureNavigator functions
 object NavGraphs {
 
-    val enterTransition: AnimatedContentScope<*>.() ->
-    EnterTransition? = {
-        slideIntoContainer(
-                AnimatedContentScope.SlideDirection.Left,
-                animationSpec = tween(400)
-        )
-    }
+
 
 
     //Auth Module NavGraph - defines navigation graph by instantiating NavGraphSpecs
@@ -95,12 +90,7 @@ fun ArrayDeque<NavBackStackEntry>.print(prefix: String = "stack") {
             .contentToString()
     println("$prefix = $stack")
 }
-fun DestinationScope<*>.currentNavigator(): CoreFeatureNavigator {
-    return CoreFeatureNavigator(
-            navGraph = navBackStackEntry.destination.navGraph(),
-            navController = navController
-    )
-}
+
 
 
 fun NavDestination.navGraph(): NavGraphSpec {
@@ -119,7 +109,6 @@ fun NavDestination.navGraph(): NavGraphSpec {
 @Composable
 internal fun AppNavigation(
     navController: NavHostController,
-    onOpenSettings: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
 
@@ -151,6 +140,15 @@ internal fun AppNavigation(
     )
 }
 
+private fun DependenciesContainerBuilder<*>.currentNavigator(): CoreFeatureNavigator {
+    return CoreFeatureNavigator(
+            navGraph = navBackStackEntry.destination.navGraph(),
+            navController = navController
+    )
+}
+/*fun DestinationScope<*>.currentNavigator(): CoreFeatureNavigator {
+
+}*/
 
 @ExperimentalAnimationApi
 private fun AnimatedContentTransitionScope<*>.defaultDiaryEnterTransition(
