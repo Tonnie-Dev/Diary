@@ -1,5 +1,6 @@
 package com.uxstate.mongo.repository
 
+import android.annotation.SuppressLint
 import com.uxstate.model.Diary
 import com.uxstate.util.Constants.APP_ID
 import com.uxstate.util.RequestState
@@ -20,7 +21,7 @@ import java.time.LocalDateTime
 import java.time.LocalTime
 import java.time.ZoneId
 import java.time.ZonedDateTime
-
+@SuppressLint("NewApi")
  object MongoDB : MongoRepository {
     private val app = App.create(APP_ID)
     private val user = app.currentUser
@@ -53,6 +54,7 @@ import java.time.ZonedDateTime
 
         }
     }
+
 
     override fun getAllDiaries(): Flow<Diaries> {
 
@@ -116,6 +118,7 @@ import java.time.ZonedDateTime
 
     }
 
+
     override fun getFilteredDiaries(zonedDateTime: ZonedDateTime): Flow<Diaries> {
 
         return authenticateAndInvokeMongoFlowOp(user) {
@@ -129,9 +132,8 @@ import java.time.ZonedDateTime
                 )
                         .toEpochSecond(zonedDateTime.offset)
 
-                val yesterdayMidNight = LocalDateTime.of(
-                        zonedDateTime.toLocalDate()
-                                .minusDays(1), LocalTime.MIDNIGHT
+                val todayMidNight = LocalDateTime.of(
+                        zonedDateTime.toLocalDate(), LocalTime.MIDNIGHT
                 )
                         .toEpochSecond(zonedDateTime.offset)
 
@@ -139,7 +141,7 @@ import java.time.ZonedDateTime
                         "ownerId == $0 AND date < $1 AND date > $2",
                         user!!.id,
                         RealmInstant.from(tomorrowMidNight,0),
-                        RealmInstant.from(yesterdayMidNight,0)
+                        RealmInstant.from(todayMidNight,0)
                 ).asFlow().map {result ->
                     RequestState.Success(
                             //it is ResultsChange<Diary>
