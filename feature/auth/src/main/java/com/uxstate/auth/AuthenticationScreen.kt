@@ -22,7 +22,7 @@ import com.uxstate.auth.components.AuthenticationContent
 import com.uxstate.util.Constants.CLIENT_ID
 
 //import com.uxstate.diary.presentation.keepSplashScreen
-
+var isAuthScreenInvoked = false
 // TODO: Revisit keepSplashScreen
 
 interface AuthScreenNavigator {
@@ -37,7 +37,7 @@ interface AuthScreenNavigator {
 fun AuthenticationScreen(
     viewModel: AuthViewModel = hiltViewModel(), navigator: AuthScreenNavigator
 ) {
-
+   isAuthScreenInvoked = true
 
     //Observe loading state from viewModel
     val loadingState by viewModel.loadingState

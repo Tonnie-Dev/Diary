@@ -28,7 +28,7 @@ import io.realm.kotlin.mongodb.App
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.launch
 import com.uxstate.ui.R
-
+var keepSplashScreen = true
 // TODO: Remove drawables from app modules except ic_launcher logos
 
 interface HomeScreenNavigator {
@@ -93,13 +93,13 @@ fun HomeScreen(
     //Launched Effect to control splash screen
     LaunchedEffect(key1 = diaries, block = {
 
-        // TODO: fix keepSplashScreen
-       /* //when diaries are not loading
+
+      //when diaries are not loading
         if (diaries !is RequestState.Loading) {
 
             keepSplashScreen = false
 
-        }*/
+        }
 
     })
 
