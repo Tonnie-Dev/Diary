@@ -2,9 +2,6 @@ package com.uxstate.auth
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.ColumnScopeInstance.weight
-import androidx.compose.foundation.layout.RowScopeInstance.weight
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.material3.MaterialTheme
@@ -42,7 +39,7 @@ fun AuthenticationScreen(
     viewModel: AuthViewModel = hiltViewModel(), navigator: AuthScreenNavigator
 ) {
 
-    val navController = rememberAnimatedNavController()
+
     //Observe loading state from viewModel
     val loadingState by viewModel.loadingState
     val isAuthenticated by viewModel.isAuthenticated
@@ -69,12 +66,7 @@ fun AuthenticationScreen(
                             })
 
                 }
-                AppNavigation(
-                        navController = navController,
-                        modifier = Modifier
-                                .weight(1f)
-                                .fillMaxHeight(),
-                )
+
             }
 
 

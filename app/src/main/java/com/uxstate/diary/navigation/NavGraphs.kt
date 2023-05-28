@@ -18,6 +18,7 @@ import com.google.accompanist.navigation.material.ExperimentalMaterialNavigation
 import com.ramcosta.composedestinations.DestinationsNavHost
 import com.ramcosta.composedestinations.animations.defaults.RootNavGraphDefaultAnimations
 import com.ramcosta.composedestinations.animations.rememberAnimatedNavHostEngine
+import com.ramcosta.composedestinations.dynamic.routedIn
 import com.ramcosta.composedestinations.navigation.DependenciesContainerBuilder
 import com.ramcosta.composedestinations.navigation.dependency
 import com.ramcosta.composedestinations.scope.DestinationScope
@@ -39,16 +40,13 @@ accessible object containing the nav graphs*/
 //Override CoreFeatureNavigator functions
 object NavGraphs {
 
-
-
-
     //Auth Module NavGraph - defines navigation graph by instantiating NavGraphSpecs
     val auth = object : NavGraphSpec {
 
         override val route = "auth"
-        override val startRoute = AuthenticationScreenDestination
+        override val startRoute = AuthenticationScreenDestination routedIn this
         override val destinationsByRoute =
-            listOf<DestinationSpec<*>>(AuthenticationScreenDestination)
+            listOf<DestinationSpec<*>>(AuthenticationScreenDestination).routedIn(this)
                     .associateBy { it.route }
     }
 
@@ -57,8 +55,8 @@ object NavGraphs {
     val home = object : NavGraphSpec {
 
         override val route = "home"
-        override val startRoute = HomeScreenDestination
-        override val destinationsByRoute = listOf<DestinationSpec<*>>(HomeScreenDestination)
+        override val startRoute = HomeScreenDestination routedIn this
+        override val destinationsByRoute = listOf<DestinationSpec<*>>(HomeScreenDestination).routedIn(this)
                 .associateBy { it.route }
 
     }
@@ -67,7 +65,7 @@ object NavGraphs {
 
     val write = object : NavGraphSpec {
         override val route = "write"
-        override val startRoute = WriteScreenDestination
+        override val startRoute = WriteScreenDestination routedIn this
         override val destinationsByRoute = listOf<DestinationSpec<*>>(WriteScreenDestination)
                 .associateBy { it.route }
 
@@ -75,9 +73,9 @@ object NavGraphs {
     }
 
     val root = object : NavGraphSpec {
-        override val destinationsByRoute = emptyMap<String, DestinationSpec<*>>()
         override val route = "root"
-        override val startRoute = auth
+        override val startRoute = home
+        override val destinationsByRoute = emptyMap<String, DestinationSpec<*>>()
         override val nestedNavGraphs = listOf(auth, home, write)
     }
 }
