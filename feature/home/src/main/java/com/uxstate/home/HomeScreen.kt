@@ -4,7 +4,6 @@ import android.os.Build
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.compose.material3.DrawerValue
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -19,21 +18,22 @@ import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.ramcosta.composedestinations.annotation.Destination
 import com.uxstate.home.components.DiaryNavigationDrawer
-import com.uxstate.ui.components.DisplayAlertDialog
 import com.uxstate.home.components.HomeScaffold
 import com.uxstate.mongo.repository.MongoDB
+import com.uxstate.ui.R
+import com.uxstate.ui.components.DisplayAlertDialog
 import com.uxstate.util.Constants.APP_ID
 import com.uxstate.util.RequestState
 import io.realm.kotlin.mongodb.App
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.launch
-import com.uxstate.ui.R
+
 var keepSplashScreen = true
 
 
 interface HomeScreenNavigator {
 
-    fun navigateToWriteScreen(id:String?)
+    fun navigateToWriteScreen(id: String?)
     fun navigateBackToAuthScreen()
 
     fun popBackStack()
@@ -77,7 +77,7 @@ fun HomeScreen(
                         dateIsSelected = viewModel.dateSelected,
 
                         //pass the selected date
-                        onDateSelected =viewModel::getDiaries,
+                        onDateSelected = viewModel::getDiaries,
 
                         //pass empty date to getDiaries ViewModel function
                         onDateReset = viewModel::getDiaries
@@ -95,7 +95,7 @@ fun HomeScreen(
     LaunchedEffect(key1 = diaries, block = {
 
 
-      //when diaries are not loading
+        //when diaries are not loading
         if (diaries !is RequestState.Loading) {
 
             keepSplashScreen = false

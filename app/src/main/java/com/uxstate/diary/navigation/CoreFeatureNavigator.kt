@@ -3,9 +3,8 @@ package com.uxstate.diary.navigation
 import androidx.navigation.NavController
 import com.ramcosta.composedestinations.dynamic.within
 import com.ramcosta.composedestinations.navigation.navigate
-import com.ramcosta.composedestinations.spec.NavGraphSpec
 import com.uxstate.auth.AuthScreenNavigator
-import com.uxstate.auth.AuthenticationScreen
+
 import com.uxstate.auth.destinations.AuthenticationScreenDestination
 import com.uxstate.home.HomeScreenNavigator
 import com.uxstate.home.destinations.HomeScreenDestination

@@ -32,15 +32,6 @@ import com.uxstate.write.destinations.WriteScreenDestination
 import io.realm.kotlin.mongodb.App
 
 
-/*gather all nav graphs from other modules into a single "top-level"
-navigation graph to pass to DestinationsNavHost call. We recommend having a globally
-accessible object containing the nav graphs*/
-
-//Create a Navigator Interface for each module/feature screen
-
-//Create CoreFeatureNavigator to Override Screens Navigator Interfaces
-
-//Override CoreFeatureNavigator functions
 object NavGraphs {
 
     //Auth Module NavGraph - defines navigation graph by instantiating NavGraphSpecs
@@ -84,7 +75,7 @@ object NavGraphs {
     }
 
 
-    //Util fxn to compute Starting screen i.e. Auth or Home
+    //Util fxn to figure out the starting screen i.e. Auth or Home
     private fun getStartDestination(): NavGraphSpec {
 
         //App.create() exists as singleton and can be called severally
