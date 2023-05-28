@@ -44,9 +44,9 @@ object NavGraphs {
     val auth = object : NavGraphSpec {
 
         override val route = "auth"
-        override val startRoute = AuthenticationScreenDestination routedIn this
+        override val startRoute = AuthenticationScreenDestination
         override val destinationsByRoute =
-            listOf<DestinationSpec<*>>(AuthenticationScreenDestination).routedIn(this)
+            listOf<DestinationSpec<*>>(AuthenticationScreenDestination)
                     .associateBy { it.route }
     }
 
@@ -55,8 +55,9 @@ object NavGraphs {
     val home = object : NavGraphSpec {
 
         override val route = "home"
-        override val startRoute = HomeScreenDestination routedIn this
-        override val destinationsByRoute = listOf<DestinationSpec<*>>(HomeScreenDestination).routedIn(this)
+        override val startRoute = HomeScreenDestination
+        override val destinationsByRoute =
+            listOf<DestinationSpec<*>>(HomeScreenDestination)
                 .associateBy { it.route }
 
     }
@@ -65,7 +66,7 @@ object NavGraphs {
 
     val write = object : NavGraphSpec {
         override val route = "write"
-        override val startRoute = WriteScreenDestination routedIn this
+        override val startRoute = WriteScreenDestination
         override val destinationsByRoute = listOf<DestinationSpec<*>>(WriteScreenDestination)
                 .associateBy { it.route }
 
@@ -74,7 +75,7 @@ object NavGraphs {
 
     val root = object : NavGraphSpec {
         override val route = "root"
-        override val startRoute = home
+        override val startRoute = auth
         override val destinationsByRoute = emptyMap<String, DestinationSpec<*>>()
         override val nestedNavGraphs = listOf(auth, home, write)
     }

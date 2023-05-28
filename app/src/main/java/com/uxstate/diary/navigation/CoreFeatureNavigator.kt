@@ -17,11 +17,12 @@ class CoreFeatureNavigator(
 ) : AuthScreenNavigator, HomeScreenNavigator, WriteScreenNavigator {
     override fun navigateToHomeScreen() {
 
-        navController.navigate(HomeScreenDestination within navGraph)
+        navController.navigate(HomeScreenDestination )
     }
 
     override fun navigateToWriteScreen(id: String?) {
-        navController.navigate(WriteScreenDestination(id) within navGraph)
+        navController.navigate(WriteScreenDestination(id)
+        )
     }
 
     override fun navigateBackToAuthScreen() {

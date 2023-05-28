@@ -23,8 +23,7 @@ import com.uxstate.util.Constants.CLIENT_ID
 
 //import com.uxstate.diary.presentation.keepSplashScreen
 
-/*@Destination
-@RootNavGraph(start = true)*/
+// TODO: Revisit keepSplashScreen
 
 interface AuthScreenNavigator {
 
