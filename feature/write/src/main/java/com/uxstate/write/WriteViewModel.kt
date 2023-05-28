@@ -36,7 +36,7 @@ import java.time.ZonedDateTime
 import javax.inject.Inject
 
 @HiltViewModel
-class WriteViewModel @Inject constructor(
+internal class WriteViewModel @Inject constructor(
     handle: SavedStateHandle, private val database: ImagesDatabase
 ) : ViewModel() {
 

@@ -54,7 +54,7 @@ import io.realm.kotlin.ext.toRealmList
 
 @OptIn(ExperimentalPagerApi::class, ExperimentalMaterial3Api::class)
 @Composable
-fun WriteContent(
+internal fun WriteContent(
     title: String,
     onTitleChanged: (String) -> Unit,
     description: String,

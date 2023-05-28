@@ -1,5 +1,6 @@
 package com.uxstate.write
 
+import android.annotation.SuppressLint
 import android.os.Build
 import android.widget.Toast
 import androidx.annotation.RequiresApi
@@ -32,12 +33,13 @@ interface WriteScreenNavigator{
 
     fun navigateBackToHomeScreen()
 }
-// TODO: Fix Require Api 26
-@RequiresApi(Build.VERSION_CODES.O)
+
+
+@SuppressLint("NewApi")
 @OptIn(ExperimentalPagerApi::class)
 @Destination(navArgsDelegate = WriteScreenNavArgs::class)
 @Composable
-fun WriteScreen(viewModel: WriteViewModel = hiltViewModel(), navigator: DestinationsNavigator) {
+internal fun WriteScreen(viewModel: WriteViewModel = hiltViewModel(), navigator: DestinationsNavigator) {
 
     //use by keyword to extract value from state holder
     var selectedGalleryImage by remember { mutableStateOf<GalleryImage?>(null) }

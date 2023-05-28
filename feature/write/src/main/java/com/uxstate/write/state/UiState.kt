@@ -4,7 +4,7 @@ import com.uxstate.model.Diary
 import com.uxstate.model.Mood
 import io.realm.kotlin.types.RealmInstant
 
-data class UiState(
+internal data class UiState(
     val selectedDiaryId: String? = null,
     val selectedDiary: Diary? = null,
     val title: String = "",

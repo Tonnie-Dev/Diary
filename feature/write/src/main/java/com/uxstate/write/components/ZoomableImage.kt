@@ -32,7 +32,7 @@ import com.uxstate.model.GalleryImage
 import com.uxstate.ui.theme.LocalSpacing
 
 @Composable
-fun ZoomableImage(
+internal fun ZoomableImage(
     selectedGalleryImage: GalleryImage,
     onCloseClicked: () -> Unit,
     onDeleteClicked: () -> Unit

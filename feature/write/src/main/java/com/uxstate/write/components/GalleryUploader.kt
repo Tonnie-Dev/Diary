@@ -35,7 +35,7 @@ import kotlin.math.max
 
 
 @Composable
-fun GalleryUploader(
+internal fun GalleryUploader(
     modifier: Modifier = Modifier,
     galleryState: GalleryState,
     imageSize: Dp = 60.dp,
@@ -66,8 +66,6 @@ fun GalleryUploader(
     )
 
     val context = LocalContext.current
-    val spacing = LocalSpacing.current
-
 
     BoxWithConstraints(modifier = modifier) {
 
@@ -75,6 +73,7 @@ fun GalleryUploader(
             derivedStateOf {
 
                 max(
+                        //this refers to box constraints scoope
                         a = 0,
                         b = this.maxWidth.div(spaceBetween + imageSize)
                                 .toInt()
