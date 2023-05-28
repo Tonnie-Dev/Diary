@@ -21,7 +21,7 @@ import java.time.LocalTime
 import java.time.ZoneId
 import java.time.ZonedDateTime
 
-object MongoDB : MongoRepository {
+ object MongoDB : MongoRepository {
     private val app = App.create(APP_ID)
     private val user = app.currentUser
 

@@ -7,7 +7,7 @@ import org.mongodb.kbson.ObjectId
 import java.time.LocalDate
 import java.time.ZonedDateTime
 typealias Diaries = RequestState<Map<LocalDate, List<Diary>>>
-interface MongoRepository    {
+internal interface MongoRepository    {
 
     fun configureTheRealm()
     fun getAllDiaries(): Flow<Diaries>
