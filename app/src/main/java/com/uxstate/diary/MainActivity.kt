@@ -73,16 +73,7 @@ class MainActivity : ComponentActivity() {
     }
 
 
-    private fun getStartDestination(): Route {
 
-        //App.create() exists as singleton and can be called severally
-        val user = App.create(APP_ID).currentUser
-
-        return if (user != null && user.loggedIn)
-            HomeScreenDestination
-        else
-            AuthenticationScreenDestination
-    }
 
     private fun cleanUpCheck(scope: CoroutineScope, database: ImagesDatabase) {
         scope.launch(IO) {
@@ -105,7 +96,7 @@ class MainActivity : ComponentActivity() {
             }
 
             val unDeletedItems = database.imageToDeleteDao.getAllImages()
-                    .forEach {
+            unDeletedItems .forEach {
 
                         imageToDelete ->
 

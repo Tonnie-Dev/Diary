@@ -24,9 +24,12 @@ import com.ramcosta.composedestinations.navigation.dependency
 import com.ramcosta.composedestinations.scope.DestinationScope
 import com.ramcosta.composedestinations.spec.DestinationSpec
 import com.ramcosta.composedestinations.spec.NavGraphSpec
+import com.ramcosta.composedestinations.spec.Route
 import com.uxstate.auth.destinations.AuthenticationScreenDestination
 import com.uxstate.home.destinations.HomeScreenDestination
+import com.uxstate.util.Constants
 import com.uxstate.write.destinations.WriteScreenDestination
+import io.realm.kotlin.mongodb.App
 
 
 /*gather all nav graphs from other modules into a single "top-level"
@@ -75,9 +78,20 @@ object NavGraphs {
 
     val root = object : NavGraphSpec {
         override val route = "root"
-        override val startRoute = auth
+        override val startRoute = getStartDestination()
         override val destinationsByRoute = emptyMap<String, DestinationSpec<*>>()
         override val nestedNavGraphs = listOf(auth, home, write)
+    }
+
+    private fun getStartDestination(): NavGraphSpec {
+
+        //App.create() exists as singleton and can be called severally
+        val user = App.create(Constants.APP_ID).currentUser
+
+        return if (user != null && user.loggedIn)
+            home
+        else
+         auth
     }
 }
 
@@ -145,9 +159,7 @@ private fun DependenciesContainerBuilder<*>.currentNavigator(): CoreFeatureNavig
             navController = navController
     )
 }
-/*fun DestinationScope<*>.currentNavigator(): CoreFeatureNavigator {
 
-}*/
 
 @ExperimentalAnimationApi
 private fun AnimatedContentTransitionScope<*>.defaultDiaryEnterTransition(
