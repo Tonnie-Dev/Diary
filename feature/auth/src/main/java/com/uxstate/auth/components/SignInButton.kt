@@ -24,7 +24,7 @@ import com.uxstate.ui.theme.DiaryTheme
 import com.uxstate.ui.theme.LocalSpacing
 
 @Composable
-fun GoogleButton(
+internal fun GoogleButton(
     modifier: Modifier = Modifier,
     isLoading: Boolean = false,
     primaryText: String = "Sign in with Google",
@@ -98,7 +98,7 @@ fun GoogleButton(
 
 @Preview
 @Composable
-fun SignInButtonPrev() {
+internal fun SignInButtonPrev() {
     DiaryTheme() {
         GoogleButton(isLoading = true) {}
     }
@@ -107,7 +107,7 @@ fun SignInButtonPrev() {
 
 @Preview(uiMode = UI_MODE_NIGHT_YES)
 @Composable
-fun SignInButtonPrevDark() {
+internal fun SignInButtonPrevDark() {
 
     DiaryTheme() {
         GoogleButton(isLoading = true) {}

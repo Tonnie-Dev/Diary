@@ -18,7 +18,7 @@ import com.uxstate.ui.theme.LocalSpacing
 
 
 @Composable
-fun AuthenticationContent(loadingState: Boolean,  onButtonClicked: () -> Unit) {
+internal fun AuthenticationContent(loadingState: Boolean,  onButtonClicked: () -> Unit) {
 
     val spacing = LocalSpacing.current
     Column(

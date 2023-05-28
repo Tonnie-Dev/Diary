@@ -25,7 +25,7 @@ import com.uxstate.util.Constants.CLIENT_ID
 var isAuthScreenInvoked = false
 
 
-interface AuthScreenNavigator {
+ interface AuthScreenNavigator {
 
     fun navigateToHomeScreen()
 }
@@ -34,7 +34,7 @@ interface AuthScreenNavigator {
 @Destination
 @Composable
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
-fun AuthenticationScreen(
+internal fun AuthenticationScreen(
     viewModel: AuthViewModel = hiltViewModel(), navigator: AuthScreenNavigator
 ) {
    isAuthScreenInvoked = true

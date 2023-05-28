@@ -16,7 +16,7 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
-class AuthViewModel @Inject constructor() : ViewModel() {
+internal class AuthViewModel @Inject constructor() : ViewModel() {
 
     var isAuthenticated = mutableStateOf(false)
     private set
@@ -40,8 +40,10 @@ class AuthViewModel @Inject constructor() : ViewModel() {
 
             try {
 
-                /* Authenticate with MongoDb and store the outcome on the result variable
-  this can be true or false depending on whether the user has been logged in*/
+                /*
+
+                - authenticate with MongoDb and store the outcome on the result variable
+                - this can be true or false depending on whether the user has been logged in*/
                 //get result in IO Dispatchers as this is a network operation
                 val result = withContext(IO) {
 
@@ -102,6 +104,7 @@ class AuthViewModel @Inject constructor() : ViewModel() {
 
     }
 
+    //this is an alternate method
 
     fun signInWithJWTAuth(
         tokenId: String,
