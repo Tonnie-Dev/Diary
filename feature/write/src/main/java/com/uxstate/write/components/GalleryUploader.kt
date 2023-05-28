@@ -33,7 +33,6 @@ import com.uxstate.ui.R
 
 import kotlin.math.max
 
-
 @Composable
 internal fun GalleryUploader(
     modifier: Modifier = Modifier,
