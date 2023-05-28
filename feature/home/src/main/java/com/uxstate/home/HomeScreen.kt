@@ -29,7 +29,7 @@ import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.launch
 import com.uxstate.ui.R
 var keepSplashScreen = true
-// TODO: Remove drawables from app modules except ic_launcher logos
+
 
 interface HomeScreenNavigator {
 
@@ -40,6 +40,7 @@ interface HomeScreenNavigator {
 }
 
 // TODO: Revisit de-sugaring error API 26
+
 @RequiresApi(Build.VERSION_CODES.O)
 @Destination
 @Composable

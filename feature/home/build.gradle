@@ -27,7 +27,7 @@ android {
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_18
         targetCompatibility JavaVersion.VERSION_18
-
+        
     }
     kotlinOptions {
         jvmTarget = '18'
@@ -62,6 +62,7 @@ dependencies {
     kapt libs.room.compiler
     implementation libs.hilt.android
     implementation libs.hilt.compiler
+
 
     //Modules
     implementation(project(":core:ui"))

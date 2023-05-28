@@ -31,12 +31,13 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        //from Splash API
+        //from Splash API - Creates a SplashScreen instance associated with this Activity
         installSplashScreen().setKeepOnScreenCondition {
 
             /*
-             - Keep Screen is defined on the Home Module
-             - It sets the condition to keep the splash screen visible
+             - keepSplashScreen is defined on the Home Module
+             - isAuthScreenInvoked is defined on the Auth Module
+             - keepSplashScreen sets the condition to keep the splash screen visible
               - if true the splash screen stays visible until keepSplashScreen is changed to false
             */
             keepSplashScreen && !isAuthScreenInvoked

@@ -45,7 +45,7 @@ class WriteViewModel @Inject constructor(
 
     val galleryState = GalleryState()
 
-    // TODO: Fix navArgs() ext fxn
+
     private val diaryId = handle.navArgs<WriteScreenNavArgs>().id
 
 
