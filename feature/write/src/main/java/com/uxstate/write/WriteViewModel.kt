@@ -143,6 +143,8 @@ class WriteViewModel @Inject constructor(
         _uiState.update { it.copy(selectedDiary = diary) }
     }
 
+    // TODO: Revisit RequiresApi 26
+    @RequiresApi(Build.VERSION_CODES.O)
     fun updateDateTime(zonedDateTime: ZonedDateTime?) {
 
         _uiState.update {

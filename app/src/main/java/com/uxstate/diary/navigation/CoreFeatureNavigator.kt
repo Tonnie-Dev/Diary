@@ -5,6 +5,8 @@ import com.ramcosta.composedestinations.dynamic.within
 import com.ramcosta.composedestinations.navigation.navigate
 import com.ramcosta.composedestinations.spec.NavGraphSpec
 import com.uxstate.auth.AuthScreenNavigator
+import com.uxstate.auth.AuthenticationScreen
+import com.uxstate.auth.destinations.AuthenticationScreenDestination
 import com.uxstate.home.HomeScreenNavigator
 import com.uxstate.home.destinations.HomeScreenDestination
 import com.uxstate.write.WriteScreenNavigator
@@ -26,7 +28,7 @@ class CoreFeatureNavigator(
     }
 
     override fun navigateBackToAuthScreen() {
-        navController.navigateUp()
+        navController.navigate(AuthenticationScreenDestination)
     }
 
     override fun popBackStack() {
