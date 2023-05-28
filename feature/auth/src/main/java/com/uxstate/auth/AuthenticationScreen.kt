@@ -23,7 +23,7 @@ import com.uxstate.util.Constants.CLIENT_ID
 
 //import com.uxstate.diary.presentation.keepSplashScreen
 var isAuthScreenInvoked = false
-// TODO: Revisit keepSplashScreen
+
 
 interface AuthScreenNavigator {
 
@@ -118,14 +118,7 @@ fun AuthenticationScreen(
         }
     })
 
-    // TODO: fix keepSplashScreen
-    //Launched Effect to control splash screen
 
-    /* LaunchedEffect(key1 = Unit, block = {
-
-         keepSplashScreen = false
-     }
-     )*/
 }
 
 
