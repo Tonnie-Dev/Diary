@@ -42,7 +42,6 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-
         //from Splash API
         installSplashScreen().setKeepOnScreenCondition {
 
@@ -56,7 +55,6 @@ class MainActivity : ComponentActivity() {
         setContent {
 
             val navController = rememberAnimatedNavController()
-
 
             DiaryTheme {
                 //DestinationsNavHost(navGraph = NavGraphs.root, startRoute = getStartDestination())
