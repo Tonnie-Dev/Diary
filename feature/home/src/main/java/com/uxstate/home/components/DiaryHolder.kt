@@ -52,9 +52,9 @@ import com.uxstate.util.fetchImagesFromFirebase
 import com.uxstate.util.toInstant
 import io.realm.kotlin.ext.realmListOf
 
-@RequiresApi(Build.VERSION_CODES.O)
-@Composable
-fun DiaryHolder(diary: Diary, onClickDiary: (objectId: String) -> Unit) {
+
+ @Composable
+internal fun DiaryHolder(diary: Diary, onClickDiary: (objectId: String) -> Unit) {
 
     val spacing = LocalSpacing.current
     val elevation = LocalElevation.current
@@ -198,7 +198,7 @@ fun DiaryHolder(diary: Diary, onClickDiary: (objectId: String) -> Unit) {
 }
 
 @Composable
-fun ShowGalleryButton(
+internal fun ShowGalleryButton(
     isGalleyOpen: Boolean, isGalleryLoading: Boolean,
     onToggleGallery: () -> Unit
 ) {
@@ -226,7 +226,7 @@ fun ShowGalleryButton(
 @RequiresApi(Build.VERSION_CODES.O)
 @Preview(showBackground = true)
 @Composable
-fun DiaryHolderPreview() {
+internal fun DiaryHolderPreview() {
     DiaryTheme() {
         DiaryHolder(diary = Diary().apply {
             images = realmListOf("", "")
@@ -245,7 +245,7 @@ fun DiaryHolderPreview() {
 @RequiresApi(Build.VERSION_CODES.O)
 @Preview(showBackground = true, uiMode = UI_MODE_NIGHT_YES)
 @Composable
-fun DiaryHolderPreviewDark() {
+internal fun DiaryHolderPreviewDark() {
     DiaryTheme() {
         DiaryHolder(diary = Diary().apply {
             images = realmListOf("", "")

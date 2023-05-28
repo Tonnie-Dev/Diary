@@ -39,12 +39,12 @@ interface HomeScreenNavigator {
     fun popBackStack()
 }
 
-// TODO: Revisit de-sugaring error API 26
 
-@RequiresApi(Build.VERSION_CODES.O)
+
+
 @Destination
 @Composable
-fun HomeScreen(
+internal fun HomeScreen(
     viewModel: HomeViewModel = hiltViewModel(),
     navigator: HomeScreenNavigator
 ) {

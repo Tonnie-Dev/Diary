@@ -1,5 +1,6 @@
 package com.uxstate.home.components
 
+import android.annotation.SuppressLint
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import android.os.Build
 import androidx.annotation.RequiresApi
@@ -23,9 +24,10 @@ import com.uxstate.ui.theme.LocalSpacing
 import java.time.LocalDate
 
 
-@RequiresApi(Build.VERSION_CODES.O)
+
+@SuppressLint("NewApi")
 @Composable
-fun DateHeader(localDate: LocalDate) {
+internal fun DateHeader(localDate: LocalDate) {
     val spacing = LocalSpacing.current
 
     Row(
@@ -86,7 +88,7 @@ fun DateHeader(localDate: LocalDate) {
 @RequiresApi(Build.VERSION_CODES.O)
 @Preview(showBackground = true)
 @Composable
-fun DateHeaderPrev() {
+internal fun DateHeaderPrev() {
     DiaryTheme() {
         DateHeader(localDate = LocalDate.now())
     }
@@ -95,7 +97,7 @@ fun DateHeaderPrev() {
 @RequiresApi(Build.VERSION_CODES.O)
 @Preview(uiMode = UI_MODE_NIGHT_YES, showBackground = true)
 @Composable
-fun DateHeaderPrevDark() {
+internal fun DateHeaderPrevDark() {
 
 
     DiaryTheme() {

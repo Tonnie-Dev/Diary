@@ -27,7 +27,7 @@ import com.uxstate.ui.theme.LocalSpacing
 
 
 @Composable
-fun DiaryNavigationDrawer(
+internal fun DiaryNavigationDrawer(
     drawerState: DrawerState,
     onSignOutClicked: () -> Unit,
     onDeleteAllDiaries: () -> Unit,
@@ -52,7 +52,7 @@ fun DiaryNavigationDrawer(
 
 
 @Composable
-fun NavDrawerContent(onSignOutClicked: () -> Unit, onDeleteAllDiaries: () -> Unit) {
+internal fun NavDrawerContent(onSignOutClicked: () -> Unit, onDeleteAllDiaries: () -> Unit) {
     val spacing = LocalSpacing.current
 
     //use box to center logo
@@ -114,7 +114,9 @@ fun NavDrawerContent(onSignOutClicked: () -> Unit, onDeleteAllDiaries: () -> Uni
                     )
                 }
 
-            }, selected = false, onClick = onDeleteAllDiaries
+            },
+            selected = false,
+            onClick = onDeleteAllDiaries
     )
 
 }

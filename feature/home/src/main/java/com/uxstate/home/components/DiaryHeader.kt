@@ -27,7 +27,7 @@ import com.uxstate.util.toStringTime
 import java.time.Instant
 
 @Composable
-fun DiaryHeader(moodName: String, time: Instant) {
+internal fun DiaryHeader(moodName: String, time: Instant) {
 
 
     val spacing = LocalSpacing.current

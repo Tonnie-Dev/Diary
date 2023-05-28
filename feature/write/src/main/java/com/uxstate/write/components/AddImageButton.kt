@@ -19,7 +19,7 @@ import com.uxstate.ui.theme.LocalElevation
 
 
 @Composable
-fun AddImageButton(imageSize: Dp, imageShape: CornerBasedShape, onClick: () -> Unit) {
+internal fun AddImageButton(imageSize: Dp, imageShape: CornerBasedShape, onClick: () -> Unit) {
 
     val elevation = LocalElevation.current
 

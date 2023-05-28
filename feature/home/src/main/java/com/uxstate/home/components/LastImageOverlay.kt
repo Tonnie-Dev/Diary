@@ -19,7 +19,7 @@ import androidx.compose.ui.unit.dp
 import com.uxstate.ui.theme.DiaryTheme
 
 @Composable
-fun LastImageOverlay(
+internal fun LastImageOverlay(
     imageSize: Dp,
     remainingImages: Int,
     imageShape: CornerBasedShape
@@ -49,7 +49,7 @@ fun LastImageOverlay(
 
 @Preview
 @Composable
-fun LastImageOverlayPrev() {
+internal fun LastImageOverlayPrev() {
     DiaryTheme() {
         LastImageOverlay(imageSize =40.dp, remainingImages = 17, imageShape = Shapes().small)
     }

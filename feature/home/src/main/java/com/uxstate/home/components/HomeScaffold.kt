@@ -1,5 +1,6 @@
 package com.uxstate.home.components
 
+import android.annotation.SuppressLint
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.Box
@@ -31,17 +32,18 @@ import com.uxstate.ui.R
 import com.uxstate.util.RequestState
 import java.time.ZonedDateTime
 
-@RequiresApi(Build.VERSION_CODES.O)
+
+@SuppressLint("NewApi")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HomeScaffold(diaries: Diaries, onMenuClicked: () -> Unit,
+internal fun HomeScaffold(diaries: Diaries, onMenuClicked: () -> Unit,
                  dateIsSelected: Boolean,
                  onDateSelected: (ZonedDateTime) -> Unit,
                  onDateReset: () -> Unit,
                  navigator: HomeScreenNavigator
 ) {
 
-    var padding by remember {
+    val padding by remember {
         mutableStateOf(PaddingValues())
     }
 
@@ -106,7 +108,7 @@ fun HomeScaffold(diaries: Diaries, onMenuClicked: () -> Unit,
                 )
             }
 
-            else -> {}
+            else -> Unit
         }
 
 

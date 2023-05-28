@@ -24,12 +24,12 @@ import com.uxstate.model.Diary
 import com.uxstate.ui.theme.LocalSpacing
 import java.time.LocalDate
 
-typealias DiariesMap = Map<LocalDate, List<Diary>>
+internal typealias DiariesMap = Map<LocalDate, List<Diary>>
 
-@RequiresApi(Build.VERSION_CODES.O)
+
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun HomeContent(
+internal fun HomeContent(
     diaryNotes: DiariesMap,
     onClickDiary: (id: String) -> Unit,
     paddingValues: PaddingValues
@@ -43,9 +43,11 @@ fun HomeContent(
                 .padding(horizontal = spacing.spaceMedium)
                 .navigationBarsPadding()
                 .padding(top = paddingValues.calculateTopPadding())
+
                /* .padding(bottom = paddingValues.calculateBottomPadding())
                 .padding(start = paddingValues.calculateStartPadding(LayoutDirection.Ltr))
                 .padding(end = paddingValues.calculateEndPadding(LayoutDirection.Ltr))*/,
+
                 content = {
 
                     diaryNotes.forEach { (localDate, diaries) ->
@@ -75,7 +77,7 @@ fun HomeContent(
 }
 
 @Composable
-fun EmptyPage(title: String, subtitle: String) {
+internal fun EmptyPage(title: String, subtitle: String) {
     val spacing = LocalSpacing.current
     Column(
             modifier = Modifier
