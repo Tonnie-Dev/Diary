@@ -17,6 +17,7 @@ import com.google.firebase.storage.ktx.storageMetadata
 import com.ramcosta.composedestinations.spec.Route
 import com.uxstate.auth.destinations.AuthenticationScreenDestination
 import com.uxstate.diary.navigation.AppNavigation
+import com.uxstate.diary.utils_firebase.cleanUpCheck
 import com.uxstate.home.destinations.HomeScreenDestination
 import com.uxstate.mongo.local.database.ImagesDatabase
 import com.uxstate.mongo.local.entities.ImageToDelete
@@ -69,69 +70,6 @@ class MainActivity : ComponentActivity() {
         //from activity Lifecycle Owner
         cleanUpCheck(scope = lifecycleScope, database = database)
     }
-
-
-
-
-    private fun cleanUpCheck(scope: CoroutineScope, database: ImagesDatabase) {
-        scope.launch(IO) {
-
-            val unUploadedImages = database.imageToUploadDao.getAllImages()
-
-            unUploadedImages.forEach {
-
-                image ->
-
-                retryUploadingImageToFirebase(
-                        imageToUpload = image,
-
-                        //onSuccess to trigger removal of images from database
-                        onSuccess = {
-                            scope.launch(IO) {
-                                database.imageToUploadDao.cleanupImage(imageId = image.id)
-                            }
-                        })
-            }
-
-            val unDeletedItems = database.imageToDeleteDao.getAllImages()
-            unDeletedItems .forEach {
-
-                        imageToDelete ->
-
-                        //call retry delete util function
-
-                        retryDeletingImageToFirebase(imageToDelete = imageToDelete, onSuccess = {
-                            scope.launch(IO) {
-                                //when we successfully remove images from FB, we cleanup database
-                                database.imageToDeleteDao.cleanUpImage(imageToDelete.id)
-                            }
-
-                        })
-                    }
-        }
-    }
 }
 
-fun retryUploadingImageToFirebase(imageToUpload: ImageToUpload, onSuccess: () -> Unit) {
 
-    val storage = FirebaseStorage.getInstance().reference
-    storage.child(imageToUpload.remoteImagePath)
-            .putFile(
-                    imageToUpload.imageUrl.toUri(),
-                    storageMetadata { },
-                    imageToUpload.sessionUrl.toUri()
-            )
-
-            //add onSuccess Listener instead of OnProgressListener
-            .addOnSuccessListener { onSuccess() }
-}
-
-fun retryDeletingImageToFirebase(imageToDelete: ImageToDelete, onSuccess: () -> Unit) {
-
-    val storage = FirebaseStorage.getInstance().reference
-
-    storage.child(imageToDelete.remotePath)
-            .delete()
-            //add onSuccess Listener instead of OnProgressListener
-            .addOnSuccessListener { onSuccess() }
-}

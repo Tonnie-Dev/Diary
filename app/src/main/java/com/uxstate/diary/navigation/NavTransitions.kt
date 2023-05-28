@@ -44,8 +44,6 @@ private val NavDestination.hostNavGraph: NavGraph
     return fadeOut() + slideOutOfContainer(AnimatedContentTransitionScope.SlideDirection.Start)
 }
 
-
-
 @ExperimentalAnimationApi
 fun AnimatedContentTransitionScope<*>.defaultDiaryPopEnterTransition(): EnterTransition {
     return fadeIn() + slideIntoContainer(AnimatedContentTransitionScope.SlideDirection.End)

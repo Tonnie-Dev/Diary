@@ -75,7 +75,7 @@ object NavGraphs {
 
 
     }
-
+    //Root NavGraph
     val root = object : NavGraphSpec {
         override val route = "root"
         override val startRoute = getStartDestination()
@@ -83,6 +83,8 @@ object NavGraphs {
         override val nestedNavGraphs = listOf(auth, home, write)
     }
 
+
+    //Util fxn to compute Starting screen i.e. Auth or Home
     private fun getStartDestination(): NavGraphSpec {
 
         //App.create() exists as singleton and can be called severally

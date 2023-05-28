@@ -14,8 +14,7 @@ import com.uxstate.write.destinations.WriteScreenDestination
 
 
 class CoreFeatureNavigator(
-    private val navController: NavController,
-    private val navGraph: NavGraphSpec
+    private val navController: NavController
 ) : AuthScreenNavigator, HomeScreenNavigator, WriteScreenNavigator {
     override fun navigateToHomeScreen() {
 
