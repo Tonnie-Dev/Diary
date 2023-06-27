@@ -17,6 +17,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.window.Dialog
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.rememberPagerState
 import com.ramcosta.composedestinations.annotation.Destination
@@ -43,7 +44,7 @@ internal fun WriteScreen(viewModel: WriteViewModel = hiltViewModel(), navigator:
 
     //use by keyword to extract value from state holder
     var selectedGalleryImage by remember { mutableStateOf<GalleryImage?>(null) }
-    val state by viewModel.uiState.collectAsState()
+    val state by viewModel.uiState.collectAsStateWithLifecycle()
 
 
     val pagerState = rememberPagerState()

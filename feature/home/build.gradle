@@ -61,6 +61,7 @@ dependencies {
     kapt libs.room.compiler
     implementation libs.hilt.android
     implementation libs.hilt.compiler
+    implementation libs.runtime.compose
 
 
     //Modules

@@ -63,6 +63,7 @@ dependencies {
     implementation libs.firebase.storage
     implementation libs.date.dialog
     implementation libs.time.dialog
+    implementation libs.runtime.compose
 
     //Modules
     implementation(project(":core:ui"))

@@ -16,6 +16,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.ramcosta.composedestinations.annotation.Destination
 import com.uxstate.home.components.DiaryNavigationDrawer
 import com.uxstate.home.components.HomeScaffold
@@ -49,7 +50,7 @@ internal fun HomeScreen(
     navigator: HomeScreenNavigator
 ) {
 
-    val diaries by viewModel.diaries.collectAsState()
+    val diaries by viewModel.diaries.collectAsStateWithLifecycle()
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
     var isSignOutDialogOpen by remember { mutableStateOf(false) }
     var isDeleteAllDialogOpen by remember { mutableStateOf(false) }
